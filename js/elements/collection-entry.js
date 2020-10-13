@@ -2,30 +2,41 @@ class SymfonyCollectionEntryElement extends HTMLElement {
   constructor() {
     super();
 
-    this.shadowDom = this.attachShadow({mode: 'open'});
-
     this.collection = null;
+
+    this.shadowDom = this.attachShadow({mode: 'open'});
 
     this.renderShadowDom();
   }
 
   connectedCallback() {
-    this.collection = this.closest('symfony-collection');
+    this.collection = this.collectionName
+      ? this.closest(`symfony-collection[name="${this.collectionName}"]`)
+      : this.closest('symfony-collection')
+    ;
 
     this.renderShadowDom();
 
     if (this.allowDelete) {
       const deleteButtons = [
-        ...Array.from(this.shadowDom.querySelectorAll('[data-collection-delete]')),
-        ...Array.from(this.querySelectorAll('[data-collection-delete]')),
+        ...Array.from(this.shadowDom.querySelectorAll('[collection-delete]')),
+        ...Array.from(this.querySelectorAll('[collection-delete]')),
       ];
 
       deleteButtons.forEach(button => {
-        button.addEventListener('click', () => {
-          this.deleteEntry();
-        });
+        const collectionName = button.getAttribute('collection');
+
+        if (!collectionName || collectionName === this.collectionName) {
+          button.addEventListener('click', () => {
+            this.deleteEntry();
+          });
+        }
       });
     }
+  }
+
+  get collectionName() {
+    return this.getAttribute('collection');
   }
 
   get index() {
@@ -40,7 +51,7 @@ class SymfonyCollectionEntryElement extends HTMLElement {
     const collectionId = this.collection.getAttribute('id');
     const collectionPrefix = this.collection.prefix;
 
-    const labelElement = this.querySelector('[data-collection-label]');
+    const labelElement = this.querySelector('[collection-label]');
 
     if (labelElement) {
       labelElement.innerHTML = newIndex;
@@ -66,7 +77,7 @@ class SymfonyCollectionEntryElement extends HTMLElement {
     if (this.allowDelete) {
       content += `
         <slot name="delete">
-          <button data-collection-delete>Delete</button>
+          <button collection-delete>Delete</button>
         </slot>
       `;
     }

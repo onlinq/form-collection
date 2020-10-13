@@ -12,14 +12,18 @@ class SymfonyCollectionElement extends HTMLElement {
   connectedCallback() {
     if (this.allowAdd) {
       const addButtons = [
-        ...Array.from(this.shadowDom.querySelectorAll('[data-collection-add]')),
-        ...Array.from(this.querySelectorAll('[data-collection-add]')),
+        ...Array.from(this.shadowDom.querySelectorAll('[collection-add]')),
+        ...Array.from(this.querySelectorAll('[collection-add]')),
       ];
 
       addButtons.forEach(button => {
-        button.addEventListener('click', () => {
-          this.addEntry();
-        });
+        const collectionName = button.getAttribute('collection');
+
+        if (!collectionName || collectionName === this.name) {
+          button.addEventListener('click', () => {
+            this.addEntry();
+          });
+        }
       });
     }
   }
@@ -61,7 +65,7 @@ class SymfonyCollectionElement extends HTMLElement {
   }
 
   get prototype() {
-    const template = this.querySelector(`template[data-prototype="${this.prefix}"]`);
+    const template = this.querySelector(`template[collection-prototype="${this.prefix}"]`);
 
     if (!template) {
       return false;
@@ -125,7 +129,7 @@ class SymfonyCollectionElement extends HTMLElement {
     if (this.allowAdd) {
       content += `
         <slot name="add">
-          <button data-collection-add>Add</button>
+          <button collection-add>Add</button>
         </slot>
       `;
     }
