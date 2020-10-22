@@ -10,6 +10,8 @@ class FormCollectionElement extends HTMLElement {
   }
 
   connectedCallback() {
+    this.nextIndex = this.querySelector('[slot="collection"]').children.length;
+
     if (this.allowAdd) {
       const addButtons = [
         ...Array.from(this.shadowDom.querySelectorAll('[collection-add]')),
@@ -95,16 +97,18 @@ class FormCollectionElement extends HTMLElement {
       return;
     }
 
-    if (this.nextIndex === false) {
-      this.nextIndex = this.querySelector('[slot="collection"]').children.length;
-    }
-
     const newIndex = this.nextIndex++;
     let prototype = this.prototype.cloneNode(true);
 
-    this.querySelector('[slot="collection"]').appendChild(prototype);
+    const newEntry = document.createElement('onlinq-collection-entry');
+    newEntry.appendChild(prototype);
 
-    this.querySelector(`onlinq-collection-entry[index="${this.prototypeName}"]`).index = newIndex;
+    newEntry.setAttribute('index', newIndex.toString());
+    if (this.name) {
+      newEntry.setAttribute('collection', this.name);
+    }
+
+    this.querySelector('[slot="collection"]').appendChild(newEntry);
   }
 
   deleteEntry(index) {
@@ -112,7 +116,7 @@ class FormCollectionElement extends HTMLElement {
       return;
     }
 
-    const entry = this.querySelector(`[slot="collection"] [index="${index}"]`);
+    const entry = this.querySelector(`[slot="collection"] > [index="${index}"]`);
 
     entry.remove();
 
@@ -126,7 +130,7 @@ class FormCollectionElement extends HTMLElement {
       entry.index = entry.index - 1;
     });
 
-    this.nextIndex = this.nextIndex - 1;
+    this.nextIndex--;
   }
 
   renderShadowDom() {
