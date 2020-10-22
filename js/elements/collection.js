@@ -65,7 +65,15 @@ class SymfonyCollectionElement extends HTMLElement {
   }
 
   get prototype() {
-    const template = this.querySelector(`template[collection-prototype="${this.prefix}"]`);
+    let template = null;
+
+    if (this.name) {
+      template = this.querySelector(`template[collection="${this.name}"][collection-prototype]`);
+    }
+
+    if (!template) {
+      template = this.querySelector(`template[collection-prototype]`);
+    }
 
     if (!template) {
       return false;
