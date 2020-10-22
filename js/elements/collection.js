@@ -1,4 +1,4 @@
-class SymfonyCollectionElement extends HTMLElement {
+class FormCollectionElement extends HTMLElement {
   constructor() {
     super();
 
@@ -104,7 +104,7 @@ class SymfonyCollectionElement extends HTMLElement {
 
     this.querySelector('[slot="collection"]').appendChild(prototype);
 
-    this.querySelector(`symfony-collection-entry[index="${this.prototypeName}"]`).index = newIndex;
+    this.querySelector(`onlinq-collection-entry[index="${this.prototypeName}"]`).index = newIndex;
   }
 
   deleteEntry(index) {
@@ -146,4 +146,4 @@ class SymfonyCollectionElement extends HTMLElement {
   }
 }
 
-customElements.define('symfony-collection', SymfonyCollectionElement);
+customElements.define('onlinq-collection', FormCollectionElement);

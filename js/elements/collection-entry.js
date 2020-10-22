@@ -1,4 +1,4 @@
-class SymfonyCollectionEntryElement extends HTMLElement {
+class FormCollectionEntryElement extends HTMLElement {
   constructor() {
     super();
 
@@ -11,8 +11,8 @@ class SymfonyCollectionEntryElement extends HTMLElement {
 
   connectedCallback() {
     this.collection = this.collectionName
-      ? this.closest(`symfony-collection[name="${this.collectionName}"]`)
-      : this.closest('symfony-collection')
+      ? this.closest(`onlinq-collection[name="${this.collectionName}"]`)
+      : this.closest('onlinq-collection')
     ;
 
     this.renderShadowDom();
@@ -96,4 +96,4 @@ function replaceAttributeData(elements, toReplace, replaceWith) {
   });
 }
 
-customElements.define('symfony-collection-entry', SymfonyCollectionEntryElement);
+customElements.define('onlinq-collection-entry', FormCollectionEntryElement);
