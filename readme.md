@@ -1,11 +1,10 @@
 # Onlinq Form Collection Components
 
-Custom web components to build dynamic collections of form inputs, optimized for
-use with [Symfony form collections][symfony].
+Web components for building dynamic collections of form inputs.
 
 ## Features
 
-* Add and delete entries with integrated buttons.
+* Generate entries from a prototype template.
+* Integrated and customizable buttons for manipulating (adding, removing,
+  moving) entries.
 * Restrict the amount of entries in the collection.
-
-[symfony]: https://symfony.com/doc/current/form/form_collections.html

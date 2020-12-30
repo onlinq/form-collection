@@ -1,7 +1,7 @@
 {
-  "name": "@onlinq/symfony-collection",
+  "name": "@onlinq/form-collection",
   "version": "0.1.0",
-  "description": "Custom web components for use with form collections from Symfony.",
+  "description": "Web components for building dynamic form collections",
   "license": "MIT",
   "author": "Tim Goudriaan",
   "main": "dist/bundle.js",
