@@ -6,8 +6,8 @@
   "author": "Tim Goudriaan",
   "main": "dist/bundle.js",
   "devDependencies": {
-    "core-js": "^3.6.5",
-    "webpack": "^4.44.0",
+    "core-js": "^3.8.1",
+    "webpack": "^4.44.2",
     "webpack-cli": "^3.3.12"
   },
   "scripts": {
