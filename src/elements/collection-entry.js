@@ -1,39 +1,21 @@
 class FormCollectionEntryElement extends HTMLElement {
+  collection = null;
+
   constructor() {
     super();
 
-    this.collection = null;
-
-    this.shadowDom = this.attachShadow({mode: 'open'});
-
-    this.renderShadowDom();
+    this.attachShadow({mode: 'open'});
   }
 
   connectedCallback() {
+    this.#renderShadowDom();
+    this.#initializeButtons();
+
     if (!this.collection) {
       this.collection = this.collectionName
         ? this.closest(`onlinq-collection[name="${this.collectionName}"]`)
         : this.closest('onlinq-collection')
       ;
-    }
-
-    this.renderShadowDom();
-
-    if (this.allowDelete) {
-      const deleteButtons = [
-        ...Array.from(this.shadowDom.querySelectorAll('[collection-delete]')),
-        ...Array.from(this.querySelectorAll('[collection-delete]')),
-      ];
-
-      deleteButtons.forEach(button => {
-        const collectionName = button.getAttribute('collection');
-
-        if (!collectionName || collectionName === this.collectionName) {
-          button.addEventListener('click', () => {
-            this.deleteEntry();
-          });
-        }
-      });
     }
   }
 
@@ -64,14 +46,33 @@ class FormCollectionEntryElement extends HTMLElement {
   }
 
   get allowDelete() {
-    return this.collection ? this.collection.allowDelete : false;
+    return this.collection?.allowDelete ?? false;
   }
 
   deleteEntry() {
     this.collection.deleteEntry(this.index);
   }
 
-  renderShadowDom() {
+  #initializeButtons() {
+    if (this.allowDelete) {
+      const deleteButtons = [
+        ...Array.from(this.shadowRoot.querySelectorAll('[collection-delete]')),
+        ...Array.from(this.querySelectorAll('[collection-delete]')),
+      ];
+
+      deleteButtons.forEach(button => {
+        const collectionName = button.getAttribute('collection');
+
+        if (!collectionName || collectionName === this.collectionName) {
+          button.addEventListener('click', () => {
+            this.deleteEntry();
+          });
+        }
+      });
+    }
+  }
+
+  #renderShadowDom() {
     let content = '';
 
     content += '<slot></slot>';
@@ -84,7 +85,7 @@ class FormCollectionEntryElement extends HTMLElement {
       `;
     }
 
-    this.shadowDom.innerHTML = content;
+    this.shadowRoot.innerHTML = content;
   }
 }
 

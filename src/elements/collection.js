@@ -1,33 +1,16 @@
 class FormCollectionElement extends HTMLElement {
+  nextIndex = false;
+
   constructor() {
     super();
 
-    this.nextIndex = false;
-
-    this.shadowDom = this.attachShadow({mode: 'open'});
-
-    this.renderShadowDom();
+    this.attachShadow({mode: 'open'});
   }
 
   connectedCallback() {
-    this.nextIndex = this.querySelector('[slot="collection"]').children.length;
-
-    if (this.allowAdd) {
-      const addButtons = [
-        ...Array.from(this.shadowDom.querySelectorAll('[collection-add]')),
-        ...Array.from(this.querySelectorAll('[collection-add]')),
-      ];
-
-      addButtons.forEach(button => {
-        const collectionName = button.getAttribute('collection');
-
-        if (!collectionName || collectionName === this.name) {
-          button.addEventListener('click', () => {
-            this.addEntry();
-          });
-        }
-      });
-    }
+    this.#renderShadowDom();
+    this.#initializeButtons();
+    this.#calculateNextIndex();
   }
 
   get name() {
@@ -77,11 +60,7 @@ class FormCollectionElement extends HTMLElement {
       template = this.querySelector(`template[collection-prototype]`);
     }
 
-    if (!template) {
-      return false;
-    }
-
-    return template.content;
+    return template?.content ?? false;
   }
 
   get prototypeName() {
@@ -130,7 +109,30 @@ class FormCollectionElement extends HTMLElement {
     this.nextIndex--;
   }
 
-  renderShadowDom() {
+  #calculateNextIndex() {
+    this.nextIndex = this.querySelector('[slot="collection"]').children.length;
+  }
+
+  #initializeButtons() {
+    if (this.allowAdd) {
+      const addButtons = [
+        ...Array.from(this.shadowRoot.querySelectorAll('[collection-add]')),
+        ...Array.from(this.querySelectorAll('[collection-add]')),
+      ];
+
+      addButtons.forEach(button => {
+        const collectionName = button.getAttribute('collection');
+
+        if (!collectionName || collectionName === this.name) {
+          button.addEventListener('click', () => {
+            this.addEntry();
+          });
+        }
+      });
+    }
+  }
+
+  #renderShadowDom() {
     let content = '';
 
     content += '<slot name="collection">No items</slot>';
@@ -143,7 +145,7 @@ class FormCollectionElement extends HTMLElement {
       `;
     }
 
-    this.shadowDom.innerHTML = content;
+    this.shadowRoot.innerHTML = content;
   }
 }
 
