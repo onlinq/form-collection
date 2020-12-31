@@ -10,10 +10,12 @@ class FormCollectionEntryElement extends HTMLElement {
   }
 
   connectedCallback() {
-    this.collection = this.collectionName
-      ? this.closest(`onlinq-collection[name="${this.collectionName}"]`)
-      : this.closest('onlinq-collection')
-    ;
+    if (!this.collection) {
+      this.collection = this.collectionName
+        ? this.closest(`onlinq-collection[name="${this.collectionName}"]`)
+        : this.closest('onlinq-collection')
+      ;
+    }
 
     this.renderShadowDom();
 
@@ -40,13 +42,13 @@ class FormCollectionEntryElement extends HTMLElement {
   }
 
   get index() {
-    return this.getAttribute('index');
+    return this.getAttribute('collection-index');
   }
 
-  set index(newIndex) {
-    const oldIndex = this.getAttribute('index');
+  set index(nextIndex) {
+    const previousIndex = this.index || this.collection.prototypeName;
 
-    this.setAttribute('index' , newIndex);
+    this.setAttribute('collection-index', nextIndex.toString());
 
     const collectionId = this.collection.getAttribute('id');
     const collectionPrefix = this.collection.prefix;
@@ -54,11 +56,11 @@ class FormCollectionEntryElement extends HTMLElement {
     const labelElement = this.querySelector('[collection-label]');
 
     if (labelElement) {
-      labelElement.innerHTML = newIndex;
+      labelElement.innerHTML = nextIndex;
     }
 
-    replaceAttributeData(this.querySelectorAll('*'), `${collectionId}_${oldIndex}`, `${collectionId}_${newIndex}`);
-    replaceAttributeData(this.querySelectorAll('*'), `${collectionPrefix}[${oldIndex}]`, `${collectionPrefix}[${newIndex}]`);
+    replaceAttributeData(this.querySelectorAll('*'), `${collectionId}_${previousIndex}`, `${collectionId}_${nextIndex}`);
+    replaceAttributeData(this.querySelectorAll('*'), `${collectionPrefix}[${previousIndex}]`, `${collectionPrefix}[${nextIndex}]`);
   }
 
   get allowDelete() {
