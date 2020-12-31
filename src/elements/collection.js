@@ -1,16 +1,24 @@
 class FormCollectionElement extends HTMLElement {
   nextIndex = false;
 
+  #addClickListener = null;
+
   constructor() {
     super();
 
     this.attachShadow({mode: 'open'});
+
+    this.#addClickListener = addClickCallback.bind(this);
   }
 
   connectedCallback() {
     this.#renderShadowDom();
     this.#initializeButtons();
     this.#calculateNextIndex();
+  }
+
+  disconnectedCallback() {
+    this.#destroyButtons();
   }
 
   get name() {
@@ -38,6 +46,18 @@ class FormCollectionElement extends HTMLElement {
       this.setAttribute('allow-delete', 'allow-delete');
     } else {
       this.removeAttribute('allow-delete');
+    }
+  }
+
+  get allowMove() {
+    return this.hasAttribute('allow-move');
+  }
+
+  set allowMove(newValue) {
+    if (newValue) {
+      this.setAttribute('allow-move', 'allow-move');
+    } else {
+      this.removeAttribute('allow-move');
     }
   }
 
@@ -69,6 +89,23 @@ class FormCollectionElement extends HTMLElement {
 
   set prototypeName(newValue) {
     this.setAttribute('prototype-name', newValue);
+  }
+
+  #addButtons() {
+    return [
+      ...Array.from(this.shadowRoot.querySelectorAll('[collection-add]')),
+      ...Array.from(this.querySelectorAll('[collection-add]')),
+    ]
+      .filter(button => {
+        const collectionName = button.getAttribute('collection');
+
+        return !collectionName || collectionName === this.name;
+      })
+    ;
+  }
+
+  entry(index) {
+    return this.querySelector(`[collection-index="${index}"]`);
   }
 
   addEntry() {
@@ -109,25 +146,41 @@ class FormCollectionElement extends HTMLElement {
     this.nextIndex--;
   }
 
+  moveEntry(index, targetIndex) {
+    const sourceEntry = this.entry(index);
+    const targetEntry = this.entry(targetIndex);
+
+    if (!sourceEntry || !targetEntry) {
+      return;
+    }
+
+    targetEntry.index = '__swap__';
+    sourceEntry.index = targetIndex;
+    targetEntry.index = index;
+
+    if (targetIndex > index) {
+      this.querySelector('[slot="collection"]').insertBefore(targetEntry, sourceEntry);
+    } else {
+      this.querySelector('[slot="collection"]').insertBefore(sourceEntry, targetEntry);
+    }
+  }
+
   #calculateNextIndex() {
     this.nextIndex = this.querySelector('[slot="collection"]').children.length;
   }
 
   #initializeButtons() {
     if (this.allowAdd) {
-      const addButtons = [
-        ...Array.from(this.shadowRoot.querySelectorAll('[collection-add]')),
-        ...Array.from(this.querySelectorAll('[collection-add]')),
-      ];
+      this.#addButtons().forEach(button => {
+        button.addEventListener('click', this.#addClickListener);
+      });
+    }
+  }
 
-      addButtons.forEach(button => {
-        const collectionName = button.getAttribute('collection');
-
-        if (!collectionName || collectionName === this.name) {
-          button.addEventListener('click', () => {
-            this.addEntry();
-          });
-        }
+  #destroyButtons() {
+    if (this.allowAdd) {
+      this.#addButtons().forEach(button => {
+        button.removeEventListener('click', this.#addClickListener);
       });
     }
   }
@@ -135,7 +188,7 @@ class FormCollectionElement extends HTMLElement {
   #renderShadowDom() {
     let content = '';
 
-    content += '<slot name="collection">No items</slot>';
+    content += '<slot name="collection">No entries</slot>';
 
     if (this.allowAdd) {
       content += `
@@ -147,6 +200,10 @@ class FormCollectionElement extends HTMLElement {
 
     this.shadowRoot.innerHTML = content;
   }
+}
+
+function addClickCallback() {
+  this.addEntry();
 }
 
 customElements.define('onlinq-collection', FormCollectionElement);
