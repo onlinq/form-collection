@@ -1,5 +1,13 @@
+import collectionEntryDom from './collection-entry.html';
+
 class FormCollectionEntryElement extends HTMLElement {
   collection = null;
+
+  #entryContainer = null;
+  #actionsContainer = null;
+  #deleteContainer = null;
+  #moveDownContainer = null;
+  #moveUpContainer = null;
 
   #deleteClickListener = null;
   #moveDownClickListener = null;
@@ -122,83 +130,71 @@ class FormCollectionEntryElement extends HTMLElement {
   }
 
   #initializeButtons() {
-    if (this.collection.allowMove) {
-      this.#moveDownButtons().forEach(button => {
-        button.addEventListener('click', this.#moveDownClickListener);
-      });
+    this.#moveDownButtons().forEach(button => {
+      button.addEventListener('click', this.#moveDownClickListener);
+    });
 
-      this.#moveUpButtons().forEach(button => {
-        button.addEventListener('click', this.#moveUpClickListener);
-      });
-    }
+    this.#moveUpButtons().forEach(button => {
+      button.addEventListener('click', this.#moveUpClickListener);
+    });
 
-    if (this.collection.allowDelete) {
-      this.#deleteButtons().forEach(button => {
-        button.addEventListener('click', this.#deleteClickListener);
-      });
-    }
+    this.#deleteButtons().forEach(button => {
+      button.addEventListener('click', this.#deleteClickListener);
+    });
   }
 
   #destroyButtons() {
-    if (this.collection.allowMove) {
-      this.#moveDownButtons().forEach(button => {
-        button.removeEventListener('click', this.#moveDownClickListener);
-      });
+    this.#moveDownButtons().forEach(button => {
+      button.removeEventListener('click', this.#moveDownClickListener);
+    });
 
-      this.#moveUpButtons().forEach(button => {
-        button.removeEventListener('click', this.#moveUpClickListener);
-      });
-    }
+    this.#moveUpButtons().forEach(button => {
+      button.removeEventListener('click', this.#moveUpClickListener);
+    });
 
-    if (this.collection.allowDelete) {
-      this.#deleteButtons().forEach(button => {
-        button.removeEventListener('click', this.#deleteClickListener);
-      });
-    }
+    this.#deleteButtons().forEach(button => {
+      button.removeEventListener('click', this.#deleteClickListener);
+    });
   }
 
   #renderShadowDom() {
-    let content = '';
+    this.shadowRoot.innerHTML = collectionEntryDom;
 
-    content += '<slot></slot>';
+    this.#entryContainer = this.shadowRoot.querySelector('[data-entry]');
+    this.#actionsContainer = this.shadowRoot.querySelector('[data-actions]');
+    this.#deleteContainer = this.shadowRoot.querySelector('[data-delete]');
+    this.#moveDownContainer = this.shadowRoot.querySelector('[data-move-down]');
+    this.#moveUpContainer = this.shadowRoot.querySelector('[data-move-up]');
 
-    let actionsContent = '';
+    if (this.collection) {
+      if (this.collection.allowMove) {
+        this.#moveUpContainer.style.display = 'inline';
+        this.#moveDownContainer.style.display = 'inline';
+      }
 
-    if (this.collection.allowMove) {
-      actionsContent += `
-        <slot name="move-up">
-          <button collection-move-up>Move up</button>
-        </slot>
-        <slot name="move-down">
-          <button collection-move-down>Move down</button>
-        </slot>
-      `;
+      if (this.collection.allowDelete) {
+        this.#deleteContainer.style.display = 'inline';
+      }
     }
-
-    if (this.collection.allowDelete) {
-      actionsContent += `
-        <slot name="delete">
-          <button collection-delete>Delete</button>
-        </slot>
-      `;
-    }
-
-    content += `<slot name="actions">${actionsContent}</slot>`;
-
-    this.shadowRoot.innerHTML = content;
   }
 }
 
 function deleteClickCallback() {
-  this.deleteEntry();
+  if (this.collection.allowDelete) {
+    this.deleteEntry();
+  }
 }
 
 function moveDownClickCallback() {
-  this.moveDown();
+  if (this.collection.allowMove) {
+    this.moveDown();
+  }
 }
 
 function moveUpClickCallback() {
-  this.moveUp();
+  if (this.collection.allowMove) {
+    this.moveUp();
+  }
 }
 
 function replaceAttributeData(elements, toReplace, replaceWith) {

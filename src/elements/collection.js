@@ -1,5 +1,12 @@
+import collectionDom from './collection.html';
+
 class FormCollectionElement extends HTMLElement {
   nextIndex = false;
+
+  #collectionContainer = null;
+  #placeholderContainer = null;
+  #actionsContainer = null;
+  #addContainer = null;
 
   #addClickListener = null;
 
@@ -27,6 +34,10 @@ class FormCollectionElement extends HTMLElement {
 
   set name(newValue) {
     this.setAttribute('name', newValue);
+  }
+
+  get entries() {
+    return Array.from(this.querySelectorAll(':scope > onlinq-collection-entry'));
   }
 
   get allowAdd() {
@@ -109,7 +120,9 @@ class FormCollectionElement extends HTMLElement {
   }
 
   entry(index) {
-    return this.querySelector(`[collection-index="${index}"]`);
+    return this.entries.find(entry => {
+      return entry.index === index.toString();
+    });
   }
 
   addEntry() {
@@ -125,7 +138,9 @@ class FormCollectionElement extends HTMLElement {
     nextEntry.collection = this;
     nextEntry.index = nextIndex;
 
-    this.querySelector('[slot="collection"]').appendChild(nextEntry);
+    this.appendChild(nextEntry);
+
+    this.#hidePlaceholder();
   }
 
   deleteEntry(index) {
@@ -133,13 +148,11 @@ class FormCollectionElement extends HTMLElement {
       return;
     }
 
-    const entry = this.querySelector(`[slot="collection"] > [collection-index="${index}"]`);
+    const entry = this.entry(index);
 
     entry.remove();
 
-    const remainingEntries = Array.from(this.querySelector(`[slot="collection"]`).children);
-
-    remainingEntries.forEach(entry => {
+    this.entries.forEach(entry => {
       if (entry.index < index) {
         return;
       }
@@ -148,6 +161,10 @@ class FormCollectionElement extends HTMLElement {
     });
 
     this.nextIndex--;
+
+    if (this.entries.length === 0) {
+      this.#showPlaceholder();
+    }
   }
 
   moveEntry(index, targetIndex) {
@@ -163,14 +180,24 @@ class FormCollectionElement extends HTMLElement {
     targetEntry.index = index;
 
     if (targetIndex > index) {
-      this.querySelector('[slot="collection"]').insertBefore(targetEntry, sourceEntry);
+      this.insertBefore(targetEntry, sourceEntry);
     } else {
-      this.querySelector('[slot="collection"]').insertBefore(sourceEntry, targetEntry);
+      this.insertBefore(sourceEntry, targetEntry);
     }
   }
 
   #calculateNextIndex() {
-    this.nextIndex = this.querySelector('[slot="collection"]').children.length;
+    this.nextIndex = this.entries.length;
+  }
+
+  #hidePlaceholder() {
+    this.#collectionContainer.style.display = 'block';
+    this.#placeholderContainer.style.display = 'none';
+  }
+
+  #showPlaceholder() {
+    this.#collectionContainer.style.display = 'none';
+    this.#placeholderContainer.style.display = 'block';
   }
 
   #initializeButtons() {
@@ -190,19 +217,20 @@ class FormCollectionElement extends HTMLElement {
   }
 
   #renderShadowDom() {
-    let content = '';
+    this.shadowRoot.innerHTML = collectionDom;
 
-    content += '<slot name="collection">No entries</slot>';
+    this.#collectionContainer = this.shadowRoot.querySelector('[data-collection]');
+    this.#placeholderContainer = this.shadowRoot.querySelector('[data-placeholder]');
+    this.#actionsContainer = this.shadowRoot.querySelector('[data-actions]');
+    this.#addContainer = this.shadowRoot.querySelector('[data-add]');
 
-    if (this.allowAdd) {
-      content += `
-        <slot name="add">
-          <button collection-add>Add</button>
-        </slot>
-      `;
+    if (this.entries.length > 0) {
+      this.#hidePlaceholder();
     }
 
-    this.shadowRoot.innerHTML = content;
+    if (this.allowAdd) {
+      this.#addContainer.style.display = 'inline';
+    }
   }
 }
 

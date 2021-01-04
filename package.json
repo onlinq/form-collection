@@ -22,5 +22,8 @@
     "test": "web-test-runner --coverage",
     "test:build": "webpack --mode development && web-test-runner --coverage",
     "test:watch": "web-test-runner --watch"
+  },
+  "dependencies": {
+    "raw-loader": "^4.0.2"
   }
 }

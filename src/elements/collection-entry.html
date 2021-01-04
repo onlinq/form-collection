@@ -1,0 +1,29 @@
+<style type="text/css">
+  [data-move-up],
+  [data-move-down],
+  [data-delete] {
+    display: none;
+  }
+</style>
+<div data-entry>
+  <slot></slot>
+</div>
+<div data-actions>
+  <slot name="actions">
+    <span data-move-up>
+      <slot name="move-up">
+        <button collection-move-up>Move up</button>
+      </slot>
+    </span>
+    <span data-move-down>
+      <slot name="move-down">
+        <button collection-move-down>Move down</button>
+      </slot>
+    </span>
+    <span data-delete>
+      <slot name="delete">
+        <button collection-delete>Delete</button>
+      </slot>
+    </span>
+  </slot>
+</div>

@@ -1,0 +1,23 @@
+<style type="text/css">
+  [data-collection],
+  [data-add] {
+    display: none;
+  }
+</style>
+<div data-collection>
+  <slot></slot>
+</div>
+<div data-placeholder>
+  <slot name="placeholder">
+    <p>No entries</p>
+  </slot>
+</div>
+<div data-actions>
+  <slot name="actions">
+    <span data-add>
+      <slot name="add">
+        <button collection-add>Add</button>
+      </slot>
+    </span>
+  </slot>
+</div>
