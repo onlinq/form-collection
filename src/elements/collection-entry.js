@@ -32,11 +32,11 @@ class FormCollectionEntryElement extends HTMLElement {
   }
 
   get collectionName() {
-    return this.getAttribute('collection');
+    return this.getAttribute('collection') ?? null;
   }
 
   get index() {
-    return this.getAttribute('collection-index');
+    return this.getAttribute('collection-index') ?? false;
   }
 
   set index(nextIndex) {
@@ -44,21 +44,30 @@ class FormCollectionEntryElement extends HTMLElement {
 
     this.setAttribute('collection-index', nextIndex.toString());
 
-    const collectionId = this.collection.getAttribute('id');
-    const collectionPrefix = this.collection.prefix;
-
     const labelElement = this.querySelector('[collection-label]');
 
     if (labelElement) {
       labelElement.innerHTML = nextIndex;
     }
 
-    replaceAttributeData(this.querySelectorAll('*'), `${collectionId}_${previousIndex}`, `${collectionId}_${nextIndex}`);
-    replaceAttributeData(this.querySelectorAll('*'), `${collectionPrefix}[${previousIndex}]`, `${collectionPrefix}[${nextIndex}]`);
-  }
+    const collectionId = this.collection.getAttribute('id');
+    const collectionPrefix = this.collection.prefix;
 
-  get allowDelete() {
-    return this.collection?.allowDelete ?? false;
+    if (collectionId) {
+      replaceAttributeData(
+        this.querySelectorAll('*'),
+        `${collectionId}_${previousIndex}`,
+        `${collectionId}_${nextIndex}`
+      );
+    }
+
+    if (collectionPrefix) {
+      replaceAttributeData(
+        this.querySelectorAll('*'),
+        `${collectionPrefix}[${previousIndex}]`,
+        `${collectionPrefix}[${nextIndex}]
+      `);
+    }
   }
 
   #deleteButtons() {
@@ -123,7 +132,7 @@ class FormCollectionEntryElement extends HTMLElement {
       });
     }
 
-    if (this.allowDelete) {
+    if (this.collection.allowDelete) {
       this.#deleteButtons().forEach(button => {
         button.addEventListener('click', this.#deleteClickListener);
       });
@@ -141,7 +150,7 @@ class FormCollectionEntryElement extends HTMLElement {
       });
     }
 
-    if (this.allowDelete) {
+    if (this.collection.allowDelete) {
       this.#deleteButtons().forEach(button => {
         button.removeEventListener('click', this.#deleteClickListener);
       });
@@ -166,7 +175,7 @@ class FormCollectionEntryElement extends HTMLElement {
       `;
     }
 
-    if (this.allowDelete) {
+    if (this.collection.allowDelete) {
       actionsContent += `
         <slot name="delete">
           <button collection-delete>Delete</button>

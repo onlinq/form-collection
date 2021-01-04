@@ -22,7 +22,11 @@ class FormCollectionElement extends HTMLElement {
   }
 
   get name() {
-    return this.getAttribute('name');
+    return this.getAttribute('name') ?? null;
+  }
+
+  set name(newValue) {
+    this.setAttribute('name', newValue);
   }
 
   get allowAdd() {
@@ -62,7 +66,7 @@ class FormCollectionElement extends HTMLElement {
   }
 
   get prefix() {
-    return this.getAttribute('prefix');
+    return this.getAttribute('prefix') ?? null;
   }
 
   set prefix(newValue) {

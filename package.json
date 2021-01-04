@@ -8,6 +8,8 @@
   "devDependencies": {
     "@babel/core": "^7.12.10",
     "@babel/preset-env": "^7.12.11",
+    "@open-wc/testing": "^2.5.32",
+    "@web/test-runner": "^0.11.7",
     "babel-loader": "^8.2.2",
     "core-js": "^3.8.1",
     "webpack": "^4.44.2",
@@ -16,7 +18,9 @@
   "scripts": {
     "build": "webpack --mode development",
     "watch": "webpack --mode development --watch",
-    "prod": "webpack --mode production"
-  },
-  "dependencies": {}
+    "prod": "webpack --mode production",
+    "test": "web-test-runner --coverage",
+    "test:build": "webpack --mode development && web-test-runner --coverage",
+    "test:watch": "web-test-runner --watch"
+  }
 }
