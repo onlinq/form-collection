@@ -1,0 +1,133 @@
+{
+  "version": 2,
+  "tags": [
+    {
+      "name": "onlinq-collection",
+      "description": "A component to contain a dynamic collection of inputs",
+      "attributes": [
+        {
+          "name": "name",
+          "description": "The name of the collection"
+        },
+        {
+          "name": "allow-add",
+          "description": "Whether new entries are allowed to be added to the collection"
+        },
+        {
+          "name": "allow-delete",
+          "description": "Whether existing entries are allowed to be removed to the collection"
+        },
+        {
+          "name": "allow-move",
+          "description": "Whether the order of entries in the collection is allowed to be altered"
+        },
+        {
+          "name": "prefix",
+          "description": "The prefix of input names in the collection"
+        }
+      ],
+      "properties": [
+        {
+          "name": "name",
+          "description": "The name of the collection",
+          "type": "string | null",
+          "attribute": "name",
+          "default": null
+        },
+        {
+          "name": "allowAdd",
+          "description": "Whether new entries are allowed to be added to the collection",
+          "type": "boolean",
+          "default": false,
+          "attribute": "allow-add"
+        },
+        {
+          "name": "allowDelete",
+          "description": "Whether existing entries are allowed to be removed to the collection",
+          "type": "boolean",
+          "default": false,
+          "attribute": "allow-delete"
+        },
+        {
+          "name": "allowMove",
+          "description": "Whether the order of entries in the collection is allowed to be altered",
+          "type": "boolean",
+          "default": false,
+          "attribute": "allow-move"
+        },
+        {
+          "name": "prefix",
+          "description": "The prefix of input names in the collection",
+          "type": "string | null",
+          "default": null,
+          "attribute": "prefix"
+        }
+      ],
+      "slots": [
+        {
+          "name": "collection",
+          "description": "Slot for collection entry elements"
+        },
+        {
+          "name": "add",
+          "description": "Slot for button to add a new entry"
+        }
+      ]
+    },
+    {
+      "name": "onlinq-collection-entry",
+      "description": "A component representing an entry in a onlinq-collection component",
+      "attributes": [
+        {
+          "name": "collection",
+          "description": "The name of the collection this entry is part of"
+        },
+        {
+          "name": "collection-index",
+          "description": "The index of this entry in the collection"
+        }
+      ],
+      "properties": [
+        {
+          "name": "collection",
+          "description": "",
+          "type": "HTMLElement"
+        },
+        {
+          "name": "collectionName",
+          "description": "The name of the collection this entry is part of (readonly)",
+          "type": "string | null",
+          "default": null,
+          "attribute": "collection"
+        },
+        {
+          "name": "index",
+          "description": "The index of this entry in the collection",
+          "type": "string | boolean"
+        }
+      ],
+      "slots": [
+        {
+          "name": "",
+          "description": "Slot for the entry contents"
+        },
+        {
+          "name": "actions",
+          "description": "Slot for the row of action buttons"
+        },
+        {
+          "name": "move-up",
+          "description": "Slot for button to move this entry up in the collection"
+        },
+        {
+          "name": "move-down",
+          "description": "Slot for button to move this entry down in the collection"
+        },
+        {
+          "name": "delete",
+          "description": "Slot for button to remove this entry from the collection"
+        }
+      ]
+    }
+  ]
+}
