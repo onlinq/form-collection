@@ -1,14 +1,39 @@
 <style type="text/css">
+  :host {
+    --collection-entry-display: block;
+    --collection-entry-justify-content: flex-start;
+    --collection-entry-align-items: flex-start;
+    --collection-entry-contents-margin: 0 0 1rem;
+    --collection-entry-contents-flex-grow: 1;
+    --collection-entry-actions-margin: 0 0 1rem;
+    --collection-entry-actions-flex-grow: 0;
+
+    display: var(--collection-entry-display);
+    justify-content: var(--collection-entry-justify-content);
+    align-items: var(--collection-entry-align-items);
+  }
+
+  .contents {
+    flex-grow: var(--collection-entry-contents-flex-grow);
+    margin: var(--collection-entry-contents-margin);
+  }
+
+  .actions {
+    flex-grow: var(--collection-entry-actions-flex-grow);
+    margin: var(--collection-entry-actions-margin);
+  }
+
   [data-move-up],
   [data-move-down],
   [data-delete] {
     display: none;
   }
 </style>
-<div data-entry>
+
+<div class="contents" data-entry>
   <slot></slot>
 </div>
-<div data-actions>
+<div class="actions" data-actions>
   <slot name="actions">
     <span data-move-up>
       <slot name="move-up">

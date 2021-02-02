@@ -1,18 +1,43 @@
 <style type="text/css">
+  :host {
+    --collection-display: block;
+    --collection-justify-content: flex-start;
+    --collection-align-items: flex-start;
+    --collection-contents-margin: 0 0 1rem;
+    --collection-contents-flex-grow: 1;
+    --collection-actions-margin: 0 0 1rem;
+    --collection-actions-flex-grow: 0;
+
+    display: var(--collection-display);
+    justify-content: var(--collection-justify-content);
+    align-items: var(--collection-align-items);
+  }
+
+  .contents {
+    flex-grow: var(--collection-contents-flex-grow);
+    margin: var(--collection-contents-margin);
+  }
+
+  .actions {
+    flex-grow: var(--collection-actions-flex-grow);
+    margin: var(--collection-actions-margin);
+  }
+
   [data-collection],
   [data-add] {
     display: none;
   }
 </style>
-<div data-collection>
+
+<div class="content" data-collection>
   <slot></slot>
 </div>
-<div data-placeholder>
+<div class="contents" data-placeholder>
   <slot name="placeholder">
-    <p>No entries</p>
+    <span>No entries</span>
   </slot>
 </div>
-<div data-actions>
+<div class="actions" data-actions>
   <slot name="actions">
     <span data-add>
       <slot name="add">
