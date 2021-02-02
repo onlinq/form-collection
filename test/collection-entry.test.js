@@ -1,6 +1,6 @@
 import {expect, fixture} from '@open-wc/testing';
 
-import '../dist/bundle.js';
+import '../dist/onlinq-collection';
 
 describe('onlinq-collection-entry', () => {
   it('has default shadow dom', async () => {
