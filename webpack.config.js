@@ -6,6 +6,7 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
     filename: 'onlinq-collection.js',
   },
+  devtool: false, /* disable devtool for web-test-runner */
   module: {
     rules: [
       {
