@@ -129,6 +129,20 @@ class FormCollectionEntryElement extends HTMLElement {
     this.collection.moveEntry(+this.index, +this.index - 1);
   }
 
+  enableDeleteButtons() {
+    this.#deleteButtons().forEach(button => {
+      button.removeAttribute('disabled');
+      button.classList.remove('disabled');
+    });
+  }
+
+  disableDeleteButtons() {
+    this.#deleteButtons().forEach(button => {
+      button.setAttribute('disabled', 'disabled');
+      button.classList.add('disabled');
+    });
+  }
+
   #initializeButtons() {
     this.#moveDownButtons().forEach(button => {
       button.addEventListener('click', this.#moveDownClickListener);

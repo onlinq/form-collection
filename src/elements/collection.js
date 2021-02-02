@@ -40,6 +40,30 @@ class FormCollectionElement extends HTMLElement {
     return Array.from(this.querySelectorAll(':scope > onlinq-collection-entry'));
   }
 
+  get min() {
+    return +(this.getAttribute('min') ?? 0);
+  }
+
+  set min(newValue) {
+    if (newValue) {
+      this.setAttribute('min', newValue.toString());
+    } else {
+      this.removeAttribute('min');
+    }
+  }
+
+  get max() {
+    return +(this.getAttribute('max') ?? 0);
+  }
+
+  set max(newValue) {
+    if (newValue) {
+      this.setAttribute('max', newValue.toString());
+    } else {
+      this.removeAttribute('max');
+    }
+  }
+
   get allowAdd() {
     return this.hasAttribute('allow-add');
   }
@@ -134,6 +158,10 @@ class FormCollectionElement extends HTMLElement {
       return;
     }
 
+    if (this.max > 0 && this.entries.length >= this.max) {
+      return;
+    }
+
     const nextIndex = this.nextIndex++;
     let prototype = this.prototype.cloneNode(true);
 
@@ -144,6 +172,20 @@ class FormCollectionElement extends HTMLElement {
 
     this.appendChild(nextEntry);
 
+    this.dispatchEvent(new CustomEvent('entryAdded', {
+      entry: nextEntry,
+    }));
+
+    if (this.max > 0 && this.entries.length >= this.max) {
+      this.disableAddButtons();
+    }
+
+    if (this.min > 0 && this.entries.length > this.min) {
+      this.entries.forEach(entry => {
+        entry.enableDeleteButtons();
+      });
+    }
+
     this.#hidePlaceholder();
   }
 
@@ -152,7 +194,15 @@ class FormCollectionElement extends HTMLElement {
       return;
     }
 
+    if (this.min > 0 && this.entries.length <= this.min) {
+      return;
+    }
+
     const entry = this.entry(index);
+
+    this.dispatchEvent(new CustomEvent('beforeEntryRemoved', {
+      entry: entry,
+    }));
 
     entry.remove();
 
@@ -165,6 +215,18 @@ class FormCollectionElement extends HTMLElement {
     });
 
     this.nextIndex--;
+
+    this.dispatchEvent(new CustomEvent('entryRemoved'));
+
+    if (this.max > 0 && this.entries.length < this.max) {
+      this.enableAddButtons();
+    }
+
+    if (this.min > 0 && this.entries.length <= this.min) {
+      this.entries.forEach(entry => {
+        entry.disableDeleteButtons();
+      });
+    }
 
     if (this.entries.length === 0) {
       this.#showPlaceholder();
@@ -188,6 +250,20 @@ class FormCollectionElement extends HTMLElement {
     } else {
       this.insertBefore(sourceEntry, targetEntry);
     }
+  }
+
+  enableAddButtons() {
+    this.#addButtons().forEach(button => {
+      button.removeAttribute('disabled');
+      button.classList.remove('disabled');
+    });
+  }
+
+  disableAddButtons() {
+    this.#addButtons().forEach(button => {
+      button.setAttribute('disabled', 'disabled');
+      button.classList.add('disabled');
+    });
   }
 
   #calculateNextIndex() {
