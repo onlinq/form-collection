@@ -77,11 +77,15 @@ class FormCollectionElement extends HTMLElement {
   }
 
   get prefix() {
-    return this.getAttribute('prefix') ?? null;
+    return this.getAttribute('prefix') ?? this.name ?? null;
   }
 
   set prefix(newValue) {
-    this.setAttribute('prefix', newValue);
+    if (newValue) {
+      this.setAttribute('prefix', newValue);
+    } else {
+      this.removeAttribute('prefix');
+    }
   }
 
   get prototype() {
