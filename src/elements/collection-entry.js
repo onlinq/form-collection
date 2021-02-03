@@ -73,8 +73,8 @@ class FormCollectionEntryElement extends HTMLElement {
       replaceAttributeData(
         this.querySelectorAll('*'),
         `${collectionPrefix}[${previousIndex}]`,
-        `${collectionPrefix}[${nextIndex}]
-      `);
+        `${collectionPrefix}[${nextIndex}]`
+      );
     }
   }
 
