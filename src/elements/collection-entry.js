@@ -33,6 +33,12 @@ class FormCollectionEntryElement extends HTMLElement {
 
     this.#renderShadowDom();
     this.#initializeButtons();
+
+    if (this.collection) {
+      if (this.collection.min > 0 && this.collection.entries.length <= this.collection.min) {
+        this.disableDeleteButtons();
+      }
+    }
   }
 
   disconnectedCallback() {

@@ -21,7 +21,12 @@ class FormCollectionElement extends HTMLElement {
   connectedCallback() {
     this.#renderShadowDom();
     this.#initializeButtons();
-    this.#calculateNextIndex();
+
+    this.nextIndex = this.entries.length;
+
+    if (this.max > 0 && this.entries.length >= this.max) {
+      this.disableAddButtons();
+    }
   }
 
   disconnectedCallback() {
@@ -264,10 +269,6 @@ class FormCollectionElement extends HTMLElement {
       button.setAttribute('disabled', 'disabled');
       button.classList.add('disabled');
     });
-  }
-
-  #calculateNextIndex() {
-    this.nextIndex = this.entries.length;
   }
 
   #hidePlaceholder() {
