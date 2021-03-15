@@ -192,6 +192,8 @@ class FormCollectionElement extends HTMLElement {
     }
 
     this.#hidePlaceholder();
+
+    return nextEntry;
   }
 
   deleteEntry(index) {
