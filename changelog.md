@@ -1,8 +1,14 @@
 # Changelog
 
+# 0.1.2 (2021-03-20)
+
+* Fixes a whitespace issue on newly generated entries.
+* Added check to disable delete buttons on initial load.
+* Calling `addEntry()` now returns the newly added entry.
+
 # 0.1.1 (2021-02-02)
 
-* Make `prefix` property inherit value of `name`.
+* The `prefix` property now inherits the value of `name`.
 * Added `min` and `max` attributes to force a specific amount of entries in the
   collection.
 * Added first batch of CSS custom properties for spacing.
