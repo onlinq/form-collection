@@ -1,4 +1,4 @@
-# Onlinq Form Collection Components
+# Onlinq Form Collection
 
 Web components for building dynamic collections of form inputs.
 
