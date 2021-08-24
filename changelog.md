@@ -1,5 +1,11 @@
 # Changelog
 
+# 0.1.3
+
+* Fixes an issue where buttons on entry elements created by the collection
+  aren't recognized by the collection because the collection name wasn't
+  persisted in the entry element.
+
 # 0.1.2 (2021-03-20)
 
 * Fixes a whitespace issue on newly generated entries.

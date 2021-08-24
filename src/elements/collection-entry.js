@@ -24,11 +24,15 @@ class FormCollectionEntryElement extends HTMLElement {
   }
 
   connectedCallback() {
-    if (!this.collection) {
+    if (null === this.collection) {
       this.collection = this.collectionName
         ? this.closest(`onlinq-collection[name="${this.collectionName}"]`)
         : this.closest('onlinq-collection')
       ;
+    }
+
+    if (null !== this.collection && null === this.collectionName && this.collection.name) {
+      this.setAttribute('collection', this.collection.name);
     }
 
     this.#renderShadowDom();
