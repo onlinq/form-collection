@@ -159,12 +159,22 @@ class FormCollectionElement extends HTMLElement {
   }
 
   addEntry() {
-    if (!this.allowAdd || !this.prototype) {
-      return;
+    if (!this.allowAdd) {
+      console.error('Unable to create a new entry because the "allow-add" attribute is not present on the collection.');
+
+      return null;
     }
 
-    if (this.max > 0 && this.entries.length >= this.max) {
-      return;
+    if (!this.prototype) {
+      console.error('Unable to create a new entry because there is no prototype entry template present.');
+
+      return null;
+    }
+
+    if (this.max !== 0 && this.entries.length >= this.max) {
+      console.error('Unable to create a new entry because the maximum amount of entries has been reached.');
+
+      return null;
     }
 
     const nextIndex = this.nextIndex++;
@@ -198,10 +208,14 @@ class FormCollectionElement extends HTMLElement {
 
   deleteEntry(index) {
     if (!this.allowDelete) {
+      console.error('Unable to delete an entry because the "allow-delete" attribute is not present on the collection.');
+
       return;
     }
 
-    if (this.min > 0 && this.entries.length <= this.min) {
+    if (this.min !== 0 && this.entries.length <= this.min) {
+      console.error('Unable to delete an entry because the minimum amount of entries has been reached.');
+
       return;
     }
 
@@ -241,10 +255,18 @@ class FormCollectionElement extends HTMLElement {
   }
 
   moveEntry(index, targetIndex) {
+    if (!this.allowMove) {
+      console.error('Unable to move an entry because the "allow-move" attribute is not present on the collection.');
+
+      return;
+    }
+
     const sourceEntry = this.entry(index);
     const targetEntry = this.entry(targetIndex);
 
-    if (!sourceEntry || !targetEntry) {
+    if (null === sourceEntry || null === targetEntry) {
+      console.error('Unable to move an entry because either the source or target index is non-existent.');
+
       return;
     }
 
