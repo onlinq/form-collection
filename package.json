@@ -1,6 +1,6 @@
 {
   "name": "@onlinq/form-collection",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Web components for building dynamic form collections",
   "license": "MIT",
   "author": "Tim Goudriaan",
