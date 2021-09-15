@@ -1,10 +1,11 @@
 # Changelog
 
-# 0.1.3
+# 0.1.3 (2021-09-15)
 
 * Fixes an issue where buttons on entry elements created by the collection
   aren't recognized by the collection because the collection name wasn't
   persisted in the entry element.
+* Added console errors when an invalid action is performed.
 
 # 0.1.2 (2021-03-20)
 
