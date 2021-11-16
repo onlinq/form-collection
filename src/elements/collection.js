@@ -1,6 +1,6 @@
 import collectionDom from './collection.html';
 
-class FormCollectionElement extends HTMLElement {
+export class OnlinqFormCollectionElement extends HTMLElement {
   nextIndex = false;
 
   #collectionContainer = null;
@@ -343,4 +343,4 @@ function addClickCallback() {
   this.addEntry();
 }
 
-customElements.define('onlinq-collection', FormCollectionElement);
+customElements.define('onlinq-collection', OnlinqFormCollectionElement);

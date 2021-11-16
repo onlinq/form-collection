@@ -1,6 +1,6 @@
 import collectionEntryDom from './collection-entry.html';
 
-class FormCollectionEntryElement extends HTMLElement {
+export class OnlinqFormCollectionEntryElement extends HTMLElement {
   collection = null;
 
   #entryContainer = null;
@@ -231,4 +231,4 @@ function replaceAttributeData(elements, toReplace, replaceWith) {
   });
 }
 
-customElements.define('onlinq-collection-entry', FormCollectionEntryElement);
+customElements.define('onlinq-collection-entry', OnlinqFormCollectionEntryElement);
