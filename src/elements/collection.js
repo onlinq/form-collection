@@ -147,7 +147,15 @@ export class OnlinqFormCollectionElement extends HTMLElement {
       .filter(button => {
         const collectionName = button.getAttribute('collection');
 
-        return !collectionName || collectionName === this.name;
+        if (collectionName === this.name) {
+          return true;
+        }
+
+        if (!collectionName && button.closest('onlinq-collection') === this) {
+          return true;
+        }
+
+        return false;
       })
     ;
   }

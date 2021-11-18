@@ -96,7 +96,15 @@ export class OnlinqFormCollectionEntryElement extends HTMLElement {
       .filter(button => {
         const collectionName = button.getAttribute('collection');
 
-        return !collectionName || collectionName === this.collectionName;
+        if (collectionName === this.collectionName) {
+          return true;
+        }
+
+        if (!collectionName && button.closest('onlinq-collection-entry') === this) {
+          return true;
+        }
+
+        return false;
       })
     ;
   }
@@ -109,7 +117,15 @@ export class OnlinqFormCollectionEntryElement extends HTMLElement {
       .filter(button => {
         const collectionName = button.getAttribute('collection');
 
-        return !collectionName || collectionName === this.collectionName;
+        if (collectionName === this.collectionName) {
+          return true;
+        }
+
+        if (!collectionName && button.closest('onlinq-collection-entry') === this) {
+          return true;
+        }
+
+        return false;
       })
     ;
   }
@@ -122,7 +138,15 @@ export class OnlinqFormCollectionEntryElement extends HTMLElement {
       .filter(button => {
         const collectionName = button.getAttribute('collection');
 
-        return !collectionName || collectionName === this.collectionName;
+        if (collectionName === this.collectionName) {
+          return true;
+        }
+
+        if (!collectionName && button.closest('onlinq-collection-entry') === this) {
+          return true;
+        }
+
+        return false;
       })
     ;
   }
