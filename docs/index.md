@@ -11,3 +11,6 @@
 ## Guides
 
 - [Getting Started](getting-started.md)
+- [Events](events.md)
+- [Slots](slots.md)
+- [Styling](styling.md)

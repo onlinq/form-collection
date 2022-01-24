@@ -108,6 +108,23 @@ and [Element][mdn-element].
 - `entryRemoved`  
   Fired when an entry is removed from the collection.
 
+## Slots
+
+- `_root_`  
+  Direct descendents of the element are embedded as entries of the collection. 
+  Note that the collection can only interact with entries enclosed in the
+  `onlinq-collection-entry` tag.
+- `placeholder`  
+  The element shown as a placeholder when the collection is empty.
+- `actions`  
+  The container for all collection action buttons (*Add entry*). Use an empty
+  element to hide all action buttons at once.
+- `add`  
+  The container for the *Add entry* action button. To use a custom button, add
+  this slot containing a `button` element with the `collection-add` property.
+  Note that this slot is part of the `actions` slot, it will not show up if the
+  `actions` slot is defined.
+
 [mdn-global-attributes]: https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes
 [mdn-htmlelement]: https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement
 [mdn-element]: https://developer.mozilla.org/en-US/docs/Web/API/Element
