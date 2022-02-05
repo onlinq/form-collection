@@ -32,20 +32,20 @@ This element inherits properties from its ancestors [HTMLElement][mdn-htmlelemen
 This element inherits methods from its ancestors [HTMLElement][mdn-htmlelement],
 [Element][mdn-element], [Node][mdn-node] and [EventTarget][mdn-eventtarget].
 
-- `deleteEntry()`
+- `deleteEntry()`  
   Removes this entry from the collection.
 
-- `moveUp()`
+- `moveUp()`  
   Moves this entry up in the collection.
 
-- `moveDown()`
+- `moveDown()`  
   Moves this entry down in the collection.
 
-- `enableDeleteButtons()`
+- `enableDeleteButtons()`  
   Removes `disabled` attributes from buttons removing this entry from the
   collection.
 
-- `disableDeleteButtons()`
+- `disableDeleteButtons()`  
   Adds `disabled` attributes from buttons removing this entry from the
   collection.
 

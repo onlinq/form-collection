@@ -77,20 +77,20 @@ This element inherits methods from its ancestors [HTMLElement][mdn-htmlelement],
 - `entry(index)`  
   Returns the entry with the specified index.
 
-- `addEntry()`
+- `addEntry()`  
   Adds a new entry to the end of the collection.
 
-- `deleteEntry(index)`
+- `deleteEntry(index)`  
   Removes the entry with the specified index.
 
-- `moveEntry(index, targetIndex)`
+- `moveEntry(index, targetIndex)`  
   Moves the entry with the specified index to the specified target index.
 
-- `enableAddButtons()`
+- `enableAddButtons()`  
   Removes `disabled` attributes from buttons adding a new entry to the
   collection.
 
-- `disableAddButtons()`
+- `disableAddButtons()`  
   Adds `disabled` attributes from buttons adding a new entry to the
   collection.
 
