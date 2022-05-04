@@ -1,5 +1,10 @@
 # Changelog
 
+# 0.1.4 (2022-05-04)
+
+* Improves matching of buttons to the collection
+* Added Node exports for the element classes
+
 # 0.1.3 (2021-09-15)
 
 * Fixes an issue where buttons on entry elements created by the collection
