@@ -1,4 +1,4 @@
-<style type="text/css">
+<style>
   :host {
     --collection-entry-display: block;
     --collection-entry-justify-content: flex-start;
@@ -30,10 +30,10 @@
   }
 </style>
 
-<div class="contents" data-entry>
+<div class="contents">
   <slot></slot>
 </div>
-<div class="actions" data-actions>
+<div class="actions">
   <slot name="actions">
     <span data-move-up>
       <slot name="move-up">

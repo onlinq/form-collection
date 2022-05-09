@@ -1,75 +1,148 @@
+import {
+  attributeStateTransformers,
+  attributeValueTransformers,
+  disableButton, enableButton,
+  replaceAttributeData
+} from '../element-utilities';
+
 import collectionEntryDom from './collection-entry.html';
 
 export class OnlinqFormCollectionEntryElement extends HTMLElement {
-  collection = null;
+  static get observedAttributes() {
+    return [
+      'collection',
+      'collection-index',
+    ];
+  }
 
-  #entryContainer = null;
-  #actionsContainer = null;
+  static observedAttributeBehaviours = {
+    'collection': {
+      type: 'string',
+      property: 'collectionName',
+    },
+    'collection-index': {
+      type: 'string',
+      property: 'index',
+    },
+  };
+
+  #collection = null;
+  #index = null;
+
+  #deleteButtons = [];
+  #labelContainers = [];
+  #moveDownButtons = [];
+  #moveUpButtons = [];
+
   #deleteContainer = null;
   #moveDownContainer = null;
   #moveUpContainer = null;
 
-  #deleteClickListener = null;
-  #moveDownClickListener = null;
-  #moveUpClickListener = null;
+  #observer = null;
 
   constructor() {
     super();
 
     this.attachShadow({mode: 'open'});
-
-    this.#deleteClickListener = deleteClickCallback.bind(this);
-    this.#moveDownClickListener = moveDownClickCallback.bind(this);
-    this.#moveUpClickListener = moveUpClickCallback.bind(this);
   }
 
   connectedCallback() {
-    if (null === this.collection) {
-      this.collection = this.collectionName
-        ? this.closest(`onlinq-collection[name="${this.collectionName}"]`)
-        : this.closest('onlinq-collection')
-      ;
-    }
-
-    if (null !== this.collection && null === this.collectionName && this.collection.name) {
-      this.setAttribute('collection', this.collection.name);
-    }
-
     this.#renderShadowDom();
-    this.#initializeButtons();
 
-    if (this.collection) {
-      if (this.collection.min > 0 && this.collection.entries.length <= this.collection.min) {
-        this.disableDeleteButtons();
-      }
+    this.collectionName = this.getAttribute('collection') ?? this.#collection?.name ?? null;
+    this.index = this.getAttribute('collection-index') ?? this.#index;
+
+    if (!this.#collection) {
+      console.error('A collection entry was created without a matching collection.');
     }
+
+    this.#observer = new MutationObserver(this.#mutationCallback);
+    this.#observer.observe(this, {
+      childList: true,
+      subtree: true,
+    });
+
+    this.querySelectorAll('[collection-delete]').forEach(button => {
+      if (!this.#deleteButtons.includes(button) && this.#isPartOfEntry(button)) {
+        this.#connectDeleteButton(button);
+      }
+    });
+
+    this.querySelectorAll('[collection-move-down]').forEach(button => {
+      if (!this.#deleteButtons.includes(button) && this.#isPartOfEntry(button)) {
+        this.#connectMoveDownButton(button);
+      }
+    });
+
+    this.querySelectorAll('[collection-move-up]').forEach(button => {
+      if (!this.#deleteButtons.includes(button) && this.#isPartOfEntry(button)) {
+        this.#connectMoveUpButton(button);
+      }
+    });
   }
 
   disconnectedCallback() {
-    this.#destroyButtons();
+    this.#disconnectButtons();
+  }
+
+  attributeChangedCallback(name, oldValue, newValue) {
+    const behaviour = OnlinqFormCollectionEntryElement.observedAttributeBehaviours[name];
+    const transformer = attributeValueTransformers[behaviour.type];
+
+    const value = transformer(newValue);
+    const isFresh = value === this[behaviour.property];
+
+    if (!isFresh) {
+      this[behaviour.property] = value;
+    }
+  }
+
+  get collection() {
+    return this.#collection;
+  }
+
+  set collection(collection) {
+    if (this.#collection && this.#collection !== collection) {
+      this.#disconnectCollection(this.#collection);
+    }
+
+    this.#collection = collection;
+
+    if (collection) {
+      this.#connectCollection(collection);
+    }
+
+    this.#updateAttribute('collection');
   }
 
   get collectionName() {
-    return this.getAttribute('collection') ?? null;
+    // Check both the property and DOM attribute since the property might not be initialized
+    return this.#collection?.name ?? this.#collection?.getAttribute('name');
+  }
+
+  set collectionName(collectionName) {
+    this.collection = collectionName
+      ? this.closest(`onlinq-collection[name="${collectionName}"]`)
+      : this.closest('onlinq-collection')
+    ;
   }
 
   get index() {
-    return this.getAttribute('collection-index') ?? false;
+    return this.#index;
   }
 
   set index(nextIndex) {
-    const previousIndex = this.index || this.collection.prototypeName;
+    const previousIndex = this.#index || this.#collection?.prototypeName;
+    this.#index = nextIndex?.toString();
 
-    this.setAttribute('collection-index', nextIndex.toString());
+    this.#labelContainers.forEach(container => {
+      container.innerHTML = this.#index;
+    })
 
-    const labelElement = this.querySelector('[collection-label]');
+    this.#updateAttribute('collection-index');
 
-    if (labelElement) {
-      labelElement.innerHTML = nextIndex;
-    }
-
-    const collectionId = this.collection.getAttribute('id');
-    const collectionPrefix = this.collection.prefix;
+    const collectionId = this.#collection?.getAttribute('id');
+    const collectionPrefix = this.#collection?.prefix;
 
     if (collectionId) {
       replaceAttributeData(
@@ -88,171 +161,266 @@ export class OnlinqFormCollectionEntryElement extends HTMLElement {
     }
   }
 
-  #deleteButtons() {
-    return [
-      ...Array.from(this.shadowRoot.querySelectorAll('[collection-delete]')),
-      ...Array.from(this.querySelectorAll('[collection-delete]')),
-    ]
-      .filter(button => {
-        const collectionName = button.getAttribute('collection');
-
-        if (collectionName === this.collectionName) {
-          return true;
-        }
-
-        if (!collectionName && button.closest('onlinq-collection-entry') === this) {
-          return true;
-        }
-
-        return false;
-      })
-    ;
-  }
-
-  #moveDownButtons() {
-    return [
-      ...Array.from(this.shadowRoot.querySelectorAll('[collection-move-down]')),
-      ...Array.from(this.querySelectorAll('[collection-move-down]')),
-    ]
-      .filter(button => {
-        const collectionName = button.getAttribute('collection');
-
-        if (collectionName === this.collectionName) {
-          return true;
-        }
-
-        if (!collectionName && button.closest('onlinq-collection-entry') === this) {
-          return true;
-        }
-
-        return false;
-      })
-    ;
-  }
-
-  #moveUpButtons() {
-    return [
-      ...Array.from(this.shadowRoot.querySelectorAll('[collection-move-up]')),
-      ...Array.from(this.querySelectorAll('[collection-move-up]')),
-    ]
-      .filter(button => {
-        const collectionName = button.getAttribute('collection');
-
-        if (collectionName === this.collectionName) {
-          return true;
-        }
-
-        if (!collectionName && button.closest('onlinq-collection-entry') === this) {
-          return true;
-        }
-
-        return false;
-      })
-    ;
-  }
-
   deleteEntry() {
-    this.collection.deleteEntry(this.index);
+    this.#collection?.deleteEntry(this);
   }
 
   moveDown() {
-    this.collection.moveEntry(+this.index, +this.index + 1);
+    this.#collection?.moveEntry(+this.index, +this.index + 1);
   }
 
   moveUp() {
-    this.collection.moveEntry(+this.index, +this.index - 1);
+    this.#collection?.moveEntry(+this.index, +this.index - 1);
   }
 
-  enableDeleteButtons() {
-    this.#deleteButtons().forEach(button => {
-      button.removeAttribute('disabled');
-      button.classList.remove('disabled');
-    });
+  #isPartOfEntry(element) {
+    const elementCollectionName = element.getAttribute('collection');
+
+    return (this.collectionName && elementCollectionName === this.collectionName) || (!elementCollectionName && element.closest('onlinq-collection-entry') === this);
   }
 
-  disableDeleteButtons() {
-    this.#deleteButtons().forEach(button => {
-      button.setAttribute('disabled', 'disabled');
-      button.classList.add('disabled');
-    });
+  #updateAttribute(attributeName) {
+    const behaviour = OnlinqFormCollectionEntryElement.observedAttributeBehaviours[attributeName];
+    const transformer = attributeStateTransformers[behaviour.type];
+
+    transformer(this, attributeName, this[behaviour.property]);
   }
 
-  #initializeButtons() {
-    this.#moveDownButtons().forEach(button => {
-      button.addEventListener('click', this.#moveDownClickListener);
-    });
+  #updateDeleteButtons() {
+    const collection = this.#collection;
 
-    this.#moveUpButtons().forEach(button => {
-      button.addEventListener('click', this.#moveUpClickListener);
-    });
+    if (collection) {
+      const disable = collection.max > 0 && collection.entries.length >= collection.max;
 
-    this.#deleteButtons().forEach(button => {
-      button.addEventListener('click', this.#deleteClickListener);
-    });
+      this.#deleteButtons.forEach(button => {
+        if (disable) {
+          disableButton(button);
+        } else {
+          enableButton(button);
+        }
+      });
+    }
   }
 
-  #destroyButtons() {
-    this.#moveDownButtons().forEach(button => {
-      button.removeEventListener('click', this.#moveDownClickListener);
-    });
+  #updateDeleteContainer() {
+    if (this.#deleteContainer) {
+      if (this.collection?.allowDelete) {
+        this.#deleteContainer.style.display = 'inline';
+      } else {
+        this.#deleteContainer.style.removeProperty('display');
+      }
+    }
+  }
 
-    this.#moveUpButtons().forEach(button => {
-      button.removeEventListener('click', this.#moveUpClickListener);
-    });
+  #updateMoveContainers() {
+    if (this.#moveDownContainer) {
+      if (this.collection?.allowMove) {
+        this.#moveDownContainer.style.display = 'inline';
+      } else {
+        this.#moveDownContainer.style.removeProperty('display');
+      }
+    }
 
-    this.#deleteButtons().forEach(button => {
+    if (this.#moveUpContainer) {
+      if (this.collection?.allowMove) {
+        this.#moveUpContainer.style.display = 'inline';
+      } else {
+        this.#moveUpContainer.style.removeProperty('display');
+      }
+    }
+  }
+
+  #connectCollection(collection) {
+    this.#updateDeleteButtons();
+    this.#updateDeleteContainer();
+    this.#updateMoveContainers();
+
+    collection.addEventListener('entryAdded', this.#collectionEntryAddedListener);
+    collection.addEventListener('entryRemoved', this.#collectionEntryRemovedListener);
+    collection.addEventListener('deletePolicyChanged', this.#collectionDeletePolicyChangedListener);
+    collection.addEventListener('movePolicyChanged', this.#collectionMovePolicyChangedListener);
+    collection.addEventListener('minEntriesChanged', this.#collectionMinEntriesChangedListener);
+  }
+
+  #disconnectCollection(collection) {
+    this.#updateDeleteButtons();
+    this.#updateDeleteContainer();
+    this.#updateMoveContainers();
+
+    collection.removeEventListener('entryAdded', this.#collectionEntryAddedListener);
+    collection.removeEventListener('entryRemoved', this.#collectionEntryRemovedListener);
+    collection.removeEventListener('deletePolicyChanged', this.#collectionDeletePolicyChangedListener);
+    collection.removeEventListener('movePolicyChanged', this.#collectionMovePolicyChangedListener);
+    collection.removeEventListener('minEntriesChanged', this.#collectionMinEntriesChangedListener);
+  }
+
+  #connectDeleteButton(button) {
+    this.#deleteButtons.push(button);
+
+    button.addEventListener('click', this.#deleteClickListener);
+  }
+
+  #disconnectDeleteButton(button) {
+    const index = this.#deleteButtons.indexOf(button);
+
+    if (index !== -1) {
       button.removeEventListener('click', this.#deleteClickListener);
+
+      this.#deleteButtons.splice(index, 1);
+    }
+  }
+
+  #connectLabelContainer(container) {
+    this.#labelContainers.push(container);
+  }
+
+  #disconnectLabelContainer(container) {
+    const index = this.#labelContainers.indexOf(container);
+
+    if (index !== -1) {
+      this.#labelContainers.splice(index, 1);
+    }
+  }
+
+  #connectMoveDownButton(button) {
+    this.#moveDownButtons.push(button);
+
+    button.addEventListener('click', this.#moveDownClickListener);
+  }
+
+  #disconnectMoveDownButton(button) {
+    const index = this.#moveDownButtons.indexOf(button);
+
+    if (index !== -1) {
+      button.removeEventListener('click', this.#moveDownClickListener);
+
+      this.#moveDownButtons.splice(index, 1);
+    }
+  }
+
+  #connectMoveUpButton(button) {
+    this.#moveUpButtons.push(button);
+
+    button.addEventListener('click', this.#moveUpClickListener);
+  }
+
+  #disconnectMoveUpButton(button) {
+    const index = this.#moveUpButtons.indexOf(button);
+
+    if (index !== -1) {
+      button.removeEventListener('click', this.#moveUpClickListener);
+
+      this.#moveUpButtons.splice(index, 1);
+    }
+  }
+
+  #disconnectButtons() {
+    this.#deleteButtons.forEach(button => {
+      this.#disconnectDeleteButton(button);
+    });
+
+    this.#moveDownButtons.forEach(button => {
+      this.#disconnectMoveDownButton(button);
+    });
+
+    this.#moveUpButtons.forEach(button => {
+      this.#disconnectMoveUpButton(button);
     });
   }
 
   #renderShadowDom() {
     this.shadowRoot.innerHTML = collectionEntryDom;
 
-    this.#entryContainer = this.shadowRoot.querySelector('[data-entry]');
-    this.#actionsContainer = this.shadowRoot.querySelector('[data-actions]');
     this.#deleteContainer = this.shadowRoot.querySelector('[data-delete]');
     this.#moveDownContainer = this.shadowRoot.querySelector('[data-move-down]');
     this.#moveUpContainer = this.shadowRoot.querySelector('[data-move-up]');
 
-    if (this.collection) {
-      if (this.collection.allowMove) {
-        this.#moveUpContainer.style.display = 'inline';
-        this.#moveDownContainer.style.display = 'inline';
+    this.#connectDeleteButton(this.shadowRoot.querySelector('[collection-delete]'));
+    this.#connectMoveDownButton(this.shadowRoot.querySelector('[collection-move-down]'));
+    this.#connectMoveUpButton(this.shadowRoot.querySelector('[collection-move-up]'));
+  }
+
+  #collectionEntryAddedListener = () => {
+    this.#updateDeleteButtons();
+  };
+
+  #collectionEntryRemovedListener = () => {
+    this.#updateDeleteButtons();
+  };
+
+  #collectionDeletePolicyChangedListener = () => {
+    this.#updateDeleteContainer();
+  };
+
+  #collectionMovePolicyChangedListener = () => {
+    this.#updateMoveContainers();
+  };
+
+  #collectionMinEntriesChangedListener = () => {
+    this.#updateDeleteButtons();
+  };
+
+  #deleteClickListener = () => {
+    if (this.collection.allowDelete) {
+      this.deleteEntry();
+    }
+  };
+
+  #moveDownClickListener = () => {
+    if (this.collection.allowMove) {
+      this.moveDown();
+    }
+  };
+
+  #moveUpClickListener = () => {
+    if (this.collection.allowMove) {
+      this.moveUp();
+    }
+  };
+
+  #mutationCallback = records => {
+    for (const record of records) {
+      if (record.type !== 'childList') {
+        continue;
       }
 
-      if (this.collection.allowDelete) {
-        this.#deleteContainer.style.display = 'inline';
+      for (const node of record.addedNodes) {
+        if (node instanceof HTMLElement && node.hasAttribute('collection-delete') && this.#isPartOfEntry(node)) {
+          this.#connectDeleteButton(node);
+        }
+
+        if (node instanceof HTMLElement && node.hasAttribute('collection-label') && this.#isPartOfEntry(node)) {
+          this.#connectLabelContainer(node);
+        }
+
+        if (node instanceof HTMLElement && node.hasAttribute('collection-move-down') && this.#isPartOfEntry(node)) {
+          this.#connectMoveDownButton(node);
+        }
+
+        if (node instanceof HTMLElement && node.hasAttribute('collection-move-up') && this.#isPartOfEntry(node)) {
+          this.#connectMoveUpButton(node);
+        }
+      }
+
+      for (const node in record.removedNodes) {
+        if (node instanceof HTMLElement && this.#deleteButtons.includes(node)) {
+          this.#disconnectDeleteButton(node);
+        }
+
+        if (node instanceof HTMLElement && this.#labelContainers.includes(node)) {
+          this.#disconnectLabelContainer(node);
+        }
+
+        if (node instanceof HTMLElement && this.#moveDownButtons.includes(node)) {
+          this.#disconnectMoveDownButton(node);
+        }
+
+        if (node instanceof HTMLElement && this.#moveUpButtons.includes(node)) {
+          this.#disconnectMoveUpButton(node);
+        }
       }
     }
-  }
-}
-
-function deleteClickCallback() {
-  if (this.collection.allowDelete) {
-    this.deleteEntry();
-  }
-}
-
-function moveDownClickCallback() {
-  if (this.collection.allowMove) {
-    this.moveDown();
-  }
-}
-
-function moveUpClickCallback() {
-  if (this.collection.allowMove) {
-    this.moveUp();
-  }
-}
-
-function replaceAttributeData(elements, toReplace, replaceWith) {
-  elements.forEach(element => {
-    [...element.attributes].map(attribute => {
-      if (attribute.value.includes(toReplace)) {
-        attribute.value = attribute.value.replace(toReplace, replaceWith);
-      }
-    });
-  });
+  };
 }
 
 customElements.define('onlinq-collection-entry', OnlinqFormCollectionEntryElement);

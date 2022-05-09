@@ -53,6 +53,18 @@ describe('onlinq-collection', () => {
     expect(getComputedStyle(el.shadowRoot.querySelector('[data-add]')).display).to.equal('inline');
   });
 
+  it('adds new entries', async () => {
+    const el = await fixture(`
+      <onlinq-collection allow-add allow-delete>
+        <template collection-prototype></template>
+      </onlinq-collection>
+    `);
+
+    const entry = el.addEntry();
+
+    expect(entry).to.not.equal(null);
+  });
+
   it('properly updates nextIndex', async () => {
     const el = await fixture(`
       <onlinq-collection allow-add allow-delete>
@@ -62,13 +74,17 @@ describe('onlinq-collection', () => {
 
     expect(el.nextIndex).to.equal(0);
 
+    el.addEventListener('entryAdded', () => {
+      expect(el.nextIndex).to.equal(1);
+    });
+
     const entry = el.addEntry();
 
-    expect(el.nextIndex).to.equal(1);
+    el.addEventListener('entryRemoved', () => {
+      expect(el.nextIndex).to.equal(0);
+    });
 
     entry.deleteEntry();
-
-    expect(el.nextIndex).to.equal(0);
   });
 
   it('prevents creating entries when the "allow-add" attribute is not set', async () => {
