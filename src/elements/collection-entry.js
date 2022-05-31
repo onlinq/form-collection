@@ -1,11 +1,15 @@
 import {
   attributeStateTransformers,
   attributeValueTransformers,
-  disableButton, enableButton,
-  replaceAttributeData
+  disableButton,
+  enableButton,
+  replaceAttributeData,
 } from '../element-utilities';
 
 import collectionEntryDom from './collection-entry.html';
+import {OnlinqFormCollectionDeleteButtonElement} from './delete-button';
+import {OnlinqFormCollectionMoveDownButtonElement} from './move-down-button';
+import {OnlinqFormCollectionMoveUpButtonElement} from './move-up-button';
 
 export class OnlinqFormCollectionEntryElement extends HTMLElement {
   static get observedAttributes() {
@@ -49,7 +53,7 @@ export class OnlinqFormCollectionEntryElement extends HTMLElement {
   connectedCallback() {
     this.#renderShadowDom();
 
-    this.collectionName = this.getAttribute('collection') ?? this.#collection?.name ?? null;
+    this.collectionName = this.getAttribute('collection') ?? this.#collection?.name;
     this.index = this.getAttribute('collection-index') ?? this.#index;
 
     if (!this.#collection) {
@@ -62,20 +66,16 @@ export class OnlinqFormCollectionEntryElement extends HTMLElement {
       subtree: true,
     });
 
-    this.querySelectorAll('[collection-delete]').forEach(button => {
-      if (!this.#deleteButtons.includes(button) && this.#isPartOfEntry(button)) {
+    this.querySelectorAll('button').forEach(button => {
+      if (button instanceof OnlinqFormCollectionDeleteButtonElement && !this.#deleteButtons.includes(button) && this.#isPartOfEntry(button)) {
         this.#connectDeleteButton(button);
       }
-    });
 
-    this.querySelectorAll('[collection-move-down]').forEach(button => {
-      if (!this.#deleteButtons.includes(button) && this.#isPartOfEntry(button)) {
+      if (button instanceof OnlinqFormCollectionMoveDownButtonElement && !this.#moveDownButtons.includes(button) && this.#isPartOfEntry(button)) {
         this.#connectMoveDownButton(button);
       }
-    });
 
-    this.querySelectorAll('[collection-move-up]').forEach(button => {
-      if (!this.#deleteButtons.includes(button) && this.#isPartOfEntry(button)) {
+      if (button instanceof OnlinqFormCollectionMoveUpButtonElement && !this.#moveUpButtons.includes(button) && this.#isPartOfEntry(button)) {
         this.#connectMoveUpButton(button);
       }
     });
@@ -174,7 +174,7 @@ export class OnlinqFormCollectionEntryElement extends HTMLElement {
   }
 
   #isPartOfEntry(element) {
-    const elementCollectionName = element.getAttribute('collection');
+    const elementCollectionName = element.getAttribute('collection') ?? element.getAttribute('data-collection');
 
     return (this.collectionName && elementCollectionName === this.collectionName) || (!elementCollectionName && element.closest('onlinq-collection-entry') === this);
   }
@@ -256,16 +256,12 @@ export class OnlinqFormCollectionEntryElement extends HTMLElement {
 
   #connectDeleteButton(button) {
     this.#deleteButtons.push(button);
-
-    button.addEventListener('click', this.#deleteClickListener);
   }
 
   #disconnectDeleteButton(button) {
     const index = this.#deleteButtons.indexOf(button);
 
     if (index !== -1) {
-      button.removeEventListener('click', this.#deleteClickListener);
-
       this.#deleteButtons.splice(index, 1);
     }
   }
@@ -284,32 +280,24 @@ export class OnlinqFormCollectionEntryElement extends HTMLElement {
 
   #connectMoveDownButton(button) {
     this.#moveDownButtons.push(button);
-
-    button.addEventListener('click', this.#moveDownClickListener);
   }
 
   #disconnectMoveDownButton(button) {
     const index = this.#moveDownButtons.indexOf(button);
 
     if (index !== -1) {
-      button.removeEventListener('click', this.#moveDownClickListener);
-
       this.#moveDownButtons.splice(index, 1);
     }
   }
 
   #connectMoveUpButton(button) {
     this.#moveUpButtons.push(button);
-
-    button.addEventListener('click', this.#moveUpClickListener);
   }
 
   #disconnectMoveUpButton(button) {
     const index = this.#moveUpButtons.indexOf(button);
 
     if (index !== -1) {
-      button.removeEventListener('click', this.#moveUpClickListener);
-
       this.#moveUpButtons.splice(index, 1);
     }
   }
@@ -335,9 +323,9 @@ export class OnlinqFormCollectionEntryElement extends HTMLElement {
     this.#moveDownContainer = this.shadowRoot.querySelector('[data-move-down]');
     this.#moveUpContainer = this.shadowRoot.querySelector('[data-move-up]');
 
-    this.#connectDeleteButton(this.shadowRoot.querySelector('[collection-delete]'));
-    this.#connectMoveDownButton(this.shadowRoot.querySelector('[collection-move-down]'));
-    this.#connectMoveUpButton(this.shadowRoot.querySelector('[collection-move-up]'));
+    this.#connectDeleteButton(this.shadowRoot.querySelector('[is="onlinq-collection-delete"]'));
+    this.#connectMoveDownButton(this.shadowRoot.querySelector('[is="onlinq-collection-move-down"]'));
+    this.#connectMoveUpButton(this.shadowRoot.querySelector('[is="onlinq-collection-move-up"]'));
   }
 
   #collectionEntryAddedListener = () => {
@@ -360,24 +348,6 @@ export class OnlinqFormCollectionEntryElement extends HTMLElement {
     this.#updateDeleteButtons();
   };
 
-  #deleteClickListener = () => {
-    if (this.collection.allowDelete) {
-      this.deleteEntry();
-    }
-  };
-
-  #moveDownClickListener = () => {
-    if (this.collection.allowMove) {
-      this.moveDown();
-    }
-  };
-
-  #moveUpClickListener = () => {
-    if (this.collection.allowMove) {
-      this.moveUp();
-    }
-  };
-
   #mutationCallback = records => {
     for (const record of records) {
       if (record.type !== 'childList') {
@@ -385,7 +355,7 @@ export class OnlinqFormCollectionEntryElement extends HTMLElement {
       }
 
       for (const node of record.addedNodes) {
-        if (node instanceof HTMLElement && node.hasAttribute('collection-delete') && this.#isPartOfEntry(node)) {
+        if (node instanceof OnlinqFormCollectionDeleteButtonElement && this.#isPartOfEntry(node)) {
           this.#connectDeleteButton(node);
         }
 
@@ -393,17 +363,17 @@ export class OnlinqFormCollectionEntryElement extends HTMLElement {
           this.#connectLabelContainer(node);
         }
 
-        if (node instanceof HTMLElement && node.hasAttribute('collection-move-down') && this.#isPartOfEntry(node)) {
+        if (node instanceof OnlinqFormCollectionMoveDownButtonElement && this.#isPartOfEntry(node)) {
           this.#connectMoveDownButton(node);
         }
 
-        if (node instanceof HTMLElement && node.hasAttribute('collection-move-up') && this.#isPartOfEntry(node)) {
+        if (node instanceof OnlinqFormCollectionMoveUpButtonElement && this.#isPartOfEntry(node)) {
           this.#connectMoveUpButton(node);
         }
       }
 
       for (const node in record.removedNodes) {
-        if (node instanceof HTMLElement && this.#deleteButtons.includes(node)) {
+        if (node instanceof OnlinqFormCollectionDeleteButtonElement && this.#deleteButtons.includes(node)) {
           this.#disconnectDeleteButton(node);
         }
 
@@ -411,11 +381,11 @@ export class OnlinqFormCollectionEntryElement extends HTMLElement {
           this.#disconnectLabelContainer(node);
         }
 
-        if (node instanceof HTMLElement && this.#moveDownButtons.includes(node)) {
+        if (node instanceof OnlinqFormCollectionMoveDownButtonElement && this.#moveDownButtons.includes(node)) {
           this.#disconnectMoveDownButton(node);
         }
 
-        if (node instanceof HTMLElement && this.#moveUpButtons.includes(node)) {
+        if (node instanceof OnlinqFormCollectionMoveUpButtonElement && this.#moveUpButtons.includes(node)) {
           this.#disconnectMoveUpButton(node);
         }
       }

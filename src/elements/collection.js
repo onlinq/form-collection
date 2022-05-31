@@ -2,11 +2,12 @@ import {
   attributeStateTransformers,
   attributeValueTransformers,
   disableButton,
-  enableButton
+  enableButton,
 } from '../element-utilities';
 import {OnlinqFormCollectionEntryElement} from './collection-entry';
 
 import collectionDom from './collection.html';
+import {OnlinqFormCollectionAddButtonElement} from './add-button';
 
 export class OnlinqFormCollectionElement extends HTMLElement {
   static get observedAttributes() {
@@ -107,14 +108,14 @@ export class OnlinqFormCollectionElement extends HTMLElement {
       }
     });
 
-    this.querySelectorAll('[collection-prototype]').forEach(template => {
+    this.querySelectorAll('[data-collection-prototype]').forEach(template => {
       if (!this.#prototypeTemplate && this.#isPartOfCollection(template)) {
         this.#prototypeTemplate = template;
       }
     });
 
-    this.querySelectorAll('[collection-add]').forEach(button => {
-      if (!this.#addButtons.includes(button) && this.#isPartOfCollection(button)) {
+    this.querySelectorAll('button').forEach(button => {
+      if (button instanceof OnlinqFormCollectionAddButtonElement && !this.#addButtons.includes(button) && this.#isPartOfCollection(button)) {
         this.#connectAddButton(button);
       }
     });
@@ -364,7 +365,7 @@ export class OnlinqFormCollectionElement extends HTMLElement {
   }
 
   #isPartOfCollection(element) {
-    const collectionName = element.getAttribute('collection');
+    const collectionName = element.getAttribute('collection') ?? element.getAttribute('data-collection');
 
     return collectionName === this.name || (!collectionName && element.closest('onlinq-collection') === this);
   }
@@ -457,8 +458,6 @@ export class OnlinqFormCollectionElement extends HTMLElement {
   #connectAddButton(button) {
     this.#addButtons.push(button);
 
-    button.addEventListener('click', this.#addClickListener);
-
     this.#updateAddButtons();
   }
 
@@ -466,8 +465,6 @@ export class OnlinqFormCollectionElement extends HTMLElement {
     const index = this.#addButtons.indexOf(button);
 
     if (index !== -1) {
-      button.removeEventListener('click', this.#addClickListener);
-
       this.#addButtons.splice(index, 1);
     }
   }
@@ -481,17 +478,11 @@ export class OnlinqFormCollectionElement extends HTMLElement {
   #renderShadowDom() {
     this.shadowRoot.innerHTML = collectionDom;
 
-    this.#collectionContainer = this.shadowRoot.querySelector('[data-collection]');
-    this.#placeholderContainer = this.shadowRoot.querySelector('[data-placeholder]');
-    this.#actionsContainer = this.shadowRoot.querySelector('[data-actions]');
-    this.#addContainer = this.shadowRoot.querySelector('[data-add]');
-
-    this.#connectAddButton(this.shadowRoot.querySelector('[collection-add]'));
+    this.#collectionContainer = this.shadowRoot.querySelector('[data-collection-container]');
+    this.#placeholderContainer = this.shadowRoot.querySelector('[data-placeholder-container]');
+    this.#actionsContainer = this.shadowRoot.querySelector('[data-actions-container]');
+    this.#addContainer = this.shadowRoot.querySelector('[data-add-container]');
   }
-
-  #addClickListener = () => {
-    this.addEntry();
-  };
 
   #mutationCallback = records => {
     for (const record of records) {
@@ -504,11 +495,11 @@ export class OnlinqFormCollectionElement extends HTMLElement {
           this.#connectEntry(node);
         }
 
-        if (node instanceof HTMLTemplateElement && node.hasAttribute('collection-prototype') && this.#isPartOfCollection(node)) {
+        if (node instanceof HTMLTemplateElement && node.hasAttribute('data-collection-prototype') && this.#isPartOfCollection(node)) {
           this.#prototypeTemplate = node;
         }
 
-        if (node instanceof HTMLElement && node.hasAttribute('collection-add') && this.#isPartOfCollection(node)) {
+        if (node instanceof OnlinqFormCollectionAddButtonElement && this.#isPartOfCollection(node)) {
           this.#connectAddButton(node);
         }
       }
@@ -522,7 +513,7 @@ export class OnlinqFormCollectionElement extends HTMLElement {
           this.#prototypeTemplate = null;
         }
 
-        if (node instanceof HTMLElement && this.#addButtons.includes(node)) {
+        if (node instanceof OnlinqFormCollectionAddButtonElement && this.#addButtons.includes(node)) {
           this.#disconnectAddButton(node);
         }
       }

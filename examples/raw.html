@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Onlinq Form Collection Demo</title>
+
+    <link rel="stylesheet" href="../dist/onlinq-collection.css">
+
+    <script src="../dist/onlinq-collection.js"></script>
+  </head>
+  <body>
+    <onlinq-collection
+      id="fruits_fruits"
+      class=""
+      name="fruits[fruits]"
+      allow-add="allow-add"
+      allow-delete="allow-delete"
+      allow-move="allow-move"
+      min="0"
+      max="0"
+    >
+      <template data-collection-prototype>
+        <input
+          type="text"
+          id="fruits_fruits___name__"
+          name="fruits[fruits][__name__]"
+          required="required"
+        />
+      </template>
+      <onlinq-collection-entry collection-index="0">
+        <input
+          type="text"
+          id="fruits_fruits_0"
+          name="fruits[fruits][0]"
+          required="required"
+          value="Apple"
+        />
+      </onlinq-collection-entry>
+      <onlinq-collection-entry collection-index="1">
+        <input
+          type="text"
+          id="fruits_fruits_1"
+          name="fruits[fruits][1]"
+          required="required"
+          value="Banana"
+        />
+      </onlinq-collection-entry>
+      <onlinq-collection-entry collection-index="2">
+        <input
+          type="text"
+          id="fruits_fruits_2"
+          name="fruits[fruits][2]"
+          required="required"
+          value="Orange"
+        />
+      </onlinq-collection-entry>
+    </onlinq-collection>
+  </body>
+</html>

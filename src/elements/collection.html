@@ -23,25 +23,25 @@
     margin: var(--collection-actions-margin);
   }
 
-  [data-collection],
-  [data-add] {
+  [data-collection-container],
+  [data-add-container] {
     display: none;
   }
 </style>
 
-<div class="contents" data-collection>
+<div class="contents" data-collection-container>
   <slot></slot>
 </div>
-<div class="contents" data-placeholder>
+<div class="contents" data-placeholder-container>
   <slot name="placeholder">
     <span>No entries</span>
   </slot>
 </div>
-<div class="actions" data-actions>
+<div class="actions" data-actions-container>
   <slot name="actions">
-    <span data-add>
+    <span data-add-container>
       <slot name="add">
-        <button collection-add>Add</button>
+        <button is="onlinq-collection-add">Add</button>
       </slot>
     </span>
   </slot>
