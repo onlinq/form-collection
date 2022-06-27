@@ -54,7 +54,10 @@ export class OnlinqFormCollectionEntryElement extends HTMLElement {
     this.#renderShadowDom();
 
     this.collectionName = this.getAttribute('collection') ?? this.#collection?.name;
-    this.index = this.getAttribute('collection-index') ?? this.#index;
+    const index = this.getAttribute('collection-index') ?? this.#index;
+    if (index) {
+      this.index = index;
+    }
 
     if (!this.#collection) {
       console.error('A collection entry was created without a matching collection.');
@@ -137,7 +140,7 @@ export class OnlinqFormCollectionEntryElement extends HTMLElement {
 
     this.#labelContainers.forEach(container => {
       container.innerHTML = this.#index;
-    })
+    });
 
     this.#updateAttribute('collection-index');
 
