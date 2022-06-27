@@ -504,7 +504,7 @@ export class OnlinqFormCollectionElement extends HTMLElement {
         }
       }
 
-      for (const node in record.removedNodes) {
+      for (const node of record.removedNodes) {
         if (node instanceof OnlinqFormCollectionEntryElement && record.target === this) {
           this.#disconnectEntry(node);
         }
