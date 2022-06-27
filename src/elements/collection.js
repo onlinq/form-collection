@@ -282,7 +282,6 @@ export class OnlinqFormCollectionElement extends HTMLElement {
     const entry = document.createElement('onlinq-collection-entry');
     entry.appendChild(this.#prototype());
     entry.collection = this;
-    entry.index = this.#nextIndex;
 
     this.appendChild(entry);
 
@@ -420,6 +419,7 @@ export class OnlinqFormCollectionElement extends HTMLElement {
 
     this.#entries.sort((a, b) => a.index - b.index); // todo string index values?
 
+    entry.index = this.#nextIndex;
     this.#nextIndex++;
 
     this.dispatchEvent(new CustomEvent('entryAdded', {
