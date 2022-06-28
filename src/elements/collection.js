@@ -415,11 +415,22 @@ export class OnlinqFormCollectionElement extends HTMLElement {
   }
 
   #connectEntry(entry) {
+    if (!entry.index) {
+      entry.index = this.#nextIndex;
+    } else {
+      this.#entries.forEach(existingEntry => {
+        if (+existingEntry.index < +entry.index) {
+          return;
+        }
+
+        existingEntry.index = +existingEntry.index + 1;
+      });
+    }
+
     this.#entries.push(entry);
 
     this.#entries.sort((a, b) => a.index - b.index); // todo string index values?
 
-    entry.index = this.#nextIndex;
     this.#nextIndex++;
 
     this.dispatchEvent(new CustomEvent('entryAdded', {
@@ -439,12 +450,12 @@ export class OnlinqFormCollectionElement extends HTMLElement {
       this.#entries.splice(index, 1);
     }
 
-    this.entries.forEach(entry => {
-      if (entry.index < index) {
+    this.#entries.forEach(existingEntry => {
+      if (+existingEntry.index < index) {
         return;
       }
 
-      entry.index = entry.index - 1;
+      existingEntry.index = +existingEntry.index - 1;
     });
 
     this.#nextIndex--;

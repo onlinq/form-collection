@@ -136,7 +136,16 @@ export class OnlinqFormCollectionEntryElement extends HTMLElement {
 
   set index(nextIndex) {
     const previousIndex = this.#index || this.#collection?.prototypeName;
-    this.#index = nextIndex?.toString();
+
+    if (nextIndex.toString() === previousIndex) {
+      return;
+    }
+
+    this.#index = nextIndex.toString();
+
+    if (!previousIndex) {
+      return;
+    }
 
     this.#labelContainers.forEach(container => {
       container.innerHTML = this.#index;

@@ -30,7 +30,7 @@ export class OnlinqFormCollectionEntryButtonElement extends HTMLButtonElement {
     }
 
     if (!this.#collectionEntry) {
-      console.error('A delete button was created without a matching collection entry.');
+      console.error('An entry button was created without a matching collection entry.');
     }
 
     this.addEventListener('click', this.#clickCallback);
