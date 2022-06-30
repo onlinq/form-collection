@@ -329,6 +329,46 @@ export class OnlinqFormCollectionElement extends HTMLElement {
       return;
     }
 
+    const initialIndex = entry.index;
+    const targetIndex = targetEntry.index;
+
+    entry.index = '__swap__';
+
+    if (targetIndex > initialIndex) {
+      for (let i = +initialIndex; i < targetIndex; i++) {
+        const swapEntry = this.#matchEntry(i + 1);
+
+        swapEntry.index = i;
+
+        this.insertBefore(swapEntry, entry);
+      }
+    } else {
+      for (let i = +initialIndex; i > targetIndex; i--) {
+        const swapEntry = this.#matchEntry(i - 1);
+
+        swapEntry.index = i;
+
+        this.insertBefore(entry, swapEntry);
+      }
+    }
+
+    entry.index = targetIndex;
+  }
+
+  swapEntry(entry, targetEntry) {
+    if (!this.#allowMove) {
+      console.error('Unable to swap an entry because the "allow-move" attribute is not present on the collection.');
+
+      return;
+    }
+
+    entry = this.#matchEntry(entry);
+    targetEntry = this.#matchEntry(targetEntry);
+
+    if (!entry || !targetEntry) {
+      return;
+    }
+
     const swapIndex = entry.index;
     const targetIndex = targetEntry.index;
 

@@ -61,6 +61,8 @@ export class OnlinqFormCollectionEntryElement extends HTMLElement {
 
     if (!this.#collection) {
       console.error('A collection entry was created without a matching collection.');
+    } else {
+      this.#connectCollection(this.#collection);
     }
 
     this.#observer = new MutationObserver(this.#mutationCallback);
@@ -85,6 +87,10 @@ export class OnlinqFormCollectionEntryElement extends HTMLElement {
   }
 
   disconnectedCallback() {
+    if (this.#collection) {
+      this.#disconnectCollection(this.#collection);
+    }
+
     this.#disconnectButtons();
   }
 
@@ -111,7 +117,7 @@ export class OnlinqFormCollectionEntryElement extends HTMLElement {
 
     this.#collection = collection;
 
-    if (collection) {
+    if (collection && this.#collection !== collection) {
       this.#connectCollection(collection);
     }
 
@@ -126,8 +132,7 @@ export class OnlinqFormCollectionEntryElement extends HTMLElement {
   set collectionName(collectionName) {
     this.collection = collectionName
       ? this.closest(`onlinq-collection[name="${collectionName}"]`)
-      : this.closest('onlinq-collection')
-    ;
+      : this.closest('onlinq-collection');
   }
 
   get index() {
