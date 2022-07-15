@@ -329,13 +329,13 @@ export class OnlinqFormCollectionElement extends HTMLElement {
       return;
     }
 
-    const initialIndex = entry.index;
-    const targetIndex = targetEntry.index;
+    const initialIndex = +entry.index;
+    const targetIndex = +targetEntry.index;
 
     entry.index = '__swap__';
 
     if (targetIndex > initialIndex) {
-      for (let i = +initialIndex; i < targetIndex; i++) {
+      for (let i = initialIndex; i < targetIndex; i++) {
         const swapEntry = this.#matchEntry(i + 1);
 
         swapEntry.index = i;
@@ -343,7 +343,7 @@ export class OnlinqFormCollectionElement extends HTMLElement {
         this.insertBefore(swapEntry, entry);
       }
     } else {
-      for (let i = +initialIndex; i > targetIndex; i--) {
+      for (let i = initialIndex; i > targetIndex; i--) {
         const swapEntry = this.#matchEntry(i - 1);
 
         swapEntry.index = i;
