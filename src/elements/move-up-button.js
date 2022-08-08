@@ -1,4 +1,4 @@
-import {OnlinqFormCollectionEntryButtonElement} from './entry-button';
+import {OnlinqFormCollectionEntryButtonElement} from './collection-entry-button';
 
 export class OnlinqFormCollectionMoveUpButtonElement extends OnlinqFormCollectionEntryButtonElement {
   constructor() {

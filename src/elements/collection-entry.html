@@ -22,30 +22,22 @@
     flex-grow: var(--collection-entry-actions-flex-grow);
     margin: var(--collection-entry-actions-margin);
   }
-
-  [data-move-up],
-  [data-move-down],
-  [data-delete] {
-    display: none;
-  }
 </style>
 
 <div class="contents">
   <slot></slot>
 </div>
-<div class="actions">
+<div class="actions" data-actions-container>
   <slot name="actions">
-    <span data-move-up>
+    <span data-move-container>
       <slot name="move-up">
         <button is="onlinq-collection-move-up">Move up</button>
       </slot>
-    </span>
-    <span data-move-down>
       <slot name="move-down">
         <button is="onlinq-collection-move-down">Move down</button>
       </slot>
     </span>
-    <span data-delete>
+    <span data-delete-container>
       <slot name="delete">
         <button is="onlinq-collection-delete">Delete</button>
       </slot>

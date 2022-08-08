@@ -1,25 +1,25 @@
 import {
   attributeStateTransformers,
   attributeValueTransformers,
-  disableButton,
-  enableButton,
   replaceAttributeData,
 } from '../element-utilities';
 
 import collectionEntryDom from './collection-entry.html';
-import {OnlinqFormCollectionDeleteButtonElement} from './delete-button';
-import {OnlinqFormCollectionMoveDownButtonElement} from './move-down-button';
-import {OnlinqFormCollectionMoveUpButtonElement} from './move-up-button';
 
 export class OnlinqFormCollectionEntryElement extends HTMLElement {
   static get observedAttributes() {
     return [
+      'actions',
       'collection',
       'collection-index',
     ];
   }
 
   static observedAttributeBehaviours = {
+    'actions': {
+      type: 'string',
+      property: 'actions',
+    },
     'collection': {
       type: 'string',
       property: 'collectionName',
@@ -30,17 +30,16 @@ export class OnlinqFormCollectionEntryElement extends HTMLElement {
     },
   };
 
+  #actions = '';
   #collection = null;
   #index = null;
 
-  #deleteButtons = [];
-  #labelContainers = [];
-  #moveDownButtons = [];
-  #moveUpButtons = [];
+  #showActions = true;
 
+  #actionsContainer;
   #deleteContainer = null;
-  #moveDownContainer = null;
-  #moveUpContainer = null;
+  #labelContainers = [];
+  #moveContainer = null;
 
   #observer = null;
 
@@ -53,16 +52,14 @@ export class OnlinqFormCollectionEntryElement extends HTMLElement {
   connectedCallback() {
     this.#renderShadowDom();
 
+    this.actions = this.getAttribute('actions') ?? this.#actions;
     this.collectionName = this.getAttribute('collection') ?? this.#collection?.name;
-    const index = this.getAttribute('collection-index') ?? this.#index;
-    if (index) {
-      this.index = index;
-    }
+    this.index = this.getAttribute('collection-index') ?? this.#index;
 
-    if (!this.#collection) {
-      console.error('A collection entry was created without a matching collection.');
-    } else {
+    if (this.#collection) {
       this.#connectCollection(this.#collection);
+    } else {
+      console.error('A collection entry was created without a matching collection.');
     }
 
     this.#observer = new MutationObserver(this.#mutationCallback);
@@ -71,27 +68,16 @@ export class OnlinqFormCollectionEntryElement extends HTMLElement {
       subtree: true,
     });
 
-    this.querySelectorAll('button').forEach(button => {
-      if (button instanceof OnlinqFormCollectionDeleteButtonElement && !this.#deleteButtons.includes(button) && this.#isPartOfEntry(button)) {
-        this.#connectDeleteButton(button);
-      }
-
-      if (button instanceof OnlinqFormCollectionMoveDownButtonElement && !this.#moveDownButtons.includes(button) && this.#isPartOfEntry(button)) {
-        this.#connectMoveDownButton(button);
-      }
-
-      if (button instanceof OnlinqFormCollectionMoveUpButtonElement && !this.#moveUpButtons.includes(button) && this.#isPartOfEntry(button)) {
-        this.#connectMoveUpButton(button);
-      }
-    });
+    this.#updateDeleteContainer();
+    this.#updateMoveContainers();
   }
 
   disconnectedCallback() {
+    this.#observer.disconnect();
+
     if (this.#collection) {
       this.#disconnectCollection(this.#collection);
     }
-
-    this.#disconnectButtons();
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
@@ -103,6 +89,26 @@ export class OnlinqFormCollectionEntryElement extends HTMLElement {
 
     if (!isFresh) {
       this[behaviour.property] = value;
+    }
+  }
+
+  get actions() {
+    return this.#actions;
+  }
+
+  set actions(actions) {
+    actions = actions.toLowerCase();
+
+    const changed = this.#actions !== actions;
+    this.#actions = actions;
+
+    this.#updateAttribute('actions');
+
+    if (changed) {
+      const actionList = actions.split(/\W/);
+      this.#showActions = !actionList.includes('noactions');
+
+      this.#updateActionsContainer();
     }
   }
 
@@ -140,16 +146,26 @@ export class OnlinqFormCollectionEntryElement extends HTMLElement {
   }
 
   set index(nextIndex) {
-    const previousIndex = this.#index || this.#collection?.prototypeName;
-
-    if (nextIndex.toString() === previousIndex) {
+    if (!nextIndex && 0 !== nextIndex) {
       return;
     }
 
-    this.#index = nextIndex.toString();
+    if (typeof nextIndex !== 'string') {
+      nextIndex = nextIndex.toString();
+    }
 
-    if (!previousIndex) {
+    let previousIndex = this.#index;
+
+    if (nextIndex === previousIndex) {
       return;
+    }
+
+    this.#index = nextIndex;
+
+    if (!this.#collection) {
+      return;
+    } else if (!previousIndex) {
+      previousIndex = this.#collection?.prototypeName;
     }
 
     this.#labelContainers.forEach(container => {
@@ -158,8 +174,12 @@ export class OnlinqFormCollectionEntryElement extends HTMLElement {
 
     this.#updateAttribute('collection-index');
 
+    if (!this.#index) {
+      return;
+    }
+
     const collectionId = this.#collection?.getAttribute('id');
-    const collectionPrefix = this.#collection?.prefix;
+    const collectionPrefix = this.#collection?.prefix || this.#collection?.name;
 
     if (collectionId) {
       replaceAttributeData(
@@ -183,17 +203,52 @@ export class OnlinqFormCollectionEntryElement extends HTMLElement {
   }
 
   moveDown() {
-    this.#collection?.moveEntry(+this.index, +this.index + 1);
+    this.#collection?.moveEntry(this, +this.index + 1);
   }
 
   moveUp() {
-    this.#collection?.moveEntry(+this.index, +this.index - 1);
+    this.#collection?.moveEntry(this, +this.index - 1);
+  }
+
+  #connectCollection(collection) {
+    this.#updateDeleteContainer();
+    this.#updateMoveContainers();
+
+    collection.addEventListener('deletePolicyChanged', this.#collectionDeletePolicyChangedListener);
+    collection.addEventListener('movePolicyChanged', this.#collectionMovePolicyChangedListener);
+  }
+
+  #disconnectCollection(collection) {
+    this.#updateDeleteContainer();
+    this.#updateMoveContainers();
+
+    collection.removeEventListener('deletePolicyChanged', this.#collectionDeletePolicyChangedListener);
+    collection.removeEventListener('movePolicyChanged', this.#collectionMovePolicyChangedListener);
   }
 
   #isPartOfEntry(element) {
     const elementCollectionName = element.getAttribute('collection') ?? element.getAttribute('data-collection');
 
     return (this.collectionName && elementCollectionName === this.collectionName) || (!elementCollectionName && element.closest('onlinq-collection-entry') === this);
+  }
+
+  #renderShadowDom() {
+    this.shadowRoot.innerHTML = collectionEntryDom;
+
+    this.#actionsContainer = this.shadowRoot.querySelector('[data-actions-container]');
+    this.#deleteContainer = this.shadowRoot.querySelector('[data-delete-container]');
+    this.#moveContainer = this.shadowRoot.querySelector('[data-move-container]');
+  }
+
+  #updateActionsContainer() {
+    console.log(this.#showActions);
+    if (this.#actionsContainer) {
+      if (this.#showActions) {
+        this.#actionsContainer.style.display = 'block';
+      } else {
+        this.#actionsContainer.style.display = 'none';
+      }
+    }
   }
 
   #updateAttribute(attributeName) {
@@ -203,155 +258,25 @@ export class OnlinqFormCollectionEntryElement extends HTMLElement {
     transformer(this, attributeName, this[behaviour.property]);
   }
 
-  #updateDeleteButtons() {
-    const collection = this.#collection;
-
-    if (collection) {
-      const disable = collection.max > 0 && collection.entries.length >= collection.max;
-
-      this.#deleteButtons.forEach(button => {
-        if (disable) {
-          disableButton(button);
-        } else {
-          enableButton(button);
-        }
-      });
-    }
-  }
-
   #updateDeleteContainer() {
     if (this.#deleteContainer) {
       if (this.collection?.allowDelete) {
-        this.#deleteContainer.style.display = 'inline';
-      } else {
         this.#deleteContainer.style.removeProperty('display');
+      } else {
+        this.#deleteContainer.style.display = 'none';
       }
     }
   }
 
   #updateMoveContainers() {
-    if (this.#moveDownContainer) {
+    if (this.#moveContainer) {
       if (this.collection?.allowMove) {
-        this.#moveDownContainer.style.display = 'inline';
+        this.#moveContainer.style.removeProperty('display');
       } else {
-        this.#moveDownContainer.style.removeProperty('display');
-      }
-    }
-
-    if (this.#moveUpContainer) {
-      if (this.collection?.allowMove) {
-        this.#moveUpContainer.style.display = 'inline';
-      } else {
-        this.#moveUpContainer.style.removeProperty('display');
+        this.#moveContainer.style.display = 'none';
       }
     }
   }
-
-  #connectCollection(collection) {
-    this.#updateDeleteButtons();
-    this.#updateDeleteContainer();
-    this.#updateMoveContainers();
-
-    collection.addEventListener('entryAdded', this.#collectionEntryAddedListener);
-    collection.addEventListener('entryRemoved', this.#collectionEntryRemovedListener);
-    collection.addEventListener('deletePolicyChanged', this.#collectionDeletePolicyChangedListener);
-    collection.addEventListener('movePolicyChanged', this.#collectionMovePolicyChangedListener);
-    collection.addEventListener('minEntriesChanged', this.#collectionMinEntriesChangedListener);
-  }
-
-  #disconnectCollection(collection) {
-    this.#updateDeleteButtons();
-    this.#updateDeleteContainer();
-    this.#updateMoveContainers();
-
-    collection.removeEventListener('entryAdded', this.#collectionEntryAddedListener);
-    collection.removeEventListener('entryRemoved', this.#collectionEntryRemovedListener);
-    collection.removeEventListener('deletePolicyChanged', this.#collectionDeletePolicyChangedListener);
-    collection.removeEventListener('movePolicyChanged', this.#collectionMovePolicyChangedListener);
-    collection.removeEventListener('minEntriesChanged', this.#collectionMinEntriesChangedListener);
-  }
-
-  #connectDeleteButton(button) {
-    this.#deleteButtons.push(button);
-  }
-
-  #disconnectDeleteButton(button) {
-    const index = this.#deleteButtons.indexOf(button);
-
-    if (index !== -1) {
-      this.#deleteButtons.splice(index, 1);
-    }
-  }
-
-  #connectLabelContainer(container) {
-    this.#labelContainers.push(container);
-  }
-
-  #disconnectLabelContainer(container) {
-    const index = this.#labelContainers.indexOf(container);
-
-    if (index !== -1) {
-      this.#labelContainers.splice(index, 1);
-    }
-  }
-
-  #connectMoveDownButton(button) {
-    this.#moveDownButtons.push(button);
-  }
-
-  #disconnectMoveDownButton(button) {
-    const index = this.#moveDownButtons.indexOf(button);
-
-    if (index !== -1) {
-      this.#moveDownButtons.splice(index, 1);
-    }
-  }
-
-  #connectMoveUpButton(button) {
-    this.#moveUpButtons.push(button);
-  }
-
-  #disconnectMoveUpButton(button) {
-    const index = this.#moveUpButtons.indexOf(button);
-
-    if (index !== -1) {
-      this.#moveUpButtons.splice(index, 1);
-    }
-  }
-
-  #disconnectButtons() {
-    this.#deleteButtons.forEach(button => {
-      this.#disconnectDeleteButton(button);
-    });
-
-    this.#moveDownButtons.forEach(button => {
-      this.#disconnectMoveDownButton(button);
-    });
-
-    this.#moveUpButtons.forEach(button => {
-      this.#disconnectMoveUpButton(button);
-    });
-  }
-
-  #renderShadowDom() {
-    this.shadowRoot.innerHTML = collectionEntryDom;
-
-    this.#deleteContainer = this.shadowRoot.querySelector('[data-delete]');
-    this.#moveDownContainer = this.shadowRoot.querySelector('[data-move-down]');
-    this.#moveUpContainer = this.shadowRoot.querySelector('[data-move-up]');
-
-    this.#connectDeleteButton(this.shadowRoot.querySelector('[is="onlinq-collection-delete"]'));
-    this.#connectMoveDownButton(this.shadowRoot.querySelector('[is="onlinq-collection-move-down"]'));
-    this.#connectMoveUpButton(this.shadowRoot.querySelector('[is="onlinq-collection-move-up"]'));
-  }
-
-  #collectionEntryAddedListener = () => {
-    this.#updateDeleteButtons();
-  };
-
-  #collectionEntryRemovedListener = () => {
-    this.#updateDeleteButtons();
-  };
 
   #collectionDeletePolicyChangedListener = () => {
     this.#updateDeleteContainer();
@@ -361,49 +286,23 @@ export class OnlinqFormCollectionEntryElement extends HTMLElement {
     this.#updateMoveContainers();
   };
 
-  #collectionMinEntriesChangedListener = () => {
-    this.#updateDeleteButtons();
-  };
-
   #mutationCallback = records => {
     for (const record of records) {
-      if (record.type !== 'childList') {
-        continue;
-      }
-
       for (const node of record.addedNodes) {
-        if (node instanceof OnlinqFormCollectionDeleteButtonElement && this.#isPartOfEntry(node)) {
-          this.#connectDeleteButton(node);
+        if (!this.#isPartOfEntry(node)) {
+          continue;
         }
 
-        if (node instanceof HTMLElement && node.hasAttribute('collection-label') && this.#isPartOfEntry(node)) {
-          this.#connectLabelContainer(node);
-        }
-
-        if (node instanceof OnlinqFormCollectionMoveDownButtonElement && this.#isPartOfEntry(node)) {
-          this.#connectMoveDownButton(node);
-        }
-
-        if (node instanceof OnlinqFormCollectionMoveUpButtonElement && this.#isPartOfEntry(node)) {
-          this.#connectMoveUpButton(node);
+        if (node instanceof HTMLElement && node.hasAttribute('data-collection-label')) {
+          this.#labelContainers.push(node);
         }
       }
 
       for (const node in record.removedNodes) {
-        if (node instanceof OnlinqFormCollectionDeleteButtonElement && this.#deleteButtons.includes(node)) {
-          this.#disconnectDeleteButton(node);
-        }
+        if (this.#labelContainers.includes(node)) {
+          const index = this.#labelContainers.indexOf(node);
 
-        if (node instanceof HTMLElement && this.#labelContainers.includes(node)) {
-          this.#disconnectLabelContainer(node);
-        }
-
-        if (node instanceof OnlinqFormCollectionMoveDownButtonElement && this.#moveDownButtons.includes(node)) {
-          this.#disconnectMoveDownButton(node);
-        }
-
-        if (node instanceof OnlinqFormCollectionMoveUpButtonElement && this.#moveUpButtons.includes(node)) {
-          this.#disconnectMoveUpButton(node);
+          this.#labelContainers.splice(index, 1);
         }
       }
     }
