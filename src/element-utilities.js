@@ -41,5 +41,13 @@ export function replaceAttributeData(elements, toReplace, replaceWith) {
         attribute.value = attribute.value.replace(toReplace, replaceWith);
       }
     });
+
+    if (element.tagName === 'TEMPLATE') {
+      const templateContent = element.content.cloneNode(true);
+
+      replaceAttributeData(templateContent.querySelectorAll('*'), toReplace, replaceWith);
+
+      element.content.replaceChildren(...templateContent.children);
+    }
   });
 }

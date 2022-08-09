@@ -109,6 +109,7 @@ export class OnlinqFormCollectionElement extends HTMLElement {
     }
 
     this.#updateActionsContainer();
+    this.#updateContentContainers();
   }
 
   disconnectedCallback() {
