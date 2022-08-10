@@ -273,8 +273,9 @@ export class OnlinqFormCollectionElement extends HTMLElement {
     const entry = document.createElement('onlinq-collection-entry');
     entry.appendChild(this.#createPrototype());
     entry.collection = this;
-
     this.appendChild(entry);
+
+    this.#connectEntry(entry);
 
     return entry;
   }
@@ -380,6 +381,10 @@ export class OnlinqFormCollectionElement extends HTMLElement {
   }
 
   #connectEntry(entry) {
+    if (this.#entries.includes(entry)) {
+      return;
+    }
+
     let index = entry.getAttribute('collection-index');
 
     if (!index) {
