@@ -43,11 +43,7 @@ export function replaceAttributeData(elements, toReplace, replaceWith) {
     });
 
     if (element.tagName === 'TEMPLATE') {
-      const templateContent = element.content.cloneNode(true);
-
-      replaceAttributeData(templateContent.querySelectorAll('*'), toReplace, replaceWith);
-
-      element.content.replaceChildren(...templateContent.children);
+      replaceAttributeData(element.content.querySelectorAll('*'), toReplace, replaceWith);
     }
   });
 }
