@@ -3,27 +3,45 @@ import {expect, fixture} from '@open-wc/testing';
 import '../dist/onlinq-collection';
 
 describe('onlinq-collection-entry', () => {
-  it('has default shadow dom', async () => {
+  it('shows default shadow dom', async () => {
     const el = await fixture('<onlinq-collection-entry></onlinq-collection-entry>');
 
-    expect(getComputedStyle(el.shadowRoot.querySelector('[data-move-up]')).display).to.equal('none');
-    expect(getComputedStyle(el.shadowRoot.querySelector('[data-move-down]')).display).to.equal('none');
-    expect(getComputedStyle(el.shadowRoot.querySelector('[data-delete]')).display).to.equal('none');
+    expect(getComputedStyle(el.shadowRoot.querySelector('[data-actions-container]')).display).to.equal('block');
+    expect(getComputedStyle(el.shadowRoot.querySelector('[data-delete-container]')).display).to.equal('inline');
+    expect(getComputedStyle(el.shadowRoot.querySelector('[data-move-container]')).display).to.equal('inline');
   });
 
-  it('has "delete" block when allowDelete is set on collection', async () => {
+  it('doesn\'t show "actions" block when "noactions" is set.', async () => {
+    const el = await fixture('<onlinq-collection-entry actions="noactions"></onlinq-collection-entry>');
+
+    expect(getComputedStyle(el.shadowRoot.querySelector('[data-actions-container]')).display).to.equal('none');
+  });
+
+  it('shows "delete" block when deleting entries is allowed on collection', async () => {
     const collection = await fixture(`
-      <onlinq-collection allow-delete>
+      <onlinq-collection actions="delete">
         <onlinq-collection-entry></onlinq-collection-entry>
       </onlinq-collection>
     `);
 
     const el = collection.querySelector('onlinq-collection-entry');
 
-    expect(getComputedStyle(el.shadowRoot.querySelector('[data-delete]')).display).to.equal('inline');
+    expect(getComputedStyle(el.shadowRoot.querySelector('[data-delete-container]')).display).to.equal('inline');
   });
 
-  it('has "move-up" and "move-down" blocks when allowMove is set on collection', async () => {
+  it('doesn\'t show "delete" block when deleting entries isn\'t allowed on collection', async () => {
+    const collection = await fixture(`
+      <onlinq-collection actions="noactions">
+        <onlinq-collection-entry></onlinq-collection-entry>
+      </onlinq-collection>
+    `);
+
+    const el = collection.querySelector('onlinq-collection-entry');
+
+    expect(getComputedStyle(el.shadowRoot.querySelector('[data-delete-container]')).display).to.equal('none');
+  });
+
+  it('shows "move" block when moving entries is allowed on collection', async () => {
     const collection = await fixture(`
       <onlinq-collection allow-move>
         <onlinq-collection-entry></onlinq-collection-entry>
@@ -32,7 +50,18 @@ describe('onlinq-collection-entry', () => {
 
     const el = collection.querySelector('onlinq-collection-entry');
 
-    expect(getComputedStyle(el.shadowRoot.querySelector('[data-move-up]')).display).to.equal('inline');
-    expect(getComputedStyle(el.shadowRoot.querySelector('[data-move-down]')).display).to.equal('inline');
+    expect(getComputedStyle(el.shadowRoot.querySelector('[data-move-container]')).display).to.equal('inline');
+  });
+
+  it('doesn\'t show "move" block when moving entries isn\'t allowed on collection', async () => {
+    const collection = await fixture(`
+      <onlinq-collection actions="noactions">
+        <onlinq-collection-entry></onlinq-collection-entry>
+      </onlinq-collection>
+    `);
+
+    const el = collection.querySelector('onlinq-collection-entry');
+
+    expect(getComputedStyle(el.shadowRoot.querySelector('[data-move-container]')).display).to.equal('none');
   });
 });

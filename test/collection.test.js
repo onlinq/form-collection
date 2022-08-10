@@ -3,12 +3,13 @@ import {expect, fixture} from '@open-wc/testing';
 import '../dist/onlinq-collection';
 
 describe('onlinq-collection', () => {
-  it('has default shadow dom', async () => {
+  it('shows default shadow dom', async () => {
     const el = await fixture('<onlinq-collection></onlinq-collection>');
 
-    expect(getComputedStyle(el.shadowRoot.querySelector('[data-collection]')).display).to.equal('none');
-    expect(getComputedStyle(el.shadowRoot.querySelector('[data-placeholder]')).display).to.equal('block');
-    expect(getComputedStyle(el.shadowRoot.querySelector('[data-add]')).display).to.equal('none');
+    expect(getComputedStyle(el.shadowRoot.querySelector('[data-actions-container]')).display).to.equal('block');
+    expect(getComputedStyle(el.shadowRoot.querySelector('[data-add-container]')).display).to.equal('inline');
+    expect(getComputedStyle(el.shadowRoot.querySelector('[data-collection-container]')).display).to.equal('none');
+    expect(getComputedStyle(el.shadowRoot.querySelector('[data-placeholder-container]')).display).to.equal('block');
   });
 
   it('returns null if no name is set', async () => {
@@ -32,31 +33,37 @@ describe('onlinq-collection', () => {
   it('shows placeholder when no entries are defined on initialization', async () => {
     const el = await fixture(`<onlinq-collection></onlinq-collection>`);
 
-    expect(getComputedStyle(el.shadowRoot.querySelector('[data-collection]')).display).to.equal('none');
-    expect(getComputedStyle(el.shadowRoot.querySelector('[data-placeholder]')).display).to.equal('block');
+    expect(getComputedStyle(el.shadowRoot.querySelector('[data-collection-container]')).display).to.equal('none');
+    expect(getComputedStyle(el.shadowRoot.querySelector('[data-placeholder-container]')).display).to.equal('block');
   });
 
-  it('hides placeholder when entries are defined on initialization', async () => {
+  it('shows entries when entries are defined on initialization', async () => {
     const el = await fixture(`
       <onlinq-collection>
         <onlinq-collection-entry></onlinq-collection-entry>
       </onlinq-collection>
     `);
 
-    expect(getComputedStyle(el.shadowRoot.querySelector('[data-collection]')).display).to.equal('block');
-    expect(getComputedStyle(el.shadowRoot.querySelector('[data-placeholder]')).display).to.equal('none');
+    expect(getComputedStyle(el.shadowRoot.querySelector('[data-collection-container]')).display).to.equal('block');
+    expect(getComputedStyle(el.shadowRoot.querySelector('[data-placeholder-container]')).display).to.equal('none');
   });
 
-  it('displays "add" block when the "allow-add" attribute is set', async () => {
-    const el = await fixture('<onlinq-collection allow-add></onlinq-collection>');
+  it('doesn\'t show "actions" block when "noactions" is set.', async () => {
+    const el = await fixture('<onlinq-collection actions="noactions"></onlinq-collection>');
 
-    expect(getComputedStyle(el.shadowRoot.querySelector('[data-add]')).display).to.equal('inline');
+    expect(getComputedStyle(el.shadowRoot.querySelector('[data-actions-container]')).display).to.equal('none');
+  });
+
+  it('shows "add" block when adding entries is allowed on the collection', async () => {
+    const el = await fixture('<onlinq-collection actions="add"></onlinq-collection>');
+
+    expect(getComputedStyle(el.shadowRoot.querySelector('[data-add-container]')).display).to.equal('inline');
   });
 
   it('adds new entries', async () => {
     const el = await fixture(`
-      <onlinq-collection allow-add allow-delete>
-        <template collection-prototype></template>
+      <onlinq-collection>
+        <template data-collection-prototype></template>
       </onlinq-collection>
     `);
 
@@ -68,7 +75,7 @@ describe('onlinq-collection', () => {
   it('properly updates nextIndex', async () => {
     const el = await fixture(`
       <onlinq-collection allow-add allow-delete>
-        <template collection-prototype></template>
+        <template data-collection-prototype></template>
       </onlinq-collection>
     `);
 
@@ -87,10 +94,10 @@ describe('onlinq-collection', () => {
     entry.deleteEntry();
   });
 
-  it('prevents creating entries when the "allow-add" attribute is not set', async () => {
+  it('prevents creating entries when adding entries isn\'t allowed on the collection', async () => {
     const el = await fixture(`
-      <onlinq-collection>
-        <template collection-prototype></template>
+      <onlinq-collection actions="">
+        <template data-collection-prototype></template>
       </onlinq-collection>
     `);
 
@@ -100,10 +107,10 @@ describe('onlinq-collection', () => {
     expect(el.entries.length).to.equal(0);
   });
 
-  it('prevents removing entries when the "allow-delete" attribute is not set', async () => {
+  it('prevents removing entries when deleting entries isn\'t allowed on the collection', async () => {
     const el = await fixture(`
-      <onlinq-collection>
-        <template collection-prototype></template>
+      <onlinq-collection actions="">
+        <template data-collection-prototype></template>
         <onlinq-collection-entry collection-index="0"></onlinq-collection-entry>
       </onlinq-collection>
     `);
@@ -116,8 +123,8 @@ describe('onlinq-collection', () => {
 
   it('prevents creating more entries than specified by "max" attribute', async () => {
     const el = await fixture(`
-      <onlinq-collection allow-add max="3">
-        <template collection-prototype></template>
+      <onlinq-collection max="3">
+        <template data-collection-prototype></template>
         <onlinq-collection-entry collection-index="0"></onlinq-collection-entry>
         <onlinq-collection-entry collection-index="1"></onlinq-collection-entry>
         <onlinq-collection-entry collection-index="2"></onlinq-collection-entry>
@@ -132,8 +139,8 @@ describe('onlinq-collection', () => {
 
   it('prevents removing entries if the current count is lower than the "min" attribute', async () => {
     const el = await fixture(`
-      <onlinq-collection allow-delete min="3">
-        <template collection-prototype></template>
+      <onlinq-collection min="3">
+        <template data-collection-prototype></template>
         <onlinq-collection-entry collection-index="0"></onlinq-collection-entry>
         <onlinq-collection-entry collection-index="1"></onlinq-collection-entry>
         <onlinq-collection-entry collection-index="2"></onlinq-collection-entry>

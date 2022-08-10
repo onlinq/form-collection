@@ -241,7 +241,6 @@ export class OnlinqFormCollectionEntryElement extends HTMLElement {
   }
 
   #updateActionsContainer() {
-    console.log(this.#showActions);
     if (this.#actionsContainer) {
       if (this.#showActions) {
         this.#actionsContainer.style.display = 'block';
@@ -260,7 +259,7 @@ export class OnlinqFormCollectionEntryElement extends HTMLElement {
 
   #updateDeleteContainer() {
     if (this.#deleteContainer) {
-      if (this.collection?.allowDelete) {
+      if (this.collection?.allowDelete ?? true) {
         this.#deleteContainer.style.removeProperty('display');
       } else {
         this.#deleteContainer.style.display = 'none';
@@ -270,7 +269,7 @@ export class OnlinqFormCollectionEntryElement extends HTMLElement {
 
   #updateMoveContainers() {
     if (this.#moveContainer) {
-      if (this.collection?.allowMove) {
+      if (this.collection?.allowMove ?? true) {
         this.#moveContainer.style.removeProperty('display');
       } else {
         this.#moveContainer.style.display = 'none';

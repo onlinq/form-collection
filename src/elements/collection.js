@@ -456,8 +456,6 @@ export class OnlinqFormCollectionElement extends HTMLElement {
     const changed = this.#allowAdd !== allowAdd;
     this.#allowAdd = allowAdd;
 
-    console.log(allowAdd);
-
     this.#updateAddContainer();
 
     if (changed) {
