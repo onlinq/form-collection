@@ -530,7 +530,7 @@ export class OnlinqFormCollectionElement extends HTMLElement {
   #mutationCallback = records => {
     for (const record of records) {
       for (const node of record.addedNodes) {
-        if (!this.#isPartOfCollection(node)) {
+        if (!(node instanceof HTMLElement) || !this.#isPartOfCollection(node)) {
           continue;
         }
 
@@ -538,7 +538,7 @@ export class OnlinqFormCollectionElement extends HTMLElement {
           this.#connectEntry(node);
         }
 
-        if (node instanceof HTMLTemplateElement && node.hasAttribute('data-collection-prototype')) {
+        if (node.hasAttribute('data-collection-prototype')) {
           this.#prototypeTemplate = node;
         }
       }

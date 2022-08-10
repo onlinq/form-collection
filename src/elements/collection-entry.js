@@ -288,11 +288,11 @@ export class OnlinqFormCollectionEntryElement extends HTMLElement {
   #mutationCallback = records => {
     for (const record of records) {
       for (const node of record.addedNodes) {
-        if (!this.#isPartOfEntry(node)) {
+        if (!(node instanceof HTMLElement) || !this.#isPartOfEntry(node)) {
           continue;
         }
 
-        if (node instanceof HTMLElement && node.hasAttribute('data-collection-label')) {
+        if (node.hasAttribute('data-collection-label')) {
           this.#labelContainers.push(node);
         }
       }
