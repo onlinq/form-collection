@@ -1,7 +1,7 @@
 export const attributeValueTransformers = {
   bool: value => value !== null,
   number: value => +value,
-  string: value => value,
+  string: value => value ?? null,
 };
 
 export const attributeStateTransformers = {

@@ -17,7 +17,7 @@ export class OnlinqFormCollectionEntryElement extends HTMLElement {
 
   static observedAttributeBehaviours = {
     'actions': {
-      type: 'string',
+      type: 'bool',
       property: 'actions',
     },
     'collection': {
@@ -30,11 +30,9 @@ export class OnlinqFormCollectionEntryElement extends HTMLElement {
     },
   };
 
-  #actions = '';
+  #actions = false;
   #collection = null;
   #index = null;
-
-  #showActions = true;
 
   #actionsContainer;
   #deleteContainer = null;
@@ -52,7 +50,8 @@ export class OnlinqFormCollectionEntryElement extends HTMLElement {
   connectedCallback() {
     this.#renderShadowDom();
 
-    this.actions = this.getAttribute('actions') ?? this.#actions;
+    // Update attributes if properties were changed before connecting the element to the DOM
+    this.actions = this.hasAttribute('actions') || this.#actions;
     this.collectionName = this.getAttribute('collection') ?? this.#collection?.name;
     this.index = this.getAttribute('collection-index') ?? this.#index;
 
@@ -62,12 +61,14 @@ export class OnlinqFormCollectionEntryElement extends HTMLElement {
       console.error('A collection entry was created without a matching collection.');
     }
 
+    // Observe changes to DOM
     this.#observer = new MutationObserver(this.#mutationCallback);
     this.#observer.observe(this, {
       childList: true,
       subtree: true,
     });
 
+    this.#updateActionsContainer();
     this.#updateDeleteContainer();
     this.#updateMoveContainers();
   }
@@ -97,17 +98,12 @@ export class OnlinqFormCollectionEntryElement extends HTMLElement {
   }
 
   set actions(actions) {
-    actions = actions.toLowerCase();
-
     const changed = this.#actions !== actions;
     this.#actions = actions;
 
     this.#updateAttribute('actions');
 
     if (changed) {
-      const actionList = actions.split(/\W/);
-      this.#showActions = !actionList.includes('noactions');
-
       this.#updateActionsContainer();
     }
   }
@@ -242,7 +238,7 @@ export class OnlinqFormCollectionEntryElement extends HTMLElement {
 
   #updateActionsContainer() {
     if (this.#actionsContainer) {
-      if (this.#showActions) {
+      if (this.#actions) {
         this.#actionsContainer.style.display = 'block';
       } else {
         this.#actionsContainer.style.display = 'none';

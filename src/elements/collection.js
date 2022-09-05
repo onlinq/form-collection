@@ -9,19 +9,24 @@ export class OnlinqFormCollectionElement extends HTMLElement {
   static get observedAttributes() {
     return [
       'actions',
+      'actionlist',
       'max',
       'min',
       'name',
       'prefix',
+      'prototype-actions',
       'prototype-name',
     ];
   }
 
   static observedAttributeBehaviours = {
-    'actions': {
+    'actionlist': {
       type: 'string',
+      property: 'actionList',
+    },
+    'actions': {
+      type: 'bool',
       property: 'actions',
-      defaultValue: 'all',
     },
     'max': {
       type: 'number',
@@ -41,6 +46,10 @@ export class OnlinqFormCollectionElement extends HTMLElement {
       type: 'string',
       property: 'prefix',
     },
+    'prototype-actions': {
+      type: 'bool',
+      property: 'prototypeActions',
+    },
     'prototype-name': {
       type: 'string',
       property: 'prototypeName',
@@ -48,11 +57,13 @@ export class OnlinqFormCollectionElement extends HTMLElement {
     },
   };
 
-  #actions = 'all';
+  #actionList = null;
+  #actions = false;
   #max = 0;
   #min = 0;
   #name = null;
   #prefix = null;
+  #prototypeActions = false;
   #prototypeName = '__name__';
 
   #allowAdd = true;
@@ -60,7 +71,6 @@ export class OnlinqFormCollectionElement extends HTMLElement {
   #allowMove = true;
   #entries = [];
   #nextIndex = 0;
-  #showActions = true;
 
   #actionsContainer = null;
   #addContainer = null;
@@ -81,11 +91,14 @@ export class OnlinqFormCollectionElement extends HTMLElement {
     this.#renderShadowDom();
 
     // Update attributes if properties were changed before connecting the element to the DOM
-    this.actions = this.getAttribute('actions') ?? this.#actions;
+    this.actionList = this.getAttribute('actionlist') ?? this.#actionList;
+    this.actions = this.hasAttribute('actions') || this.#actions;
     this.max = this.hasAttribute('max') ? +this.getAttribute('max') : this.#max;
     this.min = this.hasAttribute('min') ? +this.getAttribute('min') : this.#min;
     this.name = this.getAttribute('name') ?? this.#name;
     this.prefix = this.getAttribute('prefix') ?? this.#prefix;
+    this.prototypeActions = this.hasAttribute('prototype-actions') || this.#prototypeActions;
+    this.prototypeName = this.getAttribute('prototype-name') ?? this.#prototypeName;
 
     // Observe changes to DOM
     this.#observer = new MutationObserver(this.#mutationCallback);
@@ -128,29 +141,39 @@ export class OnlinqFormCollectionElement extends HTMLElement {
     }
   }
 
+  get actionList() {
+    return this.#actionList;
+  }
+
+  set actionList(actionList) {
+    actionList = actionList?.toLowerCase();
+
+    const changed = this.#actionList !== actionList;
+    this.#actionList = actionList;
+
+    this.#updateAttribute('actionlist');
+
+    if (changed) {
+      const actions = actionList ? actionList.split(/\W/) : ['all'];
+      const all = actions.includes('all');
+
+      this.#toggleAdd(all || actions.includes('add'));
+      this.#toggleDelete(all || actions.includes('delete'));
+      this.#toggleMove(all || actions.includes('move'));
+    }
+  }
+
   get actions() {
     return this.#actions;
   }
 
   set actions(actions) {
-    actions = actions.toLowerCase();
-
     const changed = this.#actions !== actions;
     this.#actions = actions;
 
     this.#updateAttribute('actions');
 
     if (changed) {
-      const actionList = actions.split(/\W/);
-      const all = actionList.includes('all');
-
-      this.#toggleAdd(all || actions.includes('add'));
-      this.#toggleDelete(all || actions.includes('delete'));
-      this.#toggleMove(all || actions.includes('move'));
-
-      this.#showActions = !actionList.includes('noactions');
-
-      this.#updateAddContainer();
       this.#updateActionsContainer();
     }
   }
@@ -225,6 +248,16 @@ export class OnlinqFormCollectionElement extends HTMLElement {
     this.#updateAttribute('prefix');
   }
 
+  get prototypeActions() {
+    return this.#prototypeActions;
+  }
+
+  set prototypeActions(prototypeActions) {
+    this.#prototypeActions = prototypeActions;
+
+    this.#updateAttribute('prototype-actions');
+  }
+
   get prototypeName() {
     return this.#prototypeName;
   }
@@ -273,6 +306,7 @@ export class OnlinqFormCollectionElement extends HTMLElement {
     const entry = document.createElement('onlinq-collection-entry');
     entry.appendChild(this.#createPrototype());
     entry.collection = this;
+    entry.actions = this.#prototypeActions;
     this.appendChild(entry);
 
     this.#connectEntry(entry);
@@ -461,9 +495,9 @@ export class OnlinqFormCollectionElement extends HTMLElement {
     const changed = this.#allowAdd !== allowAdd;
     this.#allowAdd = allowAdd;
 
-    this.#updateAddContainer();
-
     if (changed) {
+      this.#updateAddContainer();
+
       this.dispatchEvent(new CustomEvent('addPolicyChanged'));
     }
   }
@@ -471,8 +505,6 @@ export class OnlinqFormCollectionElement extends HTMLElement {
   #toggleDelete(allowDelete) {
     const changed = this.#allowDelete !== allowDelete;
     this.#allowDelete = allowDelete;
-
-    this.#updateAddContainer();
 
     if (changed) {
       this.dispatchEvent(new CustomEvent('deletePolicyChanged'));
@@ -490,7 +522,7 @@ export class OnlinqFormCollectionElement extends HTMLElement {
 
   #updateActionsContainer() {
     if (this.#actionsContainer) {
-      if (this.#showActions) {
+      if (this.#actions) {
         this.#actionsContainer.style.display = 'block';
       } else {
         this.#actionsContainer.style.display = 'none';
