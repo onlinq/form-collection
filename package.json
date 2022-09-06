@@ -3,7 +3,10 @@
   "version": "0.2.0",
   "description": "Web components for building dynamic form collections",
   "license": "MIT",
-  "author": "Tim Goudriaan",
+  "author": "Tim Goudriaan <tim@onlinq.nl>",
+  "repository": "github:onlinq/form-collection",
+  "homepage": "https://www.onlinq.dev/docs/form-collection",
+  "bugs": "https://github.com/onlinq/form-collection/issues",
   "main": "dist/onlinq-collection.js",
   "devDependencies": {
     "@babel/core": "^7.12.10",
