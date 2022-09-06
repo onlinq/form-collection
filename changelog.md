@@ -1,5 +1,10 @@
 # Changelog
 
+# 0.2.0 (2022-09-06)
+
+* Rewrote web components to use mutation observers for updating state.
+* Added button components for collection actions.
+
 # 0.1.4 (2022-05-04)
 
 * Improves matching of buttons to the collection
