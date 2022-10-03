@@ -13,13 +13,9 @@
   <body>
     <onlinq-collection
       id="fruits_fruits"
-      class=""
       name="fruits[fruits]"
-      allow-add="allow-add"
-      allow-delete="allow-delete"
-      allow-move="allow-move"
-      min="0"
-      max="0"
+      actions
+      prototype-actions
     >
       <template data-collection-prototype>
         <input
@@ -29,7 +25,7 @@
           required="required"
         />
       </template>
-      <onlinq-collection-entry collection-index="0">
+      <onlinq-collection-entry collection-index="0" actions>
         <input
           type="text"
           id="fruits_fruits_0"
@@ -38,7 +34,7 @@
           value="Apple"
         />
       </onlinq-collection-entry>
-      <onlinq-collection-entry collection-index="1">
+      <onlinq-collection-entry collection-index="1" actions>
         <input
           type="text"
           id="fruits_fruits_1"
@@ -47,7 +43,7 @@
           value="Banana"
         />
       </onlinq-collection-entry>
-      <onlinq-collection-entry collection-index="2">
+      <onlinq-collection-entry collection-index="2" actions>
         <input
           type="text"
           id="fruits_fruits_2"

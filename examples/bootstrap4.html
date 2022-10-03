@@ -24,13 +24,9 @@
                 <legend class="col-form-label required">Fruits</legend>
                 <onlinq-collection
                   id="fruits_fruits"
-                  class=""
                   name="fruits[fruits]"
-                  allow-add="allow-add"
-                  allow-delete="allow-delete"
-                  allow-move="allow-move"
-                  min="0"
-                  max="0"
+                  actions
+                  prototype-actions
                 >
                   <template data-collection-prototype>
                     <div class="form-group">
@@ -42,11 +38,11 @@
                         class="form-control"
                       />
                     </div>
-                    <span slot="move-up"><button is="onlinq-collection-move-up" class="btn btn-light mr-2" data-collection="fruits[fruits]">&uparrow;</button></span>
-                    <span slot="move-down"><button is="onlinq-collection-move-down" class="btn btn-light mr-2" data-collection="fruits[fruits]">&downarrow;</button></span>
-                    <span slot="delete"><button is="onlinq-collection-delete" class="btn btn-light mr-2" data-collection="fruits[fruits]">Delete</button></span>
+                    <span slot="move-up"><button is="onlinq-collection-move-up" type="button" class="btn btn-light mr-2" data-collection="fruits[fruits]">&uparrow;</button></span>
+                    <span slot="move-down"><button is="onlinq-collection-move-down" type="button" class="btn btn-light mr-2" data-collection="fruits[fruits]">&downarrow;</button></span>
+                    <span slot="delete"><button is="onlinq-collection-delete" type="button" class="btn btn-light mr-2" data-collection="fruits[fruits]">Delete</button></span>
                   </template>
-                  <onlinq-collection-entry collection-index="0">
+                  <onlinq-collection-entry collection-index="0" actions>
                     <div class="form-group">
                       <input
                         type="text"
@@ -57,11 +53,11 @@
                         value="Apple"
                       />
                     </div>
-                    <span slot="move-up"><button is="onlinq-collection-move-up" class="btn btn-light mr-2" data-collection="fruits[fruits]">&uparrow;</button></span>
-                    <span slot="move-down"><button is="onlinq-collection-move-down" class="btn btn-light mr-2" data-collection="fruits[fruits]">&downarrow;</button></span>
-                    <span slot="delete"><button is="onlinq-collection-delete" class="btn btn-light mr-2" data-collection="fruits[fruits]">Delete</button></span>
+                    <span slot="move-up"><button is="onlinq-collection-move-up" type="button" class="btn btn-light mr-2" data-collection="fruits[fruits]">&uparrow;</button></span>
+                    <span slot="move-down"><button is="onlinq-collection-move-down" type="button" class="btn btn-light mr-2" data-collection="fruits[fruits]">&downarrow;</button></span>
+                    <span slot="delete"><button is="onlinq-collection-delete" type="button" class="btn btn-light mr-2" data-collection="fruits[fruits]">Delete</button></span>
                   </onlinq-collection-entry>
-                  <onlinq-collection-entry collection-index="1">
+                  <onlinq-collection-entry collection-index="1" actions>
                     <div class="form-group">
                       <input
                         type="text"
@@ -72,11 +68,11 @@
                         value="Banana"
                       />
                     </div>
-                    <span slot="move-up"><button is="onlinq-collection-move-up" class="btn btn-light mr-2" data-collection="fruits[fruits]">&uparrow;</button></span>
-                    <span slot="move-down"><button is="onlinq-collection-move-down" class="btn btn-light mr-2" data-collection="fruits[fruits]">&downarrow;</button></span>
-                    <span slot="delete"><button is="onlinq-collection-delete" class="btn btn-light mr-2" data-collection="fruits[fruits]">Delete</button></span>
+                    <span slot="move-up"><button is="onlinq-collection-move-up" type="button" class="btn btn-light mr-2" data-collection="fruits[fruits]">&uparrow;</button></span>
+                    <span slot="move-down"><button is="onlinq-collection-move-down" type="button" class="btn btn-light mr-2" data-collection="fruits[fruits]">&downarrow;</button></span>
+                    <span slot="delete"><button is="onlinq-collection-delete" type="button" class="btn btn-light mr-2" data-collection="fruits[fruits]">Delete</button></span>
                   </onlinq-collection-entry>
-                  <onlinq-collection-entry collection-index="2">
+                  <onlinq-collection-entry collection-index="2" actions>
                     <div class="form-group">
                       <input
                         type="text"
@@ -87,9 +83,9 @@
                         value="Orange"
                       />
                     </div>
-                    <span slot="move-up"><button is="onlinq-collection-move-up" class="btn btn-light mr-2" data-collection="fruits[fruits]">&uparrow;</button></span>
-                    <span slot="move-down"><button is="onlinq-collection-move-down" class="btn btn-light mr-2" data-collection="fruits[fruits]">&downarrow;</button></span>
-                    <span slot="delete"><button is="onlinq-collection-delete" class="btn btn-light mr-2" data-collection="fruits[fruits]">Delete</button></span>
+                    <span slot="move-up"><button is="onlinq-collection-move-up" type="button" class="btn btn-light mr-2" data-collection="fruits[fruits]">&uparrow;</button></span>
+                    <span slot="move-down"><button is="onlinq-collection-move-down" type="button" class="btn btn-light mr-2" data-collection="fruits[fruits]">&downarrow;</button></span>
+                    <span slot="delete"><button is="onlinq-collection-delete" type="button" class="btn btn-light mr-2" data-collection="fruits[fruits]">Delete</button></span>
                   </onlinq-collection-entry>
 
                   <div slot="add">

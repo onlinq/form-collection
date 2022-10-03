@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Onlinq Form Collection Demo</title>
+
+    <link rel="stylesheet" href="../dist/onlinq-collection.css">
+
+    <script src="../dist/onlinq-collection.js"></script>
+
+    <style>
+      .category-row {
+        margin-bottom: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <onlinq-collection
+      id="food"
+      name="food"
+      actions
+      prototype-actions
+    >
+      <template data-collection-prototype>
+        <div class="category-row">
+          <label>Category</label>
+          <div>
+            <input
+              type="text"
+              id="food___name___category"
+              name="food[__name__][category]"
+              required="required"
+            />
+          </div>
+        </div>
+        <fieldset>
+          <onlinq-collection
+            id="food___name___foods"
+            name="food[__name__][foods]"
+            prototype-name="__food__"
+            actions
+            prototype-actions
+          >
+            <template data-collection-prototype>
+              <input
+                type="text"
+                id="food___name___foods___food__"
+                name="food[__name__][foods][__food__]"
+                required="required"
+              />
+            </template>
+          </onlinq-collection>
+        </fieldset>
+      </template>
+      <onlinq-collection-entry collection-index="0" actions>
+        <div class="category-row">
+          <label>Category</label>
+          <div>
+            <input
+              type="text"
+              id="food_0_category"
+              name="food[0][category]"
+              required="required"
+              value="Fruits"
+            />
+          </div>
+        </div>
+        <fieldset>
+          <onlinq-collection
+            id="food_0_foods"
+            name="food[0][foods]"
+            prototype-name="__food__"
+            actions
+            prototype-actions
+          >
+            <template data-collection-prototype>
+              <input
+                type="text"
+                id="food_0_foods___food__"
+                name="food[0][foods][__food__]"
+                required="required"
+              />
+            </template>
+            <onlinq-collection-entry collection-index="0" actions>
+              <input
+                type="text"
+                id="food_0_foods_0"
+                name="food[0][foods][0]"
+                required="required"
+                value="Apple"
+              />
+            </onlinq-collection-entry>
+            <onlinq-collection-entry collection-index="1" actions>
+              <input
+                type="text"
+                id="food_0_foods_1"
+                name="food[0][foods][1]"
+                required="required"
+                value="Banana"
+              />
+            </onlinq-collection-entry>
+            <onlinq-collection-entry collection-index="2" actions>
+              <input
+                type="text"
+                id="food_0_foods_2"
+                name="food[0][foods][2]"
+                required="required"
+                value="Orange"
+              />
+            </onlinq-collection-entry>
+          </onlinq-collection>
+        </fieldset>
+      </onlinq-collection-entry>
+    </onlinq-collection>
+  </body>
+</html>

@@ -10,8 +10,18 @@ collection and entries during interactions from the user.
 - [`entryAdded`](elements/onlinq-collection.md#events)  
   Fired when a new entry is added to the collection.
 
-- [`befireEntryRemoved`](elements/onlinq-collection.md#events)  
+- [`beforeEntryRemoved`](elements/onlinq-collection.md#events)  
   Fired before an entry is removed from the collection.
 
 - [`entryRemoved`](elements/onlinq-collection.md#events)  
   Fired when an entry is removed from the collection.
+
+- [`addPolicyChanged`](elements/onlinq-collection.md#events)  
+  Fired when the action to add entries to the collection is enabled or disabled.
+
+- [`deletePolicyChanged`](elements/onlinq-collection.md#events)  
+  Fired when the action to remove entries to the collection is enabled or  
+  disabled.
+
+- [`movePolicyChanged`](elements/onlinq-collection.md#events)  
+  Fired when the action to move entries to the collection is enabled or disabled.
