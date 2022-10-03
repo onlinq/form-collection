@@ -415,10 +415,6 @@ export class OnlinqFormCollectionElement extends HTMLElement {
   }
 
   #connectEntry(entry) {
-    if (this.#entries.includes(entry)) {
-      return;
-    }
-
     let index = entry.getAttribute('collection-index');
 
     if (!index) {
@@ -426,7 +422,6 @@ export class OnlinqFormCollectionElement extends HTMLElement {
     }
 
     this.#entries.push(entry);
-
     this.#nextIndex++;
 
     this.dispatchEvent(new CustomEvent('entryAdded', {
@@ -445,11 +440,16 @@ export class OnlinqFormCollectionElement extends HTMLElement {
   #disconnectEntry(entry) {
     const index = this.#entries.indexOf(entry);
 
-    if (index !== -1) {
-      this.#entries.splice(index, 1);
-    }
-
+    this.#entries.splice(index, 1);
     this.#nextIndex--;
+
+    this.#entries.forEach(entry => {
+      if (entry.index < index) {
+        return;
+      }
+
+      entry.index = entry.index - 1;
+    });
 
     this.dispatchEvent(new CustomEvent('entryRemoved'));
 
