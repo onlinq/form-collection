@@ -107,12 +107,8 @@ export class OnlinqFormCollectionElement extends HTMLElement {
       subtree: true,
     });
 
-    // Index and sort entries
-    this.querySelectorAll(':scope > onlinq-collection-entry').forEach(entry => {
-      if (!this.#entries.includes(entry)) {
-        this.#connectEntry(entry);
-      }
-    });
+    // Map existing entries
+    this.#mapEntries();
 
     // Find initial prototype template
     if (!this.#prototypeTemplate) {
@@ -121,6 +117,7 @@ export class OnlinqFormCollectionElement extends HTMLElement {
         .shift() ?? null;
     }
 
+    // Update the Shadow DOM
     this.#updateActionsContainer();
     this.#updateContentContainers();
   }
@@ -333,9 +330,7 @@ export class OnlinqFormCollectionElement extends HTMLElement {
     }
 
     this.dispatchEvent(new CustomEvent('beforeEntryRemoved', {
-      detail: {
-        entry: entry,
-      },
+      detail: {entry},
     }));
 
     entry.remove();
@@ -355,35 +350,11 @@ export class OnlinqFormCollectionElement extends HTMLElement {
       return;
     }
 
-    const initialIndex = +entry.index;
-    const targetIndex = +targetEntry.index;
-
-    entry.index = '__swap__';
-
-    const entryPlaceholder = document.createElement('div');
-
-    if (targetIndex > initialIndex) {
-      targetEntry.after(entryPlaceholder);
-
-      for (let i = initialIndex; i < targetIndex; i++) {
-        const swapEntry = this.#matchEntry(i + 1);
-
-        swapEntry.index = i;
-      }
+    if (+entry.index > +targetEntry.index) {
+      this.insertBefore(entry, targetEntry);
     } else {
-      this.insertBefore(entryPlaceholder, targetEntry);
-
-      for (let i = initialIndex; i > targetIndex; i--) {
-        const swapEntry = this.#matchEntry(i - 1);
-
-        swapEntry.index = i;
-      }
+      targetEntry.after(entry);
     }
-
-    this.insertBefore(entry, entryPlaceholder);
-    entryPlaceholder.remove();
-
-    entry.index = targetIndex;
   }
 
   swapEntry(entry, targetEntry) {
@@ -400,13 +371,6 @@ export class OnlinqFormCollectionElement extends HTMLElement {
       return;
     }
 
-    const swapIndex = entry.index;
-    const targetIndex = targetEntry.index;
-
-    targetEntry.index = '__swap__';
-    entry.index = targetIndex;
-    targetEntry.index = swapIndex;
-
     const entryPlaceholder = document.createElement('div');
     this.insertBefore(entryPlaceholder, entry);
     this.insertBefore(entry, targetEntry);
@@ -415,19 +379,10 @@ export class OnlinqFormCollectionElement extends HTMLElement {
   }
 
   #connectEntry(entry) {
-    let index = entry.getAttribute('collection-index');
-
-    if (!index) {
-      entry.setAttribute('collection-index', this.#nextIndex);
-    }
-
-    this.#entries.push(entry);
-    this.#nextIndex++;
+    this.#mapEntries();
 
     this.dispatchEvent(new CustomEvent('entryAdded', {
-      detail: {
-        entry: entry,
-      },
+      detail: {entry},
     }));
 
     this.#updateContentContainers();
@@ -438,20 +393,11 @@ export class OnlinqFormCollectionElement extends HTMLElement {
   }
 
   #disconnectEntry(entry) {
-    const index = this.#entries.indexOf(entry);
+    this.#mapEntries();
 
-    this.#entries.splice(index, 1);
-    this.#nextIndex--;
-
-    this.#entries.forEach(entry => {
-      if (entry.index < index) {
-        return;
-      }
-
-      entry.index = entry.index - 1;
-    });
-
-    this.dispatchEvent(new CustomEvent('entryRemoved'));
+    this.dispatchEvent(new CustomEvent('entryRemoved', {
+      detail: {entry},
+    }));
 
     this.#updateContentContainers();
   }
@@ -460,6 +406,24 @@ export class OnlinqFormCollectionElement extends HTMLElement {
     const collectionName = element.getAttribute('collection') ?? element.getAttribute('data-collection');
 
     return collectionName === this.name || (!collectionName && element.closest('onlinq-collection') === this);
+  }
+
+  #mapEntries() {
+    this.#entries = [];
+
+    let index = 0;
+
+    this.querySelectorAll(':scope > onlinq-collection-entry').forEach(entry => {
+      if (+entry.index !== index) {
+        entry.index = index;
+      }
+
+      this.#entries.push(entry);
+
+      index++;
+    });
+
+    this.#nextIndex = index;
   }
 
   #matchEntry(value) {
