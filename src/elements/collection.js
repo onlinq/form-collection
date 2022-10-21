@@ -414,7 +414,7 @@ export class OnlinqFormCollectionElement extends HTMLElement {
     let index = 0;
 
     this.querySelectorAll(':scope > onlinq-collection-entry').forEach(entry => {
-      if (+entry.getAttribute('collection-index') !== index) {
+      if (!entry.hasAttribute('collection-index') || +entry.getAttribute('collection-index') !== index) {
         entry.setAttribute('collection-index', index.toString());
       }
 
