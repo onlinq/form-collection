@@ -1,5 +1,13 @@
 # Changelog
 
+# 0.2.2 (2023-01-27)
+
+* Added `@ungap/custom-elements` polyfill for custom element support in Safari.
+
+# 0.2.1 (2022-10-21)
+
+* Fixed issues with updating indices of entries.
+
 # 0.2.0 (2022-09-06)
 
 * Rewrote web components to use mutation observers for updating state.
@@ -7,8 +15,8 @@
 
 # 0.1.4 (2022-05-04)
 
-* Improves matching of buttons to the collection
-* Added Node exports for the element classes
+* Improves matching of buttons to the collection.
+* Added Node exports for the element classes.
 
 # 0.1.3 (2021-09-15)
 
