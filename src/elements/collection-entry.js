@@ -61,6 +61,8 @@ export class OnlinqFormCollectionEntryElement extends HTMLElement {
       console.error('A collection entry was created without a matching collection.');
     }
 
+    this.#mapLabels();
+
     // Observe changes to DOM
     this.#observer = new MutationObserver(this.#mutationCallback);
     this.#observer.observe(this, {
@@ -71,6 +73,7 @@ export class OnlinqFormCollectionEntryElement extends HTMLElement {
     this.#updateActionsContainer();
     this.#updateDeleteContainer();
     this.#updateMoveContainers();
+    this.#updateLabels();
   }
 
   disconnectedCallback() {
@@ -164,10 +167,7 @@ export class OnlinqFormCollectionEntryElement extends HTMLElement {
       previousIndex = this.#collection?.prototypeName;
     }
 
-    this.#labelContainers.forEach(container => {
-      container.innerHTML = this.#index;
-    });
-
+    this.#updateLabels();
     this.#updateAttribute('collection-index');
 
     if (!this.#index) {
@@ -236,6 +236,22 @@ export class OnlinqFormCollectionEntryElement extends HTMLElement {
     this.#moveContainer = this.shadowRoot.querySelector('[data-move-container]');
   }
 
+  #mapLabels() {
+    this.#labelContainers = [];
+
+    let index = 0;
+
+    this.querySelectorAll(':scope [data-collection-label]').forEach(labelContainer => {
+      if (this.#isPartOfEntry(labelContainer)) {
+        this.#labelContainers.push(labelContainer);
+
+        index++;
+      }
+    });
+
+    console.log(this);
+  }
+
   #updateActionsContainer() {
     if (this.#actionsContainer) {
       if (this.#actions) {
@@ -273,6 +289,18 @@ export class OnlinqFormCollectionEntryElement extends HTMLElement {
     }
   }
 
+  #updateLabels() {
+    this.#labelContainers.forEach(container => {
+      const format = container.dataset.collectionLabel || 'index';
+
+      if (format === 'index0') {
+        container.innerHTML = this.#index;
+      } else {
+        container.innerHTML = +this.#index + 1;
+      }
+    });
+  }
+
   #collectionDeletePolicyChangedListener = () => {
     this.#updateDeleteContainer();
   };
@@ -289,15 +317,13 @@ export class OnlinqFormCollectionEntryElement extends HTMLElement {
         }
 
         if (node.hasAttribute('data-collection-label')) {
-          this.#labelContainers.push(node);
+          this.#mapLabels();
         }
       }
 
       for (const node in record.removedNodes) {
         if (this.#labelContainers.includes(node)) {
-          const index = this.#labelContainers.indexOf(node);
-
-          this.#labelContainers.splice(index, 1);
+          this.#mapLabels();
         }
       }
     }
