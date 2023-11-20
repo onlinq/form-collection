@@ -1,2 +1,2364 @@
-/*! For license information please see onlinq-collection.js.LICENSE.txt */
-(()=>{var t={686:()=>{!function(){"use strict";var t=function(t,e){var n=function(t){for(var e=0,n=t.length;e<n;e++)o(t[e])},o=function(t){var e=t.target,n=t.attributeName,o=t.oldValue;e.attributeChangedCallback(n,o,e.getAttribute(n))};return function(r,i){var l=r.constructor.observedAttributes;return l&&t(i).then((function(){new e(n).observe(r,{attributes:!0,attributeOldValue:!0,attributeFilter:l});for(var t=0,i=l.length;t<i;t++)r.hasAttribute(l[t])&&o({target:r,attributeName:l[t],oldValue:null})})),r}};function e(t,e){(null==e||e>t.length)&&(e=t.length);for(var n=0,o=new Array(e);n<e;n++)o[n]=t[n];return o}function n(t,n){var o="undefined"!=typeof Symbol&&t[Symbol.iterator]||t["@@iterator"];if(!o){if(Array.isArray(t)||(o=function(t,n){if(t){if("string"==typeof t)return e(t,n);var o=Object.prototype.toString.call(t).slice(8,-1);return"Object"===o&&t.constructor&&(o=t.constructor.name),"Map"===o||"Set"===o?Array.from(t):"Arguments"===o||/^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(o)?e(t,n):void 0}}(t))||n&&t&&"number"==typeof t.length){o&&(t=o);var r=0,i=function(){};return{s:i,n:function(){return r>=t.length?{done:!0}:{done:!1,value:t[r++]}},e:function(t){throw t},f:i}}throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")}var l,c=!0,a=!1;return{s:function(){o=o.call(t)},n:function(){var t=o.next();return c=t.done,t},e:function(t){a=!0,l=t},f:function(){try{c||null==o.return||o.return()}finally{if(a)throw l}}}}var o=!0,r=!1,i="querySelectorAll",l="querySelectorAll",c=self,a=c.document,u=c.Element,s=c.MutationObserver,f=c.Set,p=c.WeakMap,h=function(t){return l in t},y=[].filter,d=function(t){var e=new p,c=function(n,o){var r;if(o)for(var i,l=function(t){return t.matches||t.webkitMatchesSelector||t.msMatchesSelector}(n),c=0,a=v.length;c<a;c++)l.call(n,i=v[c])&&(e.has(n)||e.set(n,new f),(r=e.get(n)).has(i)||(r.add(i),t.handle(n,o,i)));else e.has(n)&&(r=e.get(n),e.delete(n),r.forEach((function(e){t.handle(n,o,e)})))},d=function(t){for(var e=!(arguments.length>1&&void 0!==arguments[1])||arguments[1],n=0,o=t.length;n<o;n++)c(t[n],e)},v=t.query,b=t.root||a,m=function(t){var e=arguments.length>1&&void 0!==arguments[1]?arguments[1]:document,l=arguments.length>2&&void 0!==arguments[2]?arguments[2]:MutationObserver,c=arguments.length>3&&void 0!==arguments[3]?arguments[3]:["*"],a=function e(r,l,c,a,u,s){var f,p=n(r);try{for(p.s();!(f=p.n()).done;){var h=f.value;(s||i in h)&&(u?c.has(h)||(c.add(h),a.delete(h),t(h,u)):a.has(h)||(a.add(h),c.delete(h),t(h,u)),s||e(h[i](l),l,c,a,u,o))}}catch(t){p.e(t)}finally{p.f()}},u=new l((function(t){if(c.length){var e,i=c.join(","),l=new Set,u=new Set,s=n(t);try{for(s.s();!(e=s.n()).done;){var f=e.value,p=f.addedNodes,h=f.removedNodes;a(h,i,l,u,r,r),a(p,i,l,u,o,r)}}catch(t){s.e(t)}finally{s.f()}}})),s=u.observe;return(u.observe=function(t){return s.call(u,t,{subtree:o,childList:o})})(e),u}(c,b,s,v),w=u.prototype.attachShadow;return w&&(u.prototype.attachShadow=function(t){var e=w.call(this,t);return m.observe(e),e}),v.length&&d(b[l](v)),{drop:function(t){for(var n=0,o=t.length;n<o;n++)e.delete(t[n])},flush:function(){for(var t=m.takeRecords(),e=0,n=t.length;e<n;e++)d(y.call(t[e].removedNodes,h),!1),d(y.call(t[e].addedNodes,h),!0)},observer:m,parse:d}},v=self,b=v.document,m=v.Map,w=v.MutationObserver,g=v.Object,O=v.Set,E=v.WeakMap,S=v.Element,k=v.HTMLElement,j=v.Node,A=v.Error,x=v.TypeError,P=v.Reflect,M=g.defineProperty,_=g.keys,T=g.getOwnPropertyNames,R=g.setPrototypeOf,C=!self.customElements,W=function(t){for(var e=_(t),n=[],o=e.length,r=0;r<o;r++)n[r]=t[e[r]],delete t[e[r]];return function(){for(var r=0;r<o;r++)t[e[r]]=n[r]}};if(C){var N=function(){var t=this.constructor;if(!q.has(t))throw new x("Illegal constructor");var e=q.get(t);if($)return V($,e);var n=L.call(b,e);return V(R(n,t.prototype),e)},L=b.createElement,q=new m,I=new m,B=new m,D=new m,H=[],U=d({query:H,handle:function(t,e,n){var o=B.get(n);if(e&&!o.isPrototypeOf(t)){var r=W(t);$=R(t,o);try{new o.constructor}finally{$=null,r()}}var i="".concat(e?"":"dis","connectedCallback");i in o&&t[i]()}}).parse,$=null,F=function(t){if(!I.has(t)){var e,n=new Promise((function(t){e=t}));I.set(t,{$:n,_:e})}return I.get(t).$},V=t(F,w);M(self,"customElements",{configurable:!0,value:{define:function(t,e){if(D.has(t))throw new A('the name "'.concat(t,'" has already been used with this registry'));q.set(e,t),B.set(t,e.prototype),D.set(t,e),H.push(t),F(t).then((function(){U(b.querySelectorAll(t))})),I.get(t)._(e)},get:function(t){return D.get(t)},whenDefined:F}}),M(N.prototype=k.prototype,"constructor",{value:N}),M(self,"HTMLElement",{configurable:!0,value:N}),M(b,"createElement",{configurable:!0,value:function(t,e){var n=e&&e.is,o=n?D.get(n):D.get(t);return o?new o:L.call(b,t)}}),"isConnected"in j.prototype||M(j.prototype,"isConnected",{configurable:!0,get:function(){return!(this.ownerDocument.compareDocumentPosition(this)&this.DOCUMENT_POSITION_DISCONNECTED)}})}else if(C=!self.customElements.get("extends-li"))try{var z=function t(){return self.Reflect.construct(HTMLLIElement,[],t)};z.prototype=HTMLLIElement.prototype;var Q="extends-li";self.customElements.define("extends-li",z,{extends:"li"}),C=b.createElement("li",{is:Q}).outerHTML.indexOf(Q)<0;var Y=self.customElements,G=Y.get,J=Y.whenDefined;M(self.customElements,"whenDefined",{configurable:!0,value:function(t){var e=this;return J.call(this,t).then((function(n){return n||G.call(e,t)}))}})}catch(t){}if(C){var K=function(t){var e=it.get(t);yt(e.querySelectorAll(this),t.isConnected)},X=self.customElements,Z=b.createElement,tt=X.define,et=X.get,nt=X.upgrade,ot=P||{construct:function(t){return t.call(this)}},rt=ot.construct,it=new E,lt=new O,ct=new m,at=new m,ut=new m,st=new m,ft=[],pt=[],ht=function(t){return st.get(t)||et.call(X,t)},yt=d({query:pt,handle:function(t,e,n){var o=ut.get(n);if(e&&!o.isPrototypeOf(t)){var r=W(t);wt=R(t,o);try{new o.constructor}finally{wt=null,r()}}var i="".concat(e?"":"dis","connectedCallback");i in o&&t[i]()}}).parse,dt=d({query:ft,handle:function(t,e){it.has(t)&&(e?lt.add(t):lt.delete(t),pt.length&&K.call(pt,t))}}).parse,vt=S.prototype.attachShadow;vt&&(S.prototype.attachShadow=function(t){var e=vt.call(this,t);return it.set(this,e),e});var bt=function(t){if(!at.has(t)){var e,n=new Promise((function(t){e=t}));at.set(t,{$:n,_:e})}return at.get(t).$},mt=t(bt,w),wt=null;T(self).filter((function(t){return/^HTML.*Element$/.test(t)})).forEach((function(t){var e=self[t];function n(){var t=this.constructor;if(!ct.has(t))throw new x("Illegal constructor");var n=ct.get(t),o=n.is,r=n.tag;if(o){if(wt)return mt(wt,o);var i=Z.call(b,r);return i.setAttribute("is",o),mt(R(i,t.prototype),o)}return rt.call(this,e,[],t)}M(n.prototype=e.prototype,"constructor",{value:n}),M(self,t,{value:n})})),M(b,"createElement",{configurable:!0,value:function(t,e){var n=e&&e.is;if(n){var o=st.get(n);if(o&&ct.get(o).tag===t)return new o}var r=Z.call(b,t);return n&&r.setAttribute("is",n),r}}),M(X,"get",{configurable:!0,value:ht}),M(X,"whenDefined",{configurable:!0,value:bt}),M(X,"upgrade",{configurable:!0,value:function(t){var e=t.getAttribute("is");if(e){var n=st.get(e);if(n)return void mt(R(t,n.prototype),e)}nt.call(X,t)}}),M(X,"define",{configurable:!0,value:function(t,e,n){if(ht(t))throw new A("'".concat(t,"' has already been defined as a custom element"));var o,r=n&&n.extends;ct.set(e,r?{is:t,tag:r}:{is:"",tag:t}),r?(o="".concat(r,'[is="').concat(t,'"]'),ut.set(o,e.prototype),st.set(t,e),pt.push(o)):(tt.apply(X,arguments),ft.push(o=t)),bt(t).then((function(){r?(yt(b.querySelectorAll(o)),lt.forEach(K,[o])):dt(b.querySelectorAll(o))})),at.get(t)._(e)}})}}()}},e={};function n(o){var r=e[o];if(void 0!==r)return r.exports;var i=e[o]={exports:{}};return t[o](i,i.exports,n),i.exports}(()=>{"use strict";function t(t,e){(null==e||e>t.length)&&(e=t.length);for(var n=0,o=new Array(e);n<e;n++)o[n]=t[n];return o}n(686);var e={bool:function(t){return null!==t},number:function(t){return+t},string:function(t){return null!=t?t:null}},o={bool:function(t,e,n){n?t.setAttribute(e,e):t.removeAttribute(e)},number:function(t,e,n){t.setAttribute(e,n)},string:function(t,e,n){n?t.setAttribute(e,n):t.removeAttribute(e)}};function r(e,n,o){e.forEach((function(e){var i;(i=e.attributes,function(e){if(Array.isArray(e))return t(e)}(i)||function(t){if("undefined"!=typeof Symbol&&null!=t[Symbol.iterator]||null!=t["@@iterator"])return Array.from(t)}(i)||function(e,n){if(e){if("string"==typeof e)return t(e,n);var o=Object.prototype.toString.call(e).slice(8,-1);return"Object"===o&&e.constructor&&(o=e.constructor.name),"Map"===o||"Set"===o?Array.from(e):"Arguments"===o||/^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(o)?t(e,n):void 0}}(i)||function(){throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")}()).map((function(t){t.value.includes(n)&&(t.value=t.value.replace(n,o))})),"TEMPLATE"===e.tagName&&r(e.content.querySelectorAll("*"),n,o)}))}function i(t){return i="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(t){return typeof t}:function(t){return t&&"function"==typeof Symbol&&t.constructor===Symbol&&t!==Symbol.prototype?"symbol":typeof t},i(t)}function l(t,e){var n="undefined"!=typeof Symbol&&t[Symbol.iterator]||t["@@iterator"];if(!n){if(Array.isArray(t)||(n=function(t,e){if(t){if("string"==typeof t)return c(t,e);var n=Object.prototype.toString.call(t).slice(8,-1);return"Object"===n&&t.constructor&&(n=t.constructor.name),"Map"===n||"Set"===n?Array.from(t):"Arguments"===n||/^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)?c(t,e):void 0}}(t))||e&&t&&"number"==typeof t.length){n&&(t=n);var o=0,r=function(){};return{s:r,n:function(){return o>=t.length?{done:!0}:{done:!1,value:t[o++]}},e:function(t){throw t},f:r}}throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")}var i,l=!0,a=!1;return{s:function(){n=n.call(t)},n:function(){var t=n.next();return l=t.done,t},e:function(t){a=!0,i=t},f:function(){try{l||null==n.return||n.return()}finally{if(a)throw i}}}}function c(t,e){(null==e||e>t.length)&&(e=t.length);for(var n=0,o=new Array(e);n<e;n++)o[n]=t[n];return o}function a(t,e){for(var n=0;n<e.length;n++){var o=e[n];o.enumerable=o.enumerable||!1,o.configurable=!0,"value"in o&&(o.writable=!0),Object.defineProperty(t,o.key,o)}}function u(t,e){if(e&&("object"===i(e)||"function"==typeof e))return e;if(void 0!==e)throw new TypeError("Derived constructors may only return object or undefined");return s(t)}function s(t){if(void 0===t)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return t}function f(t){var e="function"==typeof Map?new Map:void 0;return f=function(t){if(null===t||(n=t,-1===Function.toString.call(n).indexOf("[native code]")))return t;var n;if("function"!=typeof t)throw new TypeError("Super expression must either be null or a function");if(void 0!==e){if(e.has(t))return e.get(t);e.set(t,o)}function o(){return p(t,arguments,d(this).constructor)}return o.prototype=Object.create(t.prototype,{constructor:{value:o,enumerable:!1,writable:!0,configurable:!0}}),y(o,t)},f(t)}function p(t,e,n){return p=h()?Reflect.construct.bind():function(t,e,n){var o=[null];o.push.apply(o,e);var r=new(Function.bind.apply(t,o));return n&&y(r,n.prototype),r},p.apply(null,arguments)}function h(){if("undefined"==typeof Reflect||!Reflect.construct)return!1;if(Reflect.construct.sham)return!1;if("function"==typeof Proxy)return!0;try{return Boolean.prototype.valueOf.call(Reflect.construct(Boolean,[],(function(){}))),!0}catch(t){return!1}}function y(t,e){return y=Object.setPrototypeOf?Object.setPrototypeOf.bind():function(t,e){return t.__proto__=e,t},y(t,e)}function d(t){return d=Object.setPrototypeOf?Object.getPrototypeOf.bind():function(t){return t.__proto__||Object.getPrototypeOf(t)},d(t)}function v(t,e){m(t,e),e.add(t)}function b(t,e,n){m(t,e),e.set(t,n)}function m(t,e){if(e.has(t))throw new TypeError("Cannot initialize the same private elements twice on an object")}function w(t,e,n){return function(t,e,n){if(e.set)e.set.call(t,n);else{if(!e.writable)throw new TypeError("attempted to set read only private field");e.value=n}}(t,O(t,e,"set"),n),n}function g(t,e){return function(t,e){return e.get?e.get.call(t):e.value}(t,O(t,e,"get"))}function O(t,e,n){if(!e.has(t))throw new TypeError("attempted to "+n+" private field on non-instance");return e.get(t)}function E(t,e,n){if(!e.has(t))throw new TypeError("attempted to get private field on non-instance");return n}var S,k,j,A=new WeakMap,x=new WeakMap,P=new WeakMap,M=new WeakMap,_=new WeakMap,T=new WeakMap,R=new WeakMap,C=new WeakMap,W=new WeakMap,N=new WeakMap,L=new WeakMap,q=new WeakMap,I=new WeakMap,B=new WeakMap,D=new WeakMap,H=new WeakMap,U=new WeakMap,$=new WeakMap,F=new WeakMap,V=new WeakSet,z=new WeakSet,Q=new WeakSet,Y=new WeakSet,G=new WeakSet,J=new WeakSet,K=new WeakSet,X=new WeakSet,Z=new WeakSet,tt=new WeakSet,et=new WeakSet,nt=new WeakSet,ot=new WeakSet,rt=new WeakSet,it=new WeakMap,lt=function(t){!function(t,e){if("function"!=typeof e&&null!==e)throw new TypeError("Super expression must either be null or a function");t.prototype=Object.create(e&&e.prototype,{constructor:{value:t,writable:!0,configurable:!0}}),Object.defineProperty(t,"prototype",{writable:!1}),e&&y(t,e)}(p,t);var n,o,r,i,c,f=(n=p,o=h(),function(){var t,e=d(n);if(o){var r=d(this).constructor;t=Reflect.construct(e,arguments,r)}else t=e.apply(this,arguments);return u(this,t)});function p(){var t;return function(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}(this,p),v(s(t=f.call(this)),rt),v(s(t),ot),v(s(t),nt),v(s(t),et),v(s(t),tt),v(s(t),Z),v(s(t),X),v(s(t),K),v(s(t),J),v(s(t),G),v(s(t),Y),v(s(t),Q),v(s(t),z),v(s(t),V),b(s(t),A,{writable:!0,value:null}),b(s(t),x,{writable:!0,value:!1}),b(s(t),P,{writable:!0,value:0}),b(s(t),M,{writable:!0,value:0}),b(s(t),_,{writable:!0,value:null}),b(s(t),T,{writable:!0,value:null}),b(s(t),R,{writable:!0,value:!1}),b(s(t),C,{writable:!0,value:"__name__"}),b(s(t),W,{writable:!0,value:!0}),b(s(t),N,{writable:!0,value:!0}),b(s(t),L,{writable:!0,value:!0}),b(s(t),q,{writable:!0,value:[]}),b(s(t),I,{writable:!0,value:0}),b(s(t),B,{writable:!0,value:null}),b(s(t),D,{writable:!0,value:null}),b(s(t),H,{writable:!0,value:null}),b(s(t),U,{writable:!0,value:null}),b(s(t),$,{writable:!0,value:null}),b(s(t),F,{writable:!0,value:null}),b(s(t),it,{writable:!0,value:function(e){var n,o=l(e);try{for(o.s();!(n=o.n()).done;){var r,i=n.value,c=l(i.addedNodes);try{for(c.s();!(r=c.n()).done;){var a=r.value;a instanceof HTMLElement&&E(s(t),Y,st).call(s(t),a)&&(i.target===s(t)&&"ONLINQ-COLLECTION-ENTRY"===a.tagName&&E(s(t),V,ct).call(s(t),a),a.hasAttribute("data-collection-prototype")&&w(s(t),$,a))}}catch(t){c.e(t)}finally{c.f()}var u,f=l(i.removedNodes);try{for(f.s();!(u=f.n()).done;){var p=u.value;g(s(t),q).includes(p)&&E(s(t),Q,ut).call(s(t),p),p===g(s(t),$)&&w(s(t),$,null)}}catch(t){f.e(t)}finally{f.f()}}}catch(t){o.e(t)}finally{o.f()}}}),t.attachShadow({mode:"open"}),t}return r=p,c=[{key:"observedAttributes",get:function(){return["actions","actionlist","max","min","name","prefix","prototype-actions","prototype-name"]}}],(i=[{key:"connectedCallback",value:function(){var t,e,n,o,r,i=this;E(this,K,ht).call(this),this.actionList=null!==(t=this.getAttribute("actionlist"))&&void 0!==t?t:g(this,A),this.actions=this.hasAttribute("actions")||g(this,x),this.max=this.hasAttribute("max")?+this.getAttribute("max"):g(this,P),this.min=this.hasAttribute("min")?+this.getAttribute("min"):g(this,M),this.name=null!==(e=this.getAttribute("name"))&&void 0!==e?e:g(this,_),this.prefix=null!==(n=this.getAttribute("prefix"))&&void 0!==n?n:g(this,T),this.prototypeActions=this.hasAttribute("prototype-actions")||g(this,R),this.prototypeName=null!==(o=this.getAttribute("prototype-name"))&&void 0!==o?o:g(this,C),w(this,F,new MutationObserver(g(this,it))),g(this,F).observe(this,{childList:!0,subtree:!0}),E(this,G,ft).call(this),g(this,$)||(this.prototypeTemplate=null!==(r=Array.from(this.querySelectorAll("[data-collection-prototype]")).filter((function(t){return E(i,Y,st).call(i,t)})).shift())&&void 0!==r?r:null),E(this,et,bt).call(this),E(this,rt,gt).call(this)}},{key:"disconnectedCallback",value:function(){g(this,F).disconnect()}},{key:"attributeChangedCallback",value:function(t,n,o){var r=p.observedAttributeBehaviours[t],i=(0,e[r.type])(o);i===this[r.property]||(this[r.property]=i)}},{key:"actionList",get:function(){return g(this,A)},set:function(t){var e;t=null===(e=t)||void 0===e?void 0:e.toLowerCase();var n=g(this,A)!==t;if(w(this,A,t),E(this,ot,wt).call(this,"actionlist"),n){var o=t?t.split(/\W/):["all"],r=o.includes("all");E(this,X,yt).call(this,r||o.includes("add")),E(this,Z,dt).call(this,r||o.includes("delete")),E(this,tt,vt).call(this,r||o.includes("move"))}}},{key:"actions",get:function(){return g(this,x)},set:function(t){var e=g(this,x)!==t;w(this,x,t),E(this,ot,wt).call(this,"actions"),e&&E(this,et,bt).call(this)}},{key:"allowAdd",get:function(){return g(this,W)}},{key:"allowDelete",get:function(){return g(this,N)}},{key:"allowMove",get:function(){return g(this,L)}},{key:"entries",get:function(){return g(this,q)}},{key:"max",get:function(){return g(this,P)},set:function(t){var e=g(this,P)!==t;w(this,P,t),E(this,ot,wt).call(this,"max"),e&&this.dispatchEvent(new CustomEvent("maxEntriesChanged"))}},{key:"min",get:function(){return g(this,M)},set:function(t){var e=g(this,M)!==t;w(this,M,t),E(this,ot,wt).call(this,"min"),e&&this.dispatchEvent(new CustomEvent("minEntriesChanged"))}},{key:"name",get:function(){return g(this,_)},set:function(t){w(this,_,t),E(this,ot,wt).call(this,"name")}},{key:"nextIndex",get:function(){return g(this,I)}},{key:"prefix",get:function(){return g(this,T)},set:function(t){w(this,T,t),E(this,ot,wt).call(this,"prefix")}},{key:"prototypeActions",get:function(){return g(this,R)},set:function(t){w(this,R,t),E(this,ot,wt).call(this,"prototype-actions")}},{key:"prototypeName",get:function(){return g(this,C)},set:function(t){w(this,C,t),E(this,ot,wt).call(this,"prototype-name")}},{key:"prototypeTemplate",get:function(){return g(this,$)},set:function(t){w(this,$,t)}},{key:"entry",value:function(t){return t=t.toString(),g(this,q).find((function(e){return e.index===t}))}},{key:"addEntry",value:function(){if(!g(this,W))return console.error("Unable to create a new entry because adding entries has been disabled on this collection."),null;if(!g(this,$))return console.error("Unable to create a new entry because there is no prototype entry template present."),null;if(0!==g(this,P)&&g(this,q).length>=g(this,P))return console.error("Unable to create a new entry because the maximum amount of entries has been reached."),null;var t=document.createElement("onlinq-collection-entry");return t.appendChild(E(this,z,at).call(this)),t.collection=this,t.actions=g(this,R),this.appendChild(t),E(this,V,ct).call(this,t),t}},{key:"deleteEntry",value:function(t){g(this,N)?0!==g(this,M)&&g(this,q).length<=g(this,M)?console.error("Unable to delete an entry because the minimum amount of entries has been reached."):(t=E(this,J,pt).call(this,t))&&(this.dispatchEvent(new CustomEvent("beforeEntryRemoved",{detail:{entry:t}})),t.remove()):console.error("Unable to delete an entry because deleting entries has been disabled on this collection.")}},{key:"moveEntry",value:function(t,e){g(this,L)?(t=E(this,J,pt).call(this,t),e=E(this,J,pt).call(this,e),t&&e&&(+t.index>+e.index?this.insertBefore(t,e):e.after(t))):console.error("Unable to move an entry because moving entries has been disabled on this collection.")}},{key:"swapEntry",value:function(t,e){if(g(this,L)){if(t=E(this,J,pt).call(this,t),e=E(this,J,pt).call(this,e),t&&e){var n=document.createElement("div");this.insertBefore(n,t),this.insertBefore(t,e),this.insertBefore(e,n),n.remove()}}else console.error("Unable to swap an entry because moving entries has been disabled on this collection.")}}])&&a(r.prototype,i),c&&a(r,c),Object.defineProperty(r,"prototype",{writable:!1}),p}(f(HTMLElement));function ct(t){E(this,G,ft).call(this),this.dispatchEvent(new CustomEvent("entryAdded",{detail:{entry:t}})),E(this,rt,gt).call(this)}function at(){var t,e;return null!==(t=null===(e=g(this,$))||void 0===e?void 0:e.content.cloneNode(!0))&&void 0!==t&&t}function ut(t){E(this,G,ft).call(this),this.dispatchEvent(new CustomEvent("entryRemoved",{detail:{entry:t}})),E(this,rt,gt).call(this)}function st(t){var e,n=null!==(e=t.getAttribute("collection"))&&void 0!==e?e:t.getAttribute("data-collection");return n===this.name||!n&&t.closest("onlinq-collection")===this}function ft(){var t=this;w(this,q,[]);var e=0;this.querySelectorAll(":scope > onlinq-collection-entry").forEach((function(n){n.hasAttribute("collection-index")&&+n.getAttribute("collection-index")===e||n.setAttribute("collection-index",e.toString()),g(t,q).push(n),e++})),w(this,I,e)}function pt(t){if(t instanceof HTMLElement&&"ONLINQ-COLLECTION-ENTRY"===t.tagName){if(t.collection===this)return t;console.error("Invalid collection element, it's not part of this collection.")}else{var e=this.entry(t);if(e)return e;console.error("Invalid entry index: "+t)}return null}function ht(){this.shadowRoot.innerHTML='<style type="text/css">\n  :host {\n    --collection-display: block;\n    --collection-justify-content: flex-start;\n    --collection-align-items: flex-start;\n    --collection-contents-margin: 0 0 1rem;\n    --collection-contents-flex-grow: 1;\n    --collection-actions-margin: 0 0 1rem;\n    --collection-actions-flex-grow: 0;\n\n    display: var(--collection-display);\n    justify-content: var(--collection-justify-content);\n    align-items: var(--collection-align-items);\n  }\n\n  .contents {\n    flex-grow: var(--collection-contents-flex-grow);\n    margin: var(--collection-contents-margin);\n  }\n\n  .actions {\n    flex-grow: var(--collection-actions-flex-grow);\n    margin: var(--collection-actions-margin);\n  }\n\n  [data-collection-container] {\n    display: none;\n  }\n</style>\n\n<div class="contents" data-collection-container>\n  <slot></slot>\n</div>\n<div class="contents" data-placeholder-container>\n  <slot name="placeholder">\n    <span>No entries</span>\n  </slot>\n</div>\n<div class="actions" data-actions-container>\n  <slot name="actions">\n    <span data-add-container>\n      <slot name="add">\n        <button is="onlinq-collection-add">Add</button>\n      </slot>\n    </span>\n  </slot>\n</div>\n',w(this,B,this.shadowRoot.querySelector("[data-actions-container]")),w(this,D,this.shadowRoot.querySelector("[data-add-container]")),w(this,H,this.shadowRoot.querySelector("[data-collection-container]")),w(this,U,this.shadowRoot.querySelector("[data-placeholder-container]"))}function yt(t){var e=g(this,W)!==t;w(this,W,t),e&&(E(this,nt,mt).call(this),this.dispatchEvent(new CustomEvent("addPolicyChanged")))}function dt(t){var e=g(this,N)!==t;w(this,N,t),e&&this.dispatchEvent(new CustomEvent("deletePolicyChanged"))}function vt(t){var e=g(this,L)!==t;w(this,L,t),e&&this.dispatchEvent(new CustomEvent("movePolicyChanged"))}function bt(){g(this,B)&&(g(this,x)?g(this,B).style.display="block":g(this,B).style.display="none")}function mt(){g(this,D)&&(g(this,W)?g(this,D).style.removeProperty("display"):g(this,D).style.display="none")}function wt(t){var n,r=lt.observedAttributeBehaviours[t],i=o[r.type],l=(0,e[r.type])(null!==(n=this.getAttribute(t))&&void 0!==n?n:null);l===this[r.property]||null===l&&this[r.property]===r.defaultValue||i(this,t,this[r.property])}function gt(){g(this,q).length?(g(this,H).style.display="block",g(this,U).style.display="none"):(g(this,H).style.display="none",g(this,U).style.display="block")}function Ot(t){return Ot="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(t){return typeof t}:function(t){return t&&"function"==typeof Symbol&&t.constructor===Symbol&&t!==Symbol.prototype?"symbol":typeof t},Ot(t)}function Et(t,e){var n="undefined"!=typeof Symbol&&t[Symbol.iterator]||t["@@iterator"];if(!n){if(Array.isArray(t)||(n=function(t,e){if(t){if("string"==typeof t)return St(t,e);var n=Object.prototype.toString.call(t).slice(8,-1);return"Object"===n&&t.constructor&&(n=t.constructor.name),"Map"===n||"Set"===n?Array.from(t):"Arguments"===n||/^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)?St(t,e):void 0}}(t))||e&&t&&"number"==typeof t.length){n&&(t=n);var o=0,r=function(){};return{s:r,n:function(){return o>=t.length?{done:!0}:{done:!1,value:t[o++]}},e:function(t){throw t},f:r}}throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")}var i,l=!0,c=!1;return{s:function(){n=n.call(t)},n:function(){var t=n.next();return l=t.done,t},e:function(t){c=!0,i=t},f:function(){try{l||null==n.return||n.return()}finally{if(c)throw i}}}}function St(t,e){(null==e||e>t.length)&&(e=t.length);for(var n=0,o=new Array(e);n<e;n++)o[n]=t[n];return o}function kt(t,e){for(var n=0;n<e.length;n++){var o=e[n];o.enumerable=o.enumerable||!1,o.configurable=!0,"value"in o&&(o.writable=!0),Object.defineProperty(t,o.key,o)}}function jt(t,e){if(e&&("object"===Ot(e)||"function"==typeof e))return e;if(void 0!==e)throw new TypeError("Derived constructors may only return object or undefined");return At(t)}function At(t){if(void 0===t)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return t}function xt(t){var e="function"==typeof Map?new Map:void 0;return xt=function(t){if(null===t||(n=t,-1===Function.toString.call(n).indexOf("[native code]")))return t;var n;if("function"!=typeof t)throw new TypeError("Super expression must either be null or a function");if(void 0!==e){if(e.has(t))return e.get(t);e.set(t,o)}function o(){return Pt(t,arguments,Tt(this).constructor)}return o.prototype=Object.create(t.prototype,{constructor:{value:o,enumerable:!1,writable:!0,configurable:!0}}),_t(o,t)},xt(t)}function Pt(t,e,n){return Pt=Mt()?Reflect.construct.bind():function(t,e,n){var o=[null];o.push.apply(o,e);var r=new(Function.bind.apply(t,o));return n&&_t(r,n.prototype),r},Pt.apply(null,arguments)}function Mt(){if("undefined"==typeof Reflect||!Reflect.construct)return!1;if(Reflect.construct.sham)return!1;if("function"==typeof Proxy)return!0;try{return Boolean.prototype.valueOf.call(Reflect.construct(Boolean,[],(function(){}))),!0}catch(t){return!1}}function _t(t,e){return _t=Object.setPrototypeOf?Object.setPrototypeOf.bind():function(t,e){return t.__proto__=e,t},_t(t,e)}function Tt(t){return Tt=Object.setPrototypeOf?Object.getPrototypeOf.bind():function(t){return t.__proto__||Object.getPrototypeOf(t)},Tt(t)}function Rt(t,e){Wt(t,e),e.add(t)}function Ct(t,e,n){Wt(t,e),e.set(t,n)}function Wt(t,e){if(e.has(t))throw new TypeError("Cannot initialize the same private elements twice on an object")}function Nt(t,e,n){return function(t,e,n){if(e.set)e.set.call(t,n);else{if(!e.writable)throw new TypeError("attempted to set read only private field");e.value=n}}(t,qt(t,e,"set"),n),n}function Lt(t,e){return function(t,e){return e.get?e.get.call(t):e.value}(t,qt(t,e,"get"))}function qt(t,e,n){if(!e.has(t))throw new TypeError("attempted to "+n+" private field on non-instance");return e.get(t)}function It(t,e,n){if(!e.has(t))throw new TypeError("attempted to get private field on non-instance");return n}j={actionlist:{type:"string",property:"actionList"},actions:{type:"bool",property:"actions"},max:{type:"number",property:"max",defaultValue:0},min:{type:"number",property:"min",defaultValue:0},name:{type:"string",property:"name"},prefix:{type:"string",property:"prefix"},"prototype-actions":{type:"bool",property:"prototypeActions"},"prototype-name":{type:"string",property:"prototypeName",defaultValue:"__name__"}},(k="observedAttributeBehaviours")in(S=lt)?Object.defineProperty(S,k,{value:j,enumerable:!0,configurable:!0,writable:!0}):S[k]=j,customElements.define("onlinq-collection",lt);var Bt=new WeakMap,Dt=new WeakMap,Ht=new WeakMap,Ut=new WeakMap,$t=new WeakMap,Ft=new WeakMap,Vt=new WeakMap,zt=new WeakMap,Qt=new WeakSet,Yt=new WeakSet,Gt=new WeakSet,Jt=new WeakSet,Kt=new WeakSet,Xt=new WeakSet,Zt=new WeakSet,te=new WeakSet,ee=new WeakMap,ne=new WeakMap,oe=new WeakMap,re=function(t){!function(t,e){if("function"!=typeof e&&null!==e)throw new TypeError("Super expression must either be null or a function");t.prototype=Object.create(e&&e.prototype,{constructor:{value:t,writable:!0,configurable:!0}}),Object.defineProperty(t,"prototype",{writable:!1}),e&&_t(t,e)}(u,t);var n,o,i,l,c,a=(n=u,o=Mt(),function(){var t,e=Tt(n);if(o){var r=Tt(this).constructor;t=Reflect.construct(e,arguments,r)}else t=e.apply(this,arguments);return jt(this,t)});function u(){var t;return function(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}(this,u),Rt(At(t=a.call(this)),te),Rt(At(t),Zt),Rt(At(t),Xt),Rt(At(t),Kt),Rt(At(t),Jt),Rt(At(t),Gt),Rt(At(t),Yt),Rt(At(t),Qt),Ct(At(t),Bt,{writable:!0,value:!1}),Ct(At(t),Dt,{writable:!0,value:null}),Ct(At(t),Ht,{writable:!0,value:null}),Ct(At(t),Ut,{writable:!0,value:void 0}),Ct(At(t),$t,{writable:!0,value:null}),Ct(At(t),Ft,{writable:!0,value:[]}),Ct(At(t),Vt,{writable:!0,value:null}),Ct(At(t),zt,{writable:!0,value:null}),Ct(At(t),ee,{writable:!0,value:function(){It(At(t),Zt,fe).call(At(t))}}),Ct(At(t),ne,{writable:!0,value:function(){It(At(t),te,pe).call(At(t))}}),Ct(At(t),oe,{writable:!0,value:function(e){var n,o=Et(e);try{for(o.s();!(n=o.n()).done;){var r,i=n.value,l=Et(i.addedNodes);try{for(l.s();!(r=l.n()).done;){var c=r.value;c instanceof HTMLElement&&It(At(t),Gt,ce).call(At(t),c)&&c.hasAttribute("data-collection-label")&&Lt(At(t),Ft).push(c)}}catch(t){l.e(t)}finally{l.f()}for(var a in i.removedNodes)if(Lt(At(t),Ft).includes(a)){var u=Lt(At(t),Ft).indexOf(a);Lt(At(t),Ft).splice(u,1)}}}catch(t){o.e(t)}finally{o.f()}}}),t.attachShadow({mode:"open"}),t}return i=u,l=[{key:"connectedCallback",value:function(){var t,e,n;It(this,Jt,ae).call(this),this.actions=this.hasAttribute("actions")||Lt(this,Bt),this.collectionName=null!==(t=this.getAttribute("collection"))&&void 0!==t?t:null===(e=Lt(this,Dt))||void 0===e?void 0:e.name,this.index=null!==(n=this.getAttribute("collection-index"))&&void 0!==n?n:Lt(this,Ht),Lt(this,Dt)?It(this,Qt,ie).call(this,Lt(this,Dt)):console.error("A collection entry was created without a matching collection."),Nt(this,zt,new MutationObserver(Lt(this,oe))),Lt(this,zt).observe(this,{childList:!0,subtree:!0}),It(this,Kt,ue).call(this),It(this,Zt,fe).call(this),It(this,te,pe).call(this)}},{key:"disconnectedCallback",value:function(){Lt(this,zt).disconnect(),Lt(this,Dt)&&It(this,Yt,le).call(this,Lt(this,Dt))}},{key:"attributeChangedCallback",value:function(t,n,o){var r=u.observedAttributeBehaviours[t],i=(0,e[r.type])(o);i===this[r.property]||(this[r.property]=i)}},{key:"actions",get:function(){return Lt(this,Bt)},set:function(t){var e=Lt(this,Bt)!==t;Nt(this,Bt,t),It(this,Xt,se).call(this,"actions"),e&&It(this,Kt,ue).call(this)}},{key:"collection",get:function(){return Lt(this,Dt)},set:function(t){Lt(this,Dt)&&Lt(this,Dt)!==t&&It(this,Yt,le).call(this,Lt(this,Dt)),Nt(this,Dt,t),t&&Lt(this,Dt)!==t&&It(this,Qt,ie).call(this,t),It(this,Xt,se).call(this,"collection")}},{key:"collectionName",get:function(){var t,e,n;return null!==(t=null===(e=Lt(this,Dt))||void 0===e?void 0:e.name)&&void 0!==t?t:null===(n=Lt(this,Dt))||void 0===n?void 0:n.getAttribute("name")},set:function(t){this.collection=t?this.closest('onlinq-collection[name="'.concat(t,'"]')):this.closest("onlinq-collection")}},{key:"index",get:function(){return Lt(this,Ht)},set:function(t){var e,n,o,i=this;if(t||0===t){"string"!=typeof t&&(t=t.toString());var l,c=Lt(this,Ht);if(t!==c&&(Nt(this,Ht,t),Lt(this,Dt)&&(c||(c=null===(l=Lt(this,Dt))||void 0===l?void 0:l.prototypeName),Lt(this,Ft).forEach((function(t){t.innerHTML=Lt(i,Ht)})),It(this,Xt,se).call(this,"collection-index"),Lt(this,Ht)))){var a=null===(e=Lt(this,Dt))||void 0===e?void 0:e.getAttribute("id"),u=(null===(n=Lt(this,Dt))||void 0===n?void 0:n.prefix)||(null===(o=Lt(this,Dt))||void 0===o?void 0:o.name);a&&r(this.querySelectorAll("*"),"".concat(a,"_").concat(c),"".concat(a,"_").concat(t)),u&&r(this.querySelectorAll("*"),"".concat(u,"[").concat(c,"]"),"".concat(u,"[").concat(t,"]"))}}}},{key:"deleteEntry",value:function(){var t;null===(t=Lt(this,Dt))||void 0===t||t.deleteEntry(this)}},{key:"moveDown",value:function(){var t;null===(t=Lt(this,Dt))||void 0===t||t.moveEntry(this,+this.index+1)}},{key:"moveUp",value:function(){var t;null===(t=Lt(this,Dt))||void 0===t||t.moveEntry(this,+this.index-1)}}],c=[{key:"observedAttributes",get:function(){return["actions","collection","collection-index"]}}],l&&kt(i.prototype,l),c&&kt(i,c),Object.defineProperty(i,"prototype",{writable:!1}),u}(xt(HTMLElement));function ie(t){It(this,Zt,fe).call(this),It(this,te,pe).call(this),t.addEventListener("deletePolicyChanged",Lt(this,ee)),t.addEventListener("movePolicyChanged",Lt(this,ne))}function le(t){It(this,Zt,fe).call(this),It(this,te,pe).call(this),t.removeEventListener("deletePolicyChanged",Lt(this,ee)),t.removeEventListener("movePolicyChanged",Lt(this,ne))}function ce(t){var e,n=null!==(e=t.getAttribute("collection"))&&void 0!==e?e:t.getAttribute("data-collection");return this.collectionName&&n===this.collectionName||!n&&t.closest("onlinq-collection-entry")===this}function ae(){this.shadowRoot.innerHTML='<style>\n  :host {\n    --collection-entry-display: block;\n    --collection-entry-justify-content: flex-start;\n    --collection-entry-align-items: flex-start;\n    --collection-entry-contents-margin: 0 0 1rem;\n    --collection-entry-contents-flex-grow: 1;\n    --collection-entry-actions-margin: 0 0 1rem;\n    --collection-entry-actions-flex-grow: 0;\n\n    display: var(--collection-entry-display);\n    justify-content: var(--collection-entry-justify-content);\n    align-items: var(--collection-entry-align-items);\n  }\n\n  .contents {\n    flex-grow: var(--collection-entry-contents-flex-grow);\n    margin: var(--collection-entry-contents-margin);\n  }\n\n  .actions {\n    flex-grow: var(--collection-entry-actions-flex-grow);\n    margin: var(--collection-entry-actions-margin);\n  }\n</style>\n\n<div class="contents">\n  <slot></slot>\n</div>\n<div class="actions" data-actions-container>\n  <slot name="actions">\n    <span data-move-container>\n      <slot name="move-up">\n        <button is="onlinq-collection-move-up">Move up</button>\n      </slot>\n      <slot name="move-down">\n        <button is="onlinq-collection-move-down">Move down</button>\n      </slot>\n    </span>\n    <span data-delete-container>\n      <slot name="delete">\n        <button is="onlinq-collection-delete">Delete</button>\n      </slot>\n    </span>\n  </slot>\n</div>\n',Nt(this,Ut,this.shadowRoot.querySelector("[data-actions-container]")),Nt(this,$t,this.shadowRoot.querySelector("[data-delete-container]")),Nt(this,Vt,this.shadowRoot.querySelector("[data-move-container]"))}function ue(){Lt(this,Ut)&&(Lt(this,Bt)?Lt(this,Ut).style.display="block":Lt(this,Ut).style.display="none")}function se(t){var e=re.observedAttributeBehaviours[t];(0,o[e.type])(this,t,this[e.property])}function fe(){var t,e;Lt(this,$t)&&(null===(t=null===(e=this.collection)||void 0===e?void 0:e.allowDelete)||void 0===t||t?Lt(this,$t).style.removeProperty("display"):Lt(this,$t).style.display="none")}function pe(){var t,e;Lt(this,Vt)&&(null===(t=null===(e=this.collection)||void 0===e?void 0:e.allowMove)||void 0===t||t?Lt(this,Vt).style.removeProperty("display"):Lt(this,Vt).style.display="none")}function he(t){return he="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(t){return typeof t}:function(t){return t&&"function"==typeof Symbol&&t.constructor===Symbol&&t!==Symbol.prototype?"symbol":typeof t},he(t)}function ye(t,e){(null==e||e>t.length)&&(e=t.length);for(var n=0,o=new Array(e);n<e;n++)o[n]=t[n];return o}function de(t,e){for(var n=0;n<e.length;n++){var o=e[n];o.enumerable=o.enumerable||!1,o.configurable=!0,"value"in o&&(o.writable=!0),Object.defineProperty(t,o.key,o)}}function ve(t,e){if(e&&("object"===he(e)||"function"==typeof e))return e;if(void 0!==e)throw new TypeError("Derived constructors may only return object or undefined");return be(t)}function be(t){if(void 0===t)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return t}function me(t){var e="function"==typeof Map?new Map:void 0;return me=function(t){if(null===t||(n=t,-1===Function.toString.call(n).indexOf("[native code]")))return t;var n;if("function"!=typeof t)throw new TypeError("Super expression must either be null or a function");if(void 0!==e){if(e.has(t))return e.get(t);e.set(t,o)}function o(){return we(t,arguments,Ee(this).constructor)}return o.prototype=Object.create(t.prototype,{constructor:{value:o,enumerable:!1,writable:!0,configurable:!0}}),Oe(o,t)},me(t)}function we(t,e,n){return we=ge()?Reflect.construct.bind():function(t,e,n){var o=[null];o.push.apply(o,e);var r=new(Function.bind.apply(t,o));return n&&Oe(r,n.prototype),r},we.apply(null,arguments)}function ge(){if("undefined"==typeof Reflect||!Reflect.construct)return!1;if(Reflect.construct.sham)return!1;if("function"==typeof Proxy)return!0;try{return Boolean.prototype.valueOf.call(Reflect.construct(Boolean,[],(function(){}))),!0}catch(t){return!1}}function Oe(t,e){return Oe=Object.setPrototypeOf?Object.setPrototypeOf.bind():function(t,e){return t.__proto__=e,t},Oe(t,e)}function Ee(t){return Ee=Object.setPrototypeOf?Object.getPrototypeOf.bind():function(t){return t.__proto__||Object.getPrototypeOf(t)},Ee(t)}function Se(t,e,n){!function(t,e){if(e.has(t))throw new TypeError("Cannot initialize the same private elements twice on an object")}(t,e),e.set(t,n)}function ke(t,e){return function(t,e){return e.get?e.get.call(t):e.value}(t,Ae(t,e,"get"))}function je(t,e,n){return function(t,e,n){if(e.set)e.set.call(t,n);else{if(!e.writable)throw new TypeError("attempted to set read only private field");e.value=n}}(t,Ae(t,e,"set"),n),n}function Ae(t,e,n){if(!e.has(t))throw new TypeError("attempted to "+n+" private field on non-instance");return e.get(t)}!function(t,e,n){e in t?Object.defineProperty(t,e,{value:n,enumerable:!0,configurable:!0,writable:!0}):t[e]=n}(re,"observedAttributeBehaviours",{actions:{type:"bool",property:"actions"},collection:{type:"string",property:"collectionName"},"collection-index":{type:"string",property:"index"}}),customElements.define("onlinq-collection-entry",re);var xe=new WeakMap,Pe=new WeakMap,Me=new WeakMap,_e=new WeakMap;function Te(t){return Te="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(t){return typeof t}:function(t){return t&&"function"==typeof Symbol&&t.constructor===Symbol&&t!==Symbol.prototype?"symbol":typeof t},Te(t)}function Re(t,e){return Re=Object.setPrototypeOf?Object.setPrototypeOf.bind():function(t,e){return t.__proto__=e,t},Re(t,e)}function Ce(t,e){if(e&&("object"===Te(e)||"function"==typeof e))return e;if(void 0!==e)throw new TypeError("Derived constructors may only return object or undefined");return function(t){if(void 0===t)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return t}(t)}function We(t){return We=Object.setPrototypeOf?Object.getPrototypeOf.bind():function(t){return t.__proto__||Object.getPrototypeOf(t)},We(t)}var Ne=function(t){!function(t,e){if("function"!=typeof e&&null!==e)throw new TypeError("Super expression must either be null or a function");t.prototype=Object.create(e&&e.prototype,{constructor:{value:t,writable:!0,configurable:!0}}),Object.defineProperty(t,"prototype",{writable:!1}),e&&Re(t,e)}(i,t);var e,n,o,r=(n=i,o=function(){if("undefined"==typeof Reflect||!Reflect.construct)return!1;if(Reflect.construct.sham)return!1;if("function"==typeof Proxy)return!0;try{return Boolean.prototype.valueOf.call(Reflect.construct(Boolean,[],(function(){}))),!0}catch(t){return!1}}(),function(){var t,e=We(n);if(o){var r=We(this).constructor;t=Reflect.construct(e,arguments,r)}else t=e.apply(this,arguments);return Ce(this,t)});function i(){var t;return function(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}(this,i),t=r.call(this,(function(){t.collection&&t.collection.addEntry()}))}return e=i,Object.defineProperty(e,"prototype",{writable:!1}),e}(function(t){!function(t,e){if("function"!=typeof e&&null!==e)throw new TypeError("Super expression must either be null or a function");t.prototype=Object.create(e&&e.prototype,{constructor:{value:t,writable:!0,configurable:!0}}),Object.defineProperty(t,"prototype",{writable:!1}),e&&Oe(t,e)}(a,t);var n,r,i,l,c=(n=a,r=ge(),function(){var t,e=Ee(n);if(r){var o=Ee(this).constructor;t=Reflect.construct(e,arguments,o)}else t=e.apply(this,arguments);return ve(this,t)});function a(t){var e;return function(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}(this,a),Se(be(e=c.call(this)),xe,{writable:!0,value:null}),Se(be(e),Pe,{writable:!0,value:null}),Se(be(e),Me,{writable:!0,value:null}),Se(be(e),_e,{writable:!0,value:function(t){var n,o=function(t,e){var n="undefined"!=typeof Symbol&&t[Symbol.iterator]||t["@@iterator"];if(!n){if(Array.isArray(t)||(n=function(t,e){if(t){if("string"==typeof t)return ye(t,e);var n=Object.prototype.toString.call(t).slice(8,-1);return"Object"===n&&t.constructor&&(n=t.constructor.name),"Map"===n||"Set"===n?Array.from(t):"Arguments"===n||/^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)?ye(t,e):void 0}}(t))||e&&t&&"number"==typeof t.length){n&&(t=n);var o=0,r=function(){};return{s:r,n:function(){return o>=t.length?{done:!0}:{done:!1,value:t[o++]}},e:function(t){throw t},f:r}}throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")}var i,l=!0,c=!1;return{s:function(){n=n.call(t)},n:function(){var t=n.next();return l=t.done,t},e:function(t){c=!0,i=t},f:function(){try{l||null==n.return||n.return()}finally{if(c)throw i}}}}(t);try{for(o.s();!(n=o.n()).done;)"data-collection"===n.value.attributeName&&(e.collectionName=e.getAttribute("data-collection"))}catch(t){o.e(t)}finally{o.f()}}}),je(be(e),xe,t),e}return i=a,(l=[{key:"connectedCallback",value:function(){var t;this.collectionName=null!==(t=this.getAttribute("data-collection"))&&void 0!==t?t:null,je(this,Me,new MutationObserver(ke(this,_e))),ke(this,Me).observe(this,{attributes:!0}),this.addEventListener("click",ke(this,xe))}},{key:"disconnectedCallback",value:function(){ke(this,Me).disconnect(),this.removeEventListener("click",ke(this,xe))}},{key:"collection",get:function(){return ke(this,Pe)},set:function(t){if(je(this,Pe,t),!ke(this,Pe)){var n,r=null!==(n=this.getRootNode().host)&&void 0!==n?n:null;r&&"ONLINQ-COLLECTION"===r.nodeName?je(this,Pe,r):console.error("A collection button was created without a matching collection.")}e.string(this.collectionName)===this.getAttribute("data-collection")||o.string(this,"data-collection",this.collectionName)}},{key:"collectionName",get:function(){var t;return null===(t=ke(this,Pe))||void 0===t?void 0:t.name},set:function(t){this.collection=t?document.querySelector('onlinq-collection[name="'.concat(t,'"]')):this.closest("onlinq-collection")}}])&&de(i.prototype,l),Object.defineProperty(i,"prototype",{writable:!1}),a}(me(HTMLButtonElement)));function Le(t){return Le="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(t){return typeof t}:function(t){return t&&"function"==typeof Symbol&&t.constructor===Symbol&&t!==Symbol.prototype?"symbol":typeof t},Le(t)}function qe(t,e){(null==e||e>t.length)&&(e=t.length);for(var n=0,o=new Array(e);n<e;n++)o[n]=t[n];return o}function Ie(t,e){for(var n=0;n<e.length;n++){var o=e[n];o.enumerable=o.enumerable||!1,o.configurable=!0,"value"in o&&(o.writable=!0),Object.defineProperty(t,o.key,o)}}function Be(t,e){if(e&&("object"===Le(e)||"function"==typeof e))return e;if(void 0!==e)throw new TypeError("Derived constructors may only return object or undefined");return De(t)}function De(t){if(void 0===t)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return t}function He(t){var e="function"==typeof Map?new Map:void 0;return He=function(t){if(null===t||(n=t,-1===Function.toString.call(n).indexOf("[native code]")))return t;var n;if("function"!=typeof t)throw new TypeError("Super expression must either be null or a function");if(void 0!==e){if(e.has(t))return e.get(t);e.set(t,o)}function o(){return Ue(t,arguments,Ve(this).constructor)}return o.prototype=Object.create(t.prototype,{constructor:{value:o,enumerable:!1,writable:!0,configurable:!0}}),Fe(o,t)},He(t)}function Ue(t,e,n){return Ue=$e()?Reflect.construct.bind():function(t,e,n){var o=[null];o.push.apply(o,e);var r=new(Function.bind.apply(t,o));return n&&Fe(r,n.prototype),r},Ue.apply(null,arguments)}function $e(){if("undefined"==typeof Reflect||!Reflect.construct)return!1;if(Reflect.construct.sham)return!1;if("function"==typeof Proxy)return!0;try{return Boolean.prototype.valueOf.call(Reflect.construct(Boolean,[],(function(){}))),!0}catch(t){return!1}}function Fe(t,e){return Fe=Object.setPrototypeOf?Object.setPrototypeOf.bind():function(t,e){return t.__proto__=e,t},Fe(t,e)}function Ve(t){return Ve=Object.setPrototypeOf?Object.getPrototypeOf.bind():function(t){return t.__proto__||Object.getPrototypeOf(t)},Ve(t)}function ze(t,e,n){!function(t,e){if(e.has(t))throw new TypeError("Cannot initialize the same private elements twice on an object")}(t,e),e.set(t,n)}function Qe(t,e){return function(t,e){return e.get?e.get.call(t):e.value}(t,Ge(t,e,"get"))}function Ye(t,e,n){return function(t,e,n){if(e.set)e.set.call(t,n);else{if(!e.writable)throw new TypeError("attempted to set read only private field");e.value=n}}(t,Ge(t,e,"set"),n),n}function Ge(t,e,n){if(!e.has(t))throw new TypeError("attempted to "+n+" private field on non-instance");return e.get(t)}customElements.define("onlinq-collection-add",Ne,{extends:"button"});var Je=new WeakMap,Ke=new WeakMap,Xe=new WeakMap,Ze=new WeakMap,tn=function(t){!function(t,e){if("function"!=typeof e&&null!==e)throw new TypeError("Super expression must either be null or a function");t.prototype=Object.create(e&&e.prototype,{constructor:{value:t,writable:!0,configurable:!0}}),Object.defineProperty(t,"prototype",{writable:!1}),e&&Fe(t,e)}(a,t);var n,r,i,l,c=(n=a,r=$e(),function(){var t,e=Ve(n);if(r){var o=Ve(this).constructor;t=Reflect.construct(e,arguments,o)}else t=e.apply(this,arguments);return Be(this,t)});function a(t){var e;return function(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}(this,a),ze(De(e=c.call(this)),Je,{writable:!0,value:null}),ze(De(e),Ke,{writable:!0,value:null}),ze(De(e),Xe,{writable:!0,value:null}),ze(De(e),Ze,{writable:!0,value:function(t){var n,o=function(t,e){var n="undefined"!=typeof Symbol&&t[Symbol.iterator]||t["@@iterator"];if(!n){if(Array.isArray(t)||(n=function(t,e){if(t){if("string"==typeof t)return qe(t,e);var n=Object.prototype.toString.call(t).slice(8,-1);return"Object"===n&&t.constructor&&(n=t.constructor.name),"Map"===n||"Set"===n?Array.from(t):"Arguments"===n||/^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)?qe(t,e):void 0}}(t))||e&&t&&"number"==typeof t.length){n&&(t=n);var o=0,r=function(){};return{s:r,n:function(){return o>=t.length?{done:!0}:{done:!1,value:t[o++]}},e:function(t){throw t},f:r}}throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")}var i,l=!0,c=!1;return{s:function(){n=n.call(t)},n:function(){var t=n.next();return l=t.done,t},e:function(t){c=!0,i=t},f:function(){try{l||null==n.return||n.return()}finally{if(c)throw i}}}}(t);try{for(o.s();!(n=o.n()).done;)"data-collection"===n.value.attributeName&&(e.collectionName=e.getAttribute("data-collection"))}catch(t){o.e(t)}finally{o.f()}}}),Ye(De(e),Je,t),e}return i=a,(l=[{key:"connectedCallback",value:function(){var t;this.collectionName=null!==(t=this.getAttribute("data-collection"))&&void 0!==t?t:null,Ye(this,Xe,new MutationObserver(Qe(this,Ze))),Qe(this,Xe).observe(this,{attributes:!0}),this.addEventListener("click",Qe(this,Je))}},{key:"disconnectedCallback",value:function(){Qe(this,Xe).disconnect(),this.removeEventListener("click",Qe(this,Je))}},{key:"collection",get:function(){var t;return null===(t=this.collectionEntry)||void 0===t?void 0:t.collection}},{key:"collectionEntry",get:function(){return Qe(this,Ke)},set:function(t){if(Ye(this,Ke,t),!Qe(this,Ke)&&this.isConnected){var n,r=null!==(n=this.getRootNode().host)&&void 0!==n?n:null;r&&"ONLINQ-COLLECTION-ENTRY"===r.nodeName?Ye(this,Ke,r):console.error("A collection entry button was created without a matching collection entry.")}e.string(this.collectionName)===this.getAttribute("data-collection")||o.string(this,"data-collection",this.collectionName)}},{key:"collectionName",get:function(){var t;return null===(t=this.collection)||void 0===t?void 0:t.collectionName},set:function(t){this.collectionEntry=t?this.closest('onlinq-collection[name="'.concat(t,'"] > onlinq-collection-entry')):this.closest("onlinq-collection-entry")}}])&&Ie(i.prototype,l),Object.defineProperty(i,"prototype",{writable:!1}),a}(He(HTMLButtonElement));function en(t){return en="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(t){return typeof t}:function(t){return t&&"function"==typeof Symbol&&t.constructor===Symbol&&t!==Symbol.prototype?"symbol":typeof t},en(t)}function nn(t,e){return nn=Object.setPrototypeOf?Object.setPrototypeOf.bind():function(t,e){return t.__proto__=e,t},nn(t,e)}function on(t,e){if(e&&("object"===en(e)||"function"==typeof e))return e;if(void 0!==e)throw new TypeError("Derived constructors may only return object or undefined");return function(t){if(void 0===t)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return t}(t)}function rn(t){return rn=Object.setPrototypeOf?Object.getPrototypeOf.bind():function(t){return t.__proto__||Object.getPrototypeOf(t)},rn(t)}var ln=function(t){!function(t,e){if("function"!=typeof e&&null!==e)throw new TypeError("Super expression must either be null or a function");t.prototype=Object.create(e&&e.prototype,{constructor:{value:t,writable:!0,configurable:!0}}),Object.defineProperty(t,"prototype",{writable:!1}),e&&nn(t,e)}(i,t);var e,n,o,r=(n=i,o=function(){if("undefined"==typeof Reflect||!Reflect.construct)return!1;if(Reflect.construct.sham)return!1;if("function"==typeof Proxy)return!0;try{return Boolean.prototype.valueOf.call(Reflect.construct(Boolean,[],(function(){}))),!0}catch(t){return!1}}(),function(){var t,e=rn(n);if(o){var r=rn(this).constructor;t=Reflect.construct(e,arguments,r)}else t=e.apply(this,arguments);return on(this,t)});function i(){var t;return function(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}(this,i),t=r.call(this,(function(){t.collectionEntry&&t.collectionEntry.deleteEntry()}))}return e=i,Object.defineProperty(e,"prototype",{writable:!1}),e}(tn);function cn(t){return cn="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(t){return typeof t}:function(t){return t&&"function"==typeof Symbol&&t.constructor===Symbol&&t!==Symbol.prototype?"symbol":typeof t},cn(t)}function an(t,e){return an=Object.setPrototypeOf?Object.setPrototypeOf.bind():function(t,e){return t.__proto__=e,t},an(t,e)}function un(t,e){if(e&&("object"===cn(e)||"function"==typeof e))return e;if(void 0!==e)throw new TypeError("Derived constructors may only return object or undefined");return function(t){if(void 0===t)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return t}(t)}function sn(t){return sn=Object.setPrototypeOf?Object.getPrototypeOf.bind():function(t){return t.__proto__||Object.getPrototypeOf(t)},sn(t)}customElements.define("onlinq-collection-delete",ln,{extends:"button"});var fn=function(t){!function(t,e){if("function"!=typeof e&&null!==e)throw new TypeError("Super expression must either be null or a function");t.prototype=Object.create(e&&e.prototype,{constructor:{value:t,writable:!0,configurable:!0}}),Object.defineProperty(t,"prototype",{writable:!1}),e&&an(t,e)}(i,t);var e,n,o,r=(n=i,o=function(){if("undefined"==typeof Reflect||!Reflect.construct)return!1;if(Reflect.construct.sham)return!1;if("function"==typeof Proxy)return!0;try{return Boolean.prototype.valueOf.call(Reflect.construct(Boolean,[],(function(){}))),!0}catch(t){return!1}}(),function(){var t,e=sn(n);if(o){var r=sn(this).constructor;t=Reflect.construct(e,arguments,r)}else t=e.apply(this,arguments);return un(this,t)});function i(){var t;return function(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}(this,i),t=r.call(this,(function(){t.collectionEntry&&t.collectionEntry.moveDown()}))}return e=i,Object.defineProperty(e,"prototype",{writable:!1}),e}(tn);function pn(t){return pn="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(t){return typeof t}:function(t){return t&&"function"==typeof Symbol&&t.constructor===Symbol&&t!==Symbol.prototype?"symbol":typeof t},pn(t)}function hn(t,e){return hn=Object.setPrototypeOf?Object.setPrototypeOf.bind():function(t,e){return t.__proto__=e,t},hn(t,e)}function yn(t,e){if(e&&("object"===pn(e)||"function"==typeof e))return e;if(void 0!==e)throw new TypeError("Derived constructors may only return object or undefined");return function(t){if(void 0===t)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return t}(t)}function dn(t){return dn=Object.setPrototypeOf?Object.getPrototypeOf.bind():function(t){return t.__proto__||Object.getPrototypeOf(t)},dn(t)}customElements.define("onlinq-collection-move-down",fn,{extends:"button"});var vn=function(t){!function(t,e){if("function"!=typeof e&&null!==e)throw new TypeError("Super expression must either be null or a function");t.prototype=Object.create(e&&e.prototype,{constructor:{value:t,writable:!0,configurable:!0}}),Object.defineProperty(t,"prototype",{writable:!1}),e&&hn(t,e)}(i,t);var e,n,o,r=(n=i,o=function(){if("undefined"==typeof Reflect||!Reflect.construct)return!1;if(Reflect.construct.sham)return!1;if("function"==typeof Proxy)return!0;try{return Boolean.prototype.valueOf.call(Reflect.construct(Boolean,[],(function(){}))),!0}catch(t){return!1}}(),function(){var t,e=dn(n);if(o){var r=dn(this).constructor;t=Reflect.construct(e,arguments,r)}else t=e.apply(this,arguments);return yn(this,t)});function i(){var t;return function(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}(this,i),t=r.call(this,(function(){t.collectionEntry&&t.collectionEntry.moveUp()}))}return e=i,Object.defineProperty(e,"prototype",{writable:!1}),e}(tn);customElements.define("onlinq-collection-move-up",vn,{extends:"button"})})()})();
+/******/ (() => { // webpackBootstrap
+/******/ 	var __webpack_modules__ = ({
+
+/***/ "./node_modules/@ungap/custom-elements/index.js":
+/*!******************************************************!*\
+  !*** ./node_modules/@ungap/custom-elements/index.js ***!
+  \******************************************************/
+/***/ (() => {
+
+/*! (c) Andrea Giammarchi @webreflection ISC */
+(function () {
+  'use strict';
+
+  var attributesObserver = (function (whenDefined, MutationObserver) {
+    var attributeChanged = function attributeChanged(records) {
+      for (var i = 0, length = records.length; i < length; i++) dispatch(records[i]);
+    };
+    var dispatch = function dispatch(_ref) {
+      var target = _ref.target,
+        attributeName = _ref.attributeName,
+        oldValue = _ref.oldValue;
+      target.attributeChangedCallback(attributeName, oldValue, target.getAttribute(attributeName));
+    };
+    return function (target, is) {
+      var attributeFilter = target.constructor.observedAttributes;
+      if (attributeFilter) {
+        whenDefined(is).then(function () {
+          new MutationObserver(attributeChanged).observe(target, {
+            attributes: true,
+            attributeOldValue: true,
+            attributeFilter: attributeFilter
+          });
+          for (var i = 0, length = attributeFilter.length; i < length; i++) {
+            if (target.hasAttribute(attributeFilter[i])) dispatch({
+              target: target,
+              attributeName: attributeFilter[i],
+              oldValue: null
+            });
+          }
+        });
+      }
+      return target;
+    };
+  });
+
+  function _unsupportedIterableToArray(o, minLen) {
+    if (!o) return;
+    if (typeof o === "string") return _arrayLikeToArray(o, minLen);
+    var n = Object.prototype.toString.call(o).slice(8, -1);
+    if (n === "Object" && o.constructor) n = o.constructor.name;
+    if (n === "Map" || n === "Set") return Array.from(o);
+    if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
+  }
+  function _arrayLikeToArray(arr, len) {
+    if (len == null || len > arr.length) len = arr.length;
+    for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i];
+    return arr2;
+  }
+  function _createForOfIteratorHelper(o, allowArrayLike) {
+    var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"];
+    if (!it) {
+      if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") {
+        if (it) o = it;
+        var i = 0;
+        var F = function () {};
+        return {
+          s: F,
+          n: function () {
+            if (i >= o.length) return {
+              done: true
+            };
+            return {
+              done: false,
+              value: o[i++]
+            };
+          },
+          e: function (e) {
+            throw e;
+          },
+          f: F
+        };
+      }
+      throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+    }
+    var normalCompletion = true,
+      didErr = false,
+      err;
+    return {
+      s: function () {
+        it = it.call(o);
+      },
+      n: function () {
+        var step = it.next();
+        normalCompletion = step.done;
+        return step;
+      },
+      e: function (e) {
+        didErr = true;
+        err = e;
+      },
+      f: function () {
+        try {
+          if (!normalCompletion && it.return != null) it.return();
+        } finally {
+          if (didErr) throw err;
+        }
+      }
+    };
+  }
+
+  /*! (c) Andrea Giammarchi - ISC */
+  var TRUE = true,
+    FALSE = false,
+    QSA$1 = 'querySelectorAll';
+
+  /**
+   * Start observing a generic document or root element.
+   * @param {(node:Element, connected:boolean) => void} callback triggered per each dis/connected element
+   * @param {Document|Element} [root=document] by default, the global document to observe
+   * @param {Function} [MO=MutationObserver] by default, the global MutationObserver
+   * @param {string[]} [query=['*']] the selectors to use within nodes
+   * @returns {MutationObserver}
+   */
+  var notify = function notify(callback) {
+    var root = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : document;
+    var MO = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : MutationObserver;
+    var query = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : ['*'];
+    var loop = function loop(nodes, selectors, added, removed, connected, pass) {
+      var _iterator = _createForOfIteratorHelper(nodes),
+        _step;
+      try {
+        for (_iterator.s(); !(_step = _iterator.n()).done;) {
+          var node = _step.value;
+          if (pass || QSA$1 in node) {
+            if (connected) {
+              if (!added.has(node)) {
+                added.add(node);
+                removed["delete"](node);
+                callback(node, connected);
+              }
+            } else if (!removed.has(node)) {
+              removed.add(node);
+              added["delete"](node);
+              callback(node, connected);
+            }
+            if (!pass) loop(node[QSA$1](selectors), selectors, added, removed, connected, TRUE);
+          }
+        }
+      } catch (err) {
+        _iterator.e(err);
+      } finally {
+        _iterator.f();
+      }
+    };
+    var mo = new MO(function (records) {
+      if (query.length) {
+        var selectors = query.join(',');
+        var added = new Set(),
+          removed = new Set();
+        var _iterator2 = _createForOfIteratorHelper(records),
+          _step2;
+        try {
+          for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+            var _step2$value = _step2.value,
+              addedNodes = _step2$value.addedNodes,
+              removedNodes = _step2$value.removedNodes;
+            loop(removedNodes, selectors, added, removed, FALSE, FALSE);
+            loop(addedNodes, selectors, added, removed, TRUE, FALSE);
+          }
+        } catch (err) {
+          _iterator2.e(err);
+        } finally {
+          _iterator2.f();
+        }
+      }
+    });
+    var observe = mo.observe;
+    (mo.observe = function (node) {
+      return observe.call(mo, node, {
+        subtree: TRUE,
+        childList: TRUE
+      });
+    })(root);
+    return mo;
+  };
+
+  var QSA = 'querySelectorAll';
+  var _self$1 = self,
+    document$2 = _self$1.document,
+    Element$1 = _self$1.Element,
+    MutationObserver$2 = _self$1.MutationObserver,
+    Set$2 = _self$1.Set,
+    WeakMap$1 = _self$1.WeakMap;
+  var elements = function elements(element) {
+    return QSA in element;
+  };
+  var filter = [].filter;
+  var qsaObserver = (function (options) {
+    var live = new WeakMap$1();
+    var drop = function drop(elements) {
+      for (var i = 0, length = elements.length; i < length; i++) live["delete"](elements[i]);
+    };
+    var flush = function flush() {
+      var records = observer.takeRecords();
+      for (var i = 0, length = records.length; i < length; i++) {
+        parse(filter.call(records[i].removedNodes, elements), false);
+        parse(filter.call(records[i].addedNodes, elements), true);
+      }
+    };
+    var matches = function matches(element) {
+      return element.matches || element.webkitMatchesSelector || element.msMatchesSelector;
+    };
+    var notifier = function notifier(element, connected) {
+      var selectors;
+      if (connected) {
+        for (var q, m = matches(element), i = 0, length = query.length; i < length; i++) {
+          if (m.call(element, q = query[i])) {
+            if (!live.has(element)) live.set(element, new Set$2());
+            selectors = live.get(element);
+            if (!selectors.has(q)) {
+              selectors.add(q);
+              options.handle(element, connected, q);
+            }
+          }
+        }
+      } else if (live.has(element)) {
+        selectors = live.get(element);
+        live["delete"](element);
+        selectors.forEach(function (q) {
+          options.handle(element, connected, q);
+        });
+      }
+    };
+    var parse = function parse(elements) {
+      var connected = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
+      for (var i = 0, length = elements.length; i < length; i++) notifier(elements[i], connected);
+    };
+    var query = options.query;
+    var root = options.root || document$2;
+    var observer = notify(notifier, root, MutationObserver$2, query);
+    var attachShadow = Element$1.prototype.attachShadow;
+    if (attachShadow) Element$1.prototype.attachShadow = function (init) {
+      var shadowRoot = attachShadow.call(this, init);
+      observer.observe(shadowRoot);
+      return shadowRoot;
+    };
+    if (query.length) parse(root[QSA](query));
+    return {
+      drop: drop,
+      flush: flush,
+      observer: observer,
+      parse: parse
+    };
+  });
+
+  var _self = self,
+    document$1 = _self.document,
+    Map = _self.Map,
+    MutationObserver$1 = _self.MutationObserver,
+    Object$1 = _self.Object,
+    Set$1 = _self.Set,
+    WeakMap = _self.WeakMap,
+    Element = _self.Element,
+    HTMLElement = _self.HTMLElement,
+    Node = _self.Node,
+    Error = _self.Error,
+    TypeError$1 = _self.TypeError,
+    Reflect = _self.Reflect;
+  var defineProperty = Object$1.defineProperty,
+    keys = Object$1.keys,
+    getOwnPropertyNames = Object$1.getOwnPropertyNames,
+    setPrototypeOf = Object$1.setPrototypeOf;
+  var legacy = !self.customElements;
+  var expando = function expando(element) {
+    var key = keys(element);
+    var value = [];
+    var ignore = new Set$1();
+    var length = key.length;
+    for (var i = 0; i < length; i++) {
+      value[i] = element[key[i]];
+      try {
+        delete element[key[i]];
+      } catch (SafariTP) {
+        ignore.add(i);
+      }
+    }
+    return function () {
+      for (var _i = 0; _i < length; _i++) ignore.has(_i) || (element[key[_i]] = value[_i]);
+    };
+  };
+  if (legacy) {
+    var HTMLBuiltIn = function HTMLBuiltIn() {
+      var constructor = this.constructor;
+      if (!classes.has(constructor)) throw new TypeError$1('Illegal constructor');
+      var is = classes.get(constructor);
+      if (override) return augment(override, is);
+      var element = createElement.call(document$1, is);
+      return augment(setPrototypeOf(element, constructor.prototype), is);
+    };
+    var createElement = document$1.createElement;
+    var classes = new Map();
+    var defined = new Map();
+    var prototypes = new Map();
+    var registry = new Map();
+    var query = [];
+    var handle = function handle(element, connected, selector) {
+      var proto = prototypes.get(selector);
+      if (connected && !proto.isPrototypeOf(element)) {
+        var redefine = expando(element);
+        override = setPrototypeOf(element, proto);
+        try {
+          new proto.constructor();
+        } finally {
+          override = null;
+          redefine();
+        }
+      }
+      var method = "".concat(connected ? '' : 'dis', "connectedCallback");
+      if (method in proto) element[method]();
+    };
+    var _qsaObserver = qsaObserver({
+        query: query,
+        handle: handle
+      }),
+      parse = _qsaObserver.parse;
+    var override = null;
+    var whenDefined = function whenDefined(name) {
+      if (!defined.has(name)) {
+        var _,
+          $ = new Promise(function ($) {
+            _ = $;
+          });
+        defined.set(name, {
+          $: $,
+          _: _
+        });
+      }
+      return defined.get(name).$;
+    };
+    var augment = attributesObserver(whenDefined, MutationObserver$1);
+    self.customElements = {
+      define: function define(is, Class) {
+        if (registry.has(is)) throw new Error("the name \"".concat(is, "\" has already been used with this registry"));
+        classes.set(Class, is);
+        prototypes.set(is, Class.prototype);
+        registry.set(is, Class);
+        query.push(is);
+        whenDefined(is).then(function () {
+          parse(document$1.querySelectorAll(is));
+        });
+        defined.get(is)._(Class);
+      },
+      get: function get(is) {
+        return registry.get(is);
+      },
+      whenDefined: whenDefined
+    };
+    defineProperty(HTMLBuiltIn.prototype = HTMLElement.prototype, 'constructor', {
+      value: HTMLBuiltIn
+    });
+    self.HTMLElement = HTMLBuiltIn;
+    document$1.createElement = function (name, options) {
+      var is = options && options.is;
+      var Class = is ? registry.get(is) : registry.get(name);
+      return Class ? new Class() : createElement.call(document$1, name);
+    };
+    // in case ShadowDOM is used through a polyfill, to avoid issues
+    // with builtin extends within shadow roots
+    if (!('isConnected' in Node.prototype)) defineProperty(Node.prototype, 'isConnected', {
+      configurable: true,
+      get: function get() {
+        return !(this.ownerDocument.compareDocumentPosition(this) & this.DOCUMENT_POSITION_DISCONNECTED);
+      }
+    });
+  } else {
+    legacy = !self.customElements.get('extends-br');
+    if (legacy) {
+      try {
+        var BR = function BR() {
+          return self.Reflect.construct(HTMLBRElement, [], BR);
+        };
+        BR.prototype = HTMLLIElement.prototype;
+        var is = 'extends-br';
+        self.customElements.define('extends-br', BR, {
+          'extends': 'br'
+        });
+        legacy = document$1.createElement('br', {
+          is: is
+        }).outerHTML.indexOf(is) < 0;
+        var _self$customElements = self.customElements,
+          get = _self$customElements.get,
+          _whenDefined = _self$customElements.whenDefined;
+        self.customElements.whenDefined = function (is) {
+          var _this = this;
+          return _whenDefined.call(this, is).then(function (Class) {
+            return Class || get.call(_this, is);
+          });
+        };
+      } catch (o_O) {}
+    }
+  }
+  if (legacy) {
+    var _parseShadow = function _parseShadow(element) {
+      var root = shadowRoots.get(element);
+      _parse(root.querySelectorAll(this), element.isConnected);
+    };
+    var customElements = self.customElements;
+    var _createElement = document$1.createElement;
+    var define = customElements.define,
+      _get = customElements.get,
+      upgrade = customElements.upgrade;
+    var _ref = Reflect || {
+        construct: function construct(HTMLElement) {
+          return HTMLElement.call(this);
+        }
+      },
+      construct = _ref.construct;
+    var shadowRoots = new WeakMap();
+    var shadows = new Set$1();
+    var _classes = new Map();
+    var _defined = new Map();
+    var _prototypes = new Map();
+    var _registry = new Map();
+    var shadowed = [];
+    var _query = [];
+    var getCE = function getCE(is) {
+      return _registry.get(is) || _get.call(customElements, is);
+    };
+    var _handle = function _handle(element, connected, selector) {
+      var proto = _prototypes.get(selector);
+      if (connected && !proto.isPrototypeOf(element)) {
+        var redefine = expando(element);
+        _override = setPrototypeOf(element, proto);
+        try {
+          new proto.constructor();
+        } finally {
+          _override = null;
+          redefine();
+        }
+      }
+      var method = "".concat(connected ? '' : 'dis', "connectedCallback");
+      if (method in proto) element[method]();
+    };
+    var _qsaObserver2 = qsaObserver({
+        query: _query,
+        handle: _handle
+      }),
+      _parse = _qsaObserver2.parse;
+    var _qsaObserver3 = qsaObserver({
+        query: shadowed,
+        handle: function handle(element, connected) {
+          if (shadowRoots.has(element)) {
+            if (connected) shadows.add(element);else shadows["delete"](element);
+            if (_query.length) _parseShadow.call(_query, element);
+          }
+        }
+      }),
+      parseShadowed = _qsaObserver3.parse;
+    // qsaObserver also patches attachShadow
+    // be sure this runs *after* that
+    var attachShadow = Element.prototype.attachShadow;
+    if (attachShadow) Element.prototype.attachShadow = function (init) {
+      var root = attachShadow.call(this, init);
+      shadowRoots.set(this, root);
+      return root;
+    };
+    var _whenDefined2 = function _whenDefined2(name) {
+      if (!_defined.has(name)) {
+        var _,
+          $ = new Promise(function ($) {
+            _ = $;
+          });
+        _defined.set(name, {
+          $: $,
+          _: _
+        });
+      }
+      return _defined.get(name).$;
+    };
+    var _augment = attributesObserver(_whenDefined2, MutationObserver$1);
+    var _override = null;
+    getOwnPropertyNames(self).filter(function (k) {
+      return /^HTML.*Element$/.test(k);
+    }).forEach(function (k) {
+      var HTMLElement = self[k];
+      function HTMLBuiltIn() {
+        var constructor = this.constructor;
+        if (!_classes.has(constructor)) throw new TypeError$1('Illegal constructor');
+        var _classes$get = _classes.get(constructor),
+          is = _classes$get.is,
+          tag = _classes$get.tag;
+        if (is) {
+          if (_override) return _augment(_override, is);
+          var element = _createElement.call(document$1, tag);
+          element.setAttribute('is', is);
+          return _augment(setPrototypeOf(element, constructor.prototype), is);
+        } else return construct.call(this, HTMLElement, [], constructor);
+      }
+
+      defineProperty(HTMLBuiltIn.prototype = HTMLElement.prototype, 'constructor', {
+        value: HTMLBuiltIn
+      });
+      defineProperty(self, k, {
+        value: HTMLBuiltIn
+      });
+    });
+    document$1.createElement = function (name, options) {
+      var is = options && options.is;
+      if (is) {
+        var Class = _registry.get(is);
+        if (Class && _classes.get(Class).tag === name) return new Class();
+      }
+      var element = _createElement.call(document$1, name);
+      if (is) element.setAttribute('is', is);
+      return element;
+    };
+    customElements.get = getCE;
+    customElements.whenDefined = _whenDefined2;
+    customElements.upgrade = function (element) {
+      var is = element.getAttribute('is');
+      if (is) {
+        var _constructor = _registry.get(is);
+        if (_constructor) {
+          _augment(setPrototypeOf(element, _constructor.prototype), is);
+          // apparently unnecessary because this is handled by qsa observer
+          // if (element.isConnected && element.connectedCallback)
+          //   element.connectedCallback();
+          return;
+        }
+      }
+      upgrade.call(customElements, element);
+    };
+    customElements.define = function (is, Class, options) {
+      if (getCE(is)) throw new Error("'".concat(is, "' has already been defined as a custom element"));
+      var selector;
+      var tag = options && options["extends"];
+      _classes.set(Class, tag ? {
+        is: is,
+        tag: tag
+      } : {
+        is: '',
+        tag: is
+      });
+      if (tag) {
+        selector = "".concat(tag, "[is=\"").concat(is, "\"]");
+        _prototypes.set(selector, Class.prototype);
+        _registry.set(is, Class);
+        _query.push(selector);
+      } else {
+        define.apply(customElements, arguments);
+        shadowed.push(selector = is);
+      }
+      _whenDefined2(is).then(function () {
+        if (tag) {
+          _parse(document$1.querySelectorAll(selector));
+          shadows.forEach(_parseShadow, [selector]);
+        } else parseShadowed(document$1.querySelectorAll(selector));
+      });
+      _defined.get(is)._(Class);
+    };
+  }
+
+})();
+
+
+/***/ }),
+
+/***/ "./src/element-utilities.js":
+/*!**********************************!*\
+  !*** ./src/element-utilities.js ***!
+  \**********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   attributeStateTransformers: () => (/* binding */ attributeStateTransformers),
+/* harmony export */   attributeValueTransformers: () => (/* binding */ attributeValueTransformers),
+/* harmony export */   disableButton: () => (/* binding */ disableButton),
+/* harmony export */   enableButton: () => (/* binding */ enableButton),
+/* harmony export */   replaceAttributeData: () => (/* binding */ replaceAttributeData)
+/* harmony export */ });
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
+var attributeValueTransformers = {
+  bool: function bool(value) {
+    return value !== null;
+  },
+  number: function number(value) {
+    return +value;
+  },
+  string: function string(value) {
+    return value !== null && value !== void 0 ? value : null;
+  }
+};
+var attributeStateTransformers = {
+  bool: function bool(element, attribute, value) {
+    if (value) {
+      element.setAttribute(attribute, attribute);
+    } else {
+      element.removeAttribute(attribute);
+    }
+  },
+  number: function number(element, attribute, value) {
+    element.setAttribute(attribute, value);
+  },
+  string: function string(element, attribute, value) {
+    if (value) {
+      element.setAttribute(attribute, value);
+    } else {
+      element.removeAttribute(attribute);
+    }
+  }
+};
+function enableButton(button) {
+  button.removeAttribute('disabled');
+  button.classList.remove('disabled');
+}
+function disableButton(button) {
+  button.setAttribute('disabled', 'disabled');
+  button.classList.add('disabled');
+}
+function replaceAttributeData(elements, toReplace, replaceWith) {
+  elements.forEach(function (element) {
+    _toConsumableArray(element.attributes).map(function (attribute) {
+      if (attribute.value.includes(toReplace)) {
+        attribute.value = attribute.value.replace(toReplace, replaceWith);
+      }
+    });
+    if (element.tagName === 'TEMPLATE') {
+      replaceAttributeData(element.content.querySelectorAll('*'), toReplace, replaceWith);
+    }
+  });
+}
+
+/***/ }),
+
+/***/ "./src/elements/add-button.js":
+/*!************************************!*\
+  !*** ./src/elements/add-button.js ***!
+  \************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   OnlinqFormCollectionAddButtonElement: () => (/* binding */ OnlinqFormCollectionAddButtonElement)
+/* harmony export */ });
+/* harmony import */ var _collection_button__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./collection-button */ "./src/elements/collection-button.js");
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf(subClass, superClass); }
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+var OnlinqFormCollectionAddButtonElement = /*#__PURE__*/function (_OnlinqFormCollection) {
+  _inherits(OnlinqFormCollectionAddButtonElement, _OnlinqFormCollection);
+  var _super = _createSuper(OnlinqFormCollectionAddButtonElement);
+  function OnlinqFormCollectionAddButtonElement() {
+    var _this;
+    _classCallCheck(this, OnlinqFormCollectionAddButtonElement);
+    var clickCallback = function clickCallback() {
+      if (_this.collection) {
+        _this.collection.addEntry();
+      }
+    };
+    return _this = _super.call(this, clickCallback);
+  }
+  return _createClass(OnlinqFormCollectionAddButtonElement);
+}(_collection_button__WEBPACK_IMPORTED_MODULE_0__.OnlinqFormCollectionButtonElement);
+customElements.define('onlinq-collection-add', OnlinqFormCollectionAddButtonElement, {
+  "extends": 'button'
+});
+
+/***/ }),
+
+/***/ "./src/elements/collection-button.js":
+/*!*******************************************!*\
+  !*** ./src/elements/collection-button.js ***!
+  \*******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   OnlinqFormCollectionButtonElement: () => (/* binding */ OnlinqFormCollectionButtonElement)
+/* harmony export */ });
+/* harmony import */ var _element_utilities__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../element-utilities */ "./src/element-utilities.js");
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf(subClass, superClass); }
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+function _wrapNativeSuper(Class) { var _cache = typeof Map === "function" ? new Map() : undefined; _wrapNativeSuper = function _wrapNativeSuper(Class) { if (Class === null || !_isNativeFunction(Class)) return Class; if (typeof Class !== "function") { throw new TypeError("Super expression must either be null or a function"); } if (typeof _cache !== "undefined") { if (_cache.has(Class)) return _cache.get(Class); _cache.set(Class, Wrapper); } function Wrapper() { return _construct(Class, arguments, _getPrototypeOf(this).constructor); } Wrapper.prototype = Object.create(Class.prototype, { constructor: { value: Wrapper, enumerable: false, writable: true, configurable: true } }); return _setPrototypeOf(Wrapper, Class); }; return _wrapNativeSuper(Class); }
+function _construct(Parent, args, Class) { if (_isNativeReflectConstruct()) { _construct = Reflect.construct.bind(); } else { _construct = function _construct(Parent, args, Class) { var a = [null]; a.push.apply(a, args); var Constructor = Function.bind.apply(Parent, a); var instance = new Constructor(); if (Class) _setPrototypeOf(instance, Class.prototype); return instance; }; } return _construct.apply(null, arguments); }
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+function _isNativeFunction(fn) { try { return Function.toString.call(fn).indexOf("[native code]") !== -1; } catch (e) { return typeof fn === "function"; } }
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+function _classPrivateFieldInitSpec(obj, privateMap, value) { _checkPrivateRedeclaration(obj, privateMap); privateMap.set(obj, value); }
+function _checkPrivateRedeclaration(obj, privateCollection) { if (privateCollection.has(obj)) { throw new TypeError("Cannot initialize the same private elements twice on an object"); } }
+function _classPrivateFieldGet(receiver, privateMap) { var descriptor = _classExtractFieldDescriptor(receiver, privateMap, "get"); return _classApplyDescriptorGet(receiver, descriptor); }
+function _classApplyDescriptorGet(receiver, descriptor) { if (descriptor.get) { return descriptor.get.call(receiver); } return descriptor.value; }
+function _classPrivateFieldSet(receiver, privateMap, value) { var descriptor = _classExtractFieldDescriptor(receiver, privateMap, "set"); _classApplyDescriptorSet(receiver, descriptor, value); return value; }
+function _classExtractFieldDescriptor(receiver, privateMap, action) { if (!privateMap.has(receiver)) { throw new TypeError("attempted to " + action + " private field on non-instance"); } return privateMap.get(receiver); }
+function _classApplyDescriptorSet(receiver, descriptor, value) { if (descriptor.set) { descriptor.set.call(receiver, value); } else { if (!descriptor.writable) { throw new TypeError("attempted to set read only private field"); } descriptor.value = value; } }
+
+var _clickCallback = /*#__PURE__*/new WeakMap();
+var _collection = /*#__PURE__*/new WeakMap();
+var _observer = /*#__PURE__*/new WeakMap();
+var _mutationCallback = /*#__PURE__*/new WeakMap();
+var OnlinqFormCollectionButtonElement = /*#__PURE__*/function (_HTMLButtonElement) {
+  _inherits(OnlinqFormCollectionButtonElement, _HTMLButtonElement);
+  var _super = _createSuper(OnlinqFormCollectionButtonElement);
+  function OnlinqFormCollectionButtonElement(clickCallback) {
+    var _this;
+    _classCallCheck(this, OnlinqFormCollectionButtonElement);
+    _this = _super.call(this);
+    _classPrivateFieldInitSpec(_assertThisInitialized(_this), _clickCallback, {
+      writable: true,
+      value: null
+    });
+    _classPrivateFieldInitSpec(_assertThisInitialized(_this), _collection, {
+      writable: true,
+      value: null
+    });
+    _classPrivateFieldInitSpec(_assertThisInitialized(_this), _observer, {
+      writable: true,
+      value: null
+    });
+    _classPrivateFieldInitSpec(_assertThisInitialized(_this), _mutationCallback, {
+      writable: true,
+      value: function value(records) {
+        var _iterator = _createForOfIteratorHelper(records),
+          _step;
+        try {
+          for (_iterator.s(); !(_step = _iterator.n()).done;) {
+            var record = _step.value;
+            if ('data-collection' === record.attributeName) {
+              _this.collectionName = _this.getAttribute('data-collection');
+            }
+          }
+        } catch (err) {
+          _iterator.e(err);
+        } finally {
+          _iterator.f();
+        }
+      }
+    });
+    _classPrivateFieldSet(_assertThisInitialized(_this), _clickCallback, clickCallback);
+    return _this;
+  }
+  _createClass(OnlinqFormCollectionButtonElement, [{
+    key: "connectedCallback",
+    value: function connectedCallback() {
+      var _this$getAttribute;
+      this.collectionName = (_this$getAttribute = this.getAttribute('data-collection')) !== null && _this$getAttribute !== void 0 ? _this$getAttribute : null;
+      _classPrivateFieldSet(this, _observer, new MutationObserver(_classPrivateFieldGet(this, _mutationCallback)));
+      _classPrivateFieldGet(this, _observer).observe(this, {
+        attributes: true
+      });
+      this.addEventListener('click', _classPrivateFieldGet(this, _clickCallback));
+    }
+  }, {
+    key: "disconnectedCallback",
+    value: function disconnectedCallback() {
+      _classPrivateFieldGet(this, _observer).disconnect();
+      this.removeEventListener('click', _classPrivateFieldGet(this, _clickCallback));
+    }
+  }, {
+    key: "collection",
+    get: function get() {
+      return _classPrivateFieldGet(this, _collection);
+    },
+    set: function set(collection) {
+      _classPrivateFieldSet(this, _collection, collection);
+      if (!_classPrivateFieldGet(this, _collection)) {
+        var _this$getRootNode$hos;
+        var host = (_this$getRootNode$hos = this.getRootNode().host) !== null && _this$getRootNode$hos !== void 0 ? _this$getRootNode$hos : null;
+        if (host && host.nodeName === 'ONLINQ-COLLECTION') {
+          _classPrivateFieldSet(this, _collection, host);
+        } else {
+          console.error('A collection button was created without a matching collection.');
+        }
+      }
+      var value = _element_utilities__WEBPACK_IMPORTED_MODULE_0__.attributeValueTransformers.string(this.collectionName);
+      var isFresh = value === this.getAttribute('data-collection');
+      if (!isFresh) {
+        _element_utilities__WEBPACK_IMPORTED_MODULE_0__.attributeStateTransformers.string(this, 'data-collection', this.collectionName);
+      }
+    }
+  }, {
+    key: "collectionName",
+    get: function get() {
+      var _classPrivateFieldGet2;
+      return (_classPrivateFieldGet2 = _classPrivateFieldGet(this, _collection)) === null || _classPrivateFieldGet2 === void 0 ? void 0 : _classPrivateFieldGet2.name;
+    },
+    set: function set(collectionName) {
+      this.collection = collectionName ? document.querySelector("onlinq-collection[name=\"".concat(collectionName, "\"]")) : this.closest('onlinq-collection');
+    }
+  }]);
+  return OnlinqFormCollectionButtonElement;
+}( /*#__PURE__*/_wrapNativeSuper(HTMLButtonElement));
+
+/***/ }),
+
+/***/ "./src/elements/collection-entry-button.js":
+/*!*************************************************!*\
+  !*** ./src/elements/collection-entry-button.js ***!
+  \*************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   OnlinqFormCollectionEntryButtonElement: () => (/* binding */ OnlinqFormCollectionEntryButtonElement)
+/* harmony export */ });
+/* harmony import */ var _element_utilities__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../element-utilities */ "./src/element-utilities.js");
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf(subClass, superClass); }
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+function _wrapNativeSuper(Class) { var _cache = typeof Map === "function" ? new Map() : undefined; _wrapNativeSuper = function _wrapNativeSuper(Class) { if (Class === null || !_isNativeFunction(Class)) return Class; if (typeof Class !== "function") { throw new TypeError("Super expression must either be null or a function"); } if (typeof _cache !== "undefined") { if (_cache.has(Class)) return _cache.get(Class); _cache.set(Class, Wrapper); } function Wrapper() { return _construct(Class, arguments, _getPrototypeOf(this).constructor); } Wrapper.prototype = Object.create(Class.prototype, { constructor: { value: Wrapper, enumerable: false, writable: true, configurable: true } }); return _setPrototypeOf(Wrapper, Class); }; return _wrapNativeSuper(Class); }
+function _construct(Parent, args, Class) { if (_isNativeReflectConstruct()) { _construct = Reflect.construct.bind(); } else { _construct = function _construct(Parent, args, Class) { var a = [null]; a.push.apply(a, args); var Constructor = Function.bind.apply(Parent, a); var instance = new Constructor(); if (Class) _setPrototypeOf(instance, Class.prototype); return instance; }; } return _construct.apply(null, arguments); }
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+function _isNativeFunction(fn) { try { return Function.toString.call(fn).indexOf("[native code]") !== -1; } catch (e) { return typeof fn === "function"; } }
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+function _classPrivateFieldInitSpec(obj, privateMap, value) { _checkPrivateRedeclaration(obj, privateMap); privateMap.set(obj, value); }
+function _checkPrivateRedeclaration(obj, privateCollection) { if (privateCollection.has(obj)) { throw new TypeError("Cannot initialize the same private elements twice on an object"); } }
+function _classPrivateFieldGet(receiver, privateMap) { var descriptor = _classExtractFieldDescriptor(receiver, privateMap, "get"); return _classApplyDescriptorGet(receiver, descriptor); }
+function _classApplyDescriptorGet(receiver, descriptor) { if (descriptor.get) { return descriptor.get.call(receiver); } return descriptor.value; }
+function _classPrivateFieldSet(receiver, privateMap, value) { var descriptor = _classExtractFieldDescriptor(receiver, privateMap, "set"); _classApplyDescriptorSet(receiver, descriptor, value); return value; }
+function _classExtractFieldDescriptor(receiver, privateMap, action) { if (!privateMap.has(receiver)) { throw new TypeError("attempted to " + action + " private field on non-instance"); } return privateMap.get(receiver); }
+function _classApplyDescriptorSet(receiver, descriptor, value) { if (descriptor.set) { descriptor.set.call(receiver, value); } else { if (!descriptor.writable) { throw new TypeError("attempted to set read only private field"); } descriptor.value = value; } }
+
+var _clickCallback = /*#__PURE__*/new WeakMap();
+var _collectionEntry = /*#__PURE__*/new WeakMap();
+var _observer = /*#__PURE__*/new WeakMap();
+var _mutationCallback = /*#__PURE__*/new WeakMap();
+var OnlinqFormCollectionEntryButtonElement = /*#__PURE__*/function (_HTMLButtonElement) {
+  _inherits(OnlinqFormCollectionEntryButtonElement, _HTMLButtonElement);
+  var _super = _createSuper(OnlinqFormCollectionEntryButtonElement);
+  function OnlinqFormCollectionEntryButtonElement(clickCallback) {
+    var _this;
+    _classCallCheck(this, OnlinqFormCollectionEntryButtonElement);
+    _this = _super.call(this);
+    _classPrivateFieldInitSpec(_assertThisInitialized(_this), _clickCallback, {
+      writable: true,
+      value: null
+    });
+    _classPrivateFieldInitSpec(_assertThisInitialized(_this), _collectionEntry, {
+      writable: true,
+      value: null
+    });
+    _classPrivateFieldInitSpec(_assertThisInitialized(_this), _observer, {
+      writable: true,
+      value: null
+    });
+    _classPrivateFieldInitSpec(_assertThisInitialized(_this), _mutationCallback, {
+      writable: true,
+      value: function value(records) {
+        var _iterator = _createForOfIteratorHelper(records),
+          _step;
+        try {
+          for (_iterator.s(); !(_step = _iterator.n()).done;) {
+            var record = _step.value;
+            if ('data-collection' === record.attributeName) {
+              _this.collectionName = _this.getAttribute('data-collection');
+            }
+          }
+        } catch (err) {
+          _iterator.e(err);
+        } finally {
+          _iterator.f();
+        }
+      }
+    });
+    _classPrivateFieldSet(_assertThisInitialized(_this), _clickCallback, clickCallback);
+    return _this;
+  }
+  _createClass(OnlinqFormCollectionEntryButtonElement, [{
+    key: "connectedCallback",
+    value: function connectedCallback() {
+      var _this$getAttribute;
+      this.collectionName = (_this$getAttribute = this.getAttribute('data-collection')) !== null && _this$getAttribute !== void 0 ? _this$getAttribute : null;
+      _classPrivateFieldSet(this, _observer, new MutationObserver(_classPrivateFieldGet(this, _mutationCallback)));
+      _classPrivateFieldGet(this, _observer).observe(this, {
+        attributes: true
+      });
+      this.addEventListener('click', _classPrivateFieldGet(this, _clickCallback));
+    }
+  }, {
+    key: "disconnectedCallback",
+    value: function disconnectedCallback() {
+      _classPrivateFieldGet(this, _observer).disconnect();
+      this.removeEventListener('click', _classPrivateFieldGet(this, _clickCallback));
+    }
+  }, {
+    key: "collection",
+    get: function get() {
+      var _this$collectionEntry;
+      return (_this$collectionEntry = this.collectionEntry) === null || _this$collectionEntry === void 0 ? void 0 : _this$collectionEntry.collection;
+    }
+  }, {
+    key: "collectionEntry",
+    get: function get() {
+      return _classPrivateFieldGet(this, _collectionEntry);
+    },
+    set: function set(collectionEntry) {
+      _classPrivateFieldSet(this, _collectionEntry, collectionEntry);
+      if (!_classPrivateFieldGet(this, _collectionEntry) && this.isConnected) {
+        var _this$getRootNode$hos;
+        var host = (_this$getRootNode$hos = this.getRootNode().host) !== null && _this$getRootNode$hos !== void 0 ? _this$getRootNode$hos : null;
+        if (host && host.nodeName === 'ONLINQ-COLLECTION-ENTRY') {
+          _classPrivateFieldSet(this, _collectionEntry, host);
+        } else {
+          console.error('A collection entry button was created without a matching collection entry.');
+        }
+      }
+      var value = _element_utilities__WEBPACK_IMPORTED_MODULE_0__.attributeValueTransformers.string(this.collectionName);
+      var isFresh = value === this.getAttribute('data-collection');
+      if (!isFresh) {
+        _element_utilities__WEBPACK_IMPORTED_MODULE_0__.attributeStateTransformers.string(this, 'data-collection', this.collectionName);
+      }
+    }
+  }, {
+    key: "collectionName",
+    get: function get() {
+      var _this$collection;
+      return (_this$collection = this.collection) === null || _this$collection === void 0 ? void 0 : _this$collection.collectionName;
+    },
+    set: function set(collectionName) {
+      this.collectionEntry = collectionName ? this.closest("onlinq-collection[name=\"".concat(collectionName, "\"] > onlinq-collection-entry")) : this.closest('onlinq-collection-entry');
+    }
+  }]);
+  return OnlinqFormCollectionEntryButtonElement;
+}( /*#__PURE__*/_wrapNativeSuper(HTMLButtonElement));
+
+/***/ }),
+
+/***/ "./src/elements/collection-entry.js":
+/*!******************************************!*\
+  !*** ./src/elements/collection-entry.js ***!
+  \******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   OnlinqFormCollectionEntryElement: () => (/* binding */ OnlinqFormCollectionEntryElement)
+/* harmony export */ });
+/* harmony import */ var _element_utilities__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../element-utilities */ "./src/element-utilities.js");
+/* harmony import */ var _collection_entry_html__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./collection-entry.html */ "./src/elements/collection-entry.html");
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+var _class;
+function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf(subClass, superClass); }
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+function _wrapNativeSuper(Class) { var _cache = typeof Map === "function" ? new Map() : undefined; _wrapNativeSuper = function _wrapNativeSuper(Class) { if (Class === null || !_isNativeFunction(Class)) return Class; if (typeof Class !== "function") { throw new TypeError("Super expression must either be null or a function"); } if (typeof _cache !== "undefined") { if (_cache.has(Class)) return _cache.get(Class); _cache.set(Class, Wrapper); } function Wrapper() { return _construct(Class, arguments, _getPrototypeOf(this).constructor); } Wrapper.prototype = Object.create(Class.prototype, { constructor: { value: Wrapper, enumerable: false, writable: true, configurable: true } }); return _setPrototypeOf(Wrapper, Class); }; return _wrapNativeSuper(Class); }
+function _construct(Parent, args, Class) { if (_isNativeReflectConstruct()) { _construct = Reflect.construct.bind(); } else { _construct = function _construct(Parent, args, Class) { var a = [null]; a.push.apply(a, args); var Constructor = Function.bind.apply(Parent, a); var instance = new Constructor(); if (Class) _setPrototypeOf(instance, Class.prototype); return instance; }; } return _construct.apply(null, arguments); }
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+function _isNativeFunction(fn) { try { return Function.toString.call(fn).indexOf("[native code]") !== -1; } catch (e) { return typeof fn === "function"; } }
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+function _classPrivateMethodInitSpec(obj, privateSet) { _checkPrivateRedeclaration(obj, privateSet); privateSet.add(obj); }
+function _classPrivateFieldInitSpec(obj, privateMap, value) { _checkPrivateRedeclaration(obj, privateMap); privateMap.set(obj, value); }
+function _checkPrivateRedeclaration(obj, privateCollection) { if (privateCollection.has(obj)) { throw new TypeError("Cannot initialize the same private elements twice on an object"); } }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+function _classPrivateFieldSet(receiver, privateMap, value) { var descriptor = _classExtractFieldDescriptor(receiver, privateMap, "set"); _classApplyDescriptorSet(receiver, descriptor, value); return value; }
+function _classApplyDescriptorSet(receiver, descriptor, value) { if (descriptor.set) { descriptor.set.call(receiver, value); } else { if (!descriptor.writable) { throw new TypeError("attempted to set read only private field"); } descriptor.value = value; } }
+function _classPrivateFieldGet(receiver, privateMap) { var descriptor = _classExtractFieldDescriptor(receiver, privateMap, "get"); return _classApplyDescriptorGet(receiver, descriptor); }
+function _classExtractFieldDescriptor(receiver, privateMap, action) { if (!privateMap.has(receiver)) { throw new TypeError("attempted to " + action + " private field on non-instance"); } return privateMap.get(receiver); }
+function _classApplyDescriptorGet(receiver, descriptor) { if (descriptor.get) { return descriptor.get.call(receiver); } return descriptor.value; }
+function _classPrivateMethodGet(receiver, privateSet, fn) { if (!privateSet.has(receiver)) { throw new TypeError("attempted to get private field on non-instance"); } return fn; }
+
+
+var _actions = /*#__PURE__*/new WeakMap();
+var _collection = /*#__PURE__*/new WeakMap();
+var _index = /*#__PURE__*/new WeakMap();
+var _actionsContainer = /*#__PURE__*/new WeakMap();
+var _deleteContainer = /*#__PURE__*/new WeakMap();
+var _labelContainers = /*#__PURE__*/new WeakMap();
+var _moveContainer = /*#__PURE__*/new WeakMap();
+var _observer = /*#__PURE__*/new WeakMap();
+var _connectCollection = /*#__PURE__*/new WeakSet();
+var _disconnectCollection = /*#__PURE__*/new WeakSet();
+var _isPartOfEntry = /*#__PURE__*/new WeakSet();
+var _renderShadowDom = /*#__PURE__*/new WeakSet();
+var _mapLabels = /*#__PURE__*/new WeakSet();
+var _updateActionsContainer = /*#__PURE__*/new WeakSet();
+var _updateAttribute = /*#__PURE__*/new WeakSet();
+var _updateDeleteContainer = /*#__PURE__*/new WeakSet();
+var _updateMoveContainers = /*#__PURE__*/new WeakSet();
+var _updateLabels = /*#__PURE__*/new WeakSet();
+var _collectionDeletePolicyChangedListener = /*#__PURE__*/new WeakMap();
+var _collectionMovePolicyChangedListener = /*#__PURE__*/new WeakMap();
+var _mutationCallback = /*#__PURE__*/new WeakMap();
+var OnlinqFormCollectionEntryElement = /*#__PURE__*/function (_HTMLElement) {
+  _inherits(OnlinqFormCollectionEntryElement, _HTMLElement);
+  var _super = _createSuper(OnlinqFormCollectionEntryElement);
+  function OnlinqFormCollectionEntryElement() {
+    var _this;
+    _classCallCheck(this, OnlinqFormCollectionEntryElement);
+    _this = _super.call(this);
+    _classPrivateMethodInitSpec(_assertThisInitialized(_this), _updateLabels);
+    _classPrivateMethodInitSpec(_assertThisInitialized(_this), _updateMoveContainers);
+    _classPrivateMethodInitSpec(_assertThisInitialized(_this), _updateDeleteContainer);
+    _classPrivateMethodInitSpec(_assertThisInitialized(_this), _updateAttribute);
+    _classPrivateMethodInitSpec(_assertThisInitialized(_this), _updateActionsContainer);
+    _classPrivateMethodInitSpec(_assertThisInitialized(_this), _mapLabels);
+    _classPrivateMethodInitSpec(_assertThisInitialized(_this), _renderShadowDom);
+    _classPrivateMethodInitSpec(_assertThisInitialized(_this), _isPartOfEntry);
+    _classPrivateMethodInitSpec(_assertThisInitialized(_this), _disconnectCollection);
+    _classPrivateMethodInitSpec(_assertThisInitialized(_this), _connectCollection);
+    _classPrivateFieldInitSpec(_assertThisInitialized(_this), _actions, {
+      writable: true,
+      value: false
+    });
+    _classPrivateFieldInitSpec(_assertThisInitialized(_this), _collection, {
+      writable: true,
+      value: null
+    });
+    _classPrivateFieldInitSpec(_assertThisInitialized(_this), _index, {
+      writable: true,
+      value: null
+    });
+    _classPrivateFieldInitSpec(_assertThisInitialized(_this), _actionsContainer, {
+      writable: true,
+      value: void 0
+    });
+    _classPrivateFieldInitSpec(_assertThisInitialized(_this), _deleteContainer, {
+      writable: true,
+      value: null
+    });
+    _classPrivateFieldInitSpec(_assertThisInitialized(_this), _labelContainers, {
+      writable: true,
+      value: []
+    });
+    _classPrivateFieldInitSpec(_assertThisInitialized(_this), _moveContainer, {
+      writable: true,
+      value: null
+    });
+    _classPrivateFieldInitSpec(_assertThisInitialized(_this), _observer, {
+      writable: true,
+      value: null
+    });
+    _classPrivateFieldInitSpec(_assertThisInitialized(_this), _collectionDeletePolicyChangedListener, {
+      writable: true,
+      value: function value() {
+        _classPrivateMethodGet(_assertThisInitialized(_this), _updateDeleteContainer, _updateDeleteContainer2).call(_assertThisInitialized(_this));
+      }
+    });
+    _classPrivateFieldInitSpec(_assertThisInitialized(_this), _collectionMovePolicyChangedListener, {
+      writable: true,
+      value: function value() {
+        _classPrivateMethodGet(_assertThisInitialized(_this), _updateMoveContainers, _updateMoveContainers2).call(_assertThisInitialized(_this));
+      }
+    });
+    _classPrivateFieldInitSpec(_assertThisInitialized(_this), _mutationCallback, {
+      writable: true,
+      value: function value(records) {
+        var _iterator = _createForOfIteratorHelper(records),
+          _step;
+        try {
+          for (_iterator.s(); !(_step = _iterator.n()).done;) {
+            var record = _step.value;
+            var _iterator2 = _createForOfIteratorHelper(record.addedNodes),
+              _step2;
+            try {
+              for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+                var _node = _step2.value;
+                if (!(_node instanceof HTMLElement) || !_classPrivateMethodGet(_assertThisInitialized(_this), _isPartOfEntry, _isPartOfEntry2).call(_assertThisInitialized(_this), _node)) {
+                  continue;
+                }
+                if (_node.hasAttribute('data-collection-label')) {
+                  _classPrivateMethodGet(_assertThisInitialized(_this), _mapLabels, _mapLabels2).call(_assertThisInitialized(_this));
+                }
+              }
+            } catch (err) {
+              _iterator2.e(err);
+            } finally {
+              _iterator2.f();
+            }
+            for (var node in record.removedNodes) {
+              if (_classPrivateFieldGet(_assertThisInitialized(_this), _labelContainers).includes(node)) {
+                _classPrivateMethodGet(_assertThisInitialized(_this), _mapLabels, _mapLabels2).call(_assertThisInitialized(_this));
+              }
+            }
+          }
+        } catch (err) {
+          _iterator.e(err);
+        } finally {
+          _iterator.f();
+        }
+      }
+    });
+    _this.attachShadow({
+      mode: 'open'
+    });
+    return _this;
+  }
+  _createClass(OnlinqFormCollectionEntryElement, [{
+    key: "connectedCallback",
+    value: function connectedCallback() {
+      var _this$getAttribute, _classPrivateFieldGet2, _this$getAttribute2;
+      _classPrivateMethodGet(this, _renderShadowDom, _renderShadowDom2).call(this);
+
+      // Update attributes if properties were changed before connecting the element to the DOM
+      this.actions = this.hasAttribute('actions') || _classPrivateFieldGet(this, _actions);
+      this.collectionName = (_this$getAttribute = this.getAttribute('collection')) !== null && _this$getAttribute !== void 0 ? _this$getAttribute : (_classPrivateFieldGet2 = _classPrivateFieldGet(this, _collection)) === null || _classPrivateFieldGet2 === void 0 ? void 0 : _classPrivateFieldGet2.name;
+      this.index = (_this$getAttribute2 = this.getAttribute('collection-index')) !== null && _this$getAttribute2 !== void 0 ? _this$getAttribute2 : _classPrivateFieldGet(this, _index);
+      if (_classPrivateFieldGet(this, _collection)) {
+        _classPrivateMethodGet(this, _connectCollection, _connectCollection2).call(this, _classPrivateFieldGet(this, _collection));
+      } else {
+        console.error('A collection entry was created without a matching collection.');
+      }
+      _classPrivateMethodGet(this, _mapLabels, _mapLabels2).call(this);
+
+      // Observe changes to DOM
+      _classPrivateFieldSet(this, _observer, new MutationObserver(_classPrivateFieldGet(this, _mutationCallback)));
+      _classPrivateFieldGet(this, _observer).observe(this, {
+        childList: true,
+        subtree: true
+      });
+      _classPrivateMethodGet(this, _updateActionsContainer, _updateActionsContainer2).call(this);
+      _classPrivateMethodGet(this, _updateDeleteContainer, _updateDeleteContainer2).call(this);
+      _classPrivateMethodGet(this, _updateMoveContainers, _updateMoveContainers2).call(this);
+      _classPrivateMethodGet(this, _updateLabels, _updateLabels2).call(this);
+    }
+  }, {
+    key: "disconnectedCallback",
+    value: function disconnectedCallback() {
+      _classPrivateFieldGet(this, _observer).disconnect();
+      if (_classPrivateFieldGet(this, _collection)) {
+        _classPrivateMethodGet(this, _disconnectCollection, _disconnectCollection2).call(this, _classPrivateFieldGet(this, _collection));
+      }
+    }
+  }, {
+    key: "attributeChangedCallback",
+    value: function attributeChangedCallback(name, oldValue, newValue) {
+      var behaviour = OnlinqFormCollectionEntryElement.observedAttributeBehaviours[name];
+      var transformer = _element_utilities__WEBPACK_IMPORTED_MODULE_0__.attributeValueTransformers[behaviour.type];
+      var value = transformer(newValue);
+      var isFresh = value === this[behaviour.property];
+      if (!isFresh) {
+        this[behaviour.property] = value;
+      }
+    }
+  }, {
+    key: "actions",
+    get: function get() {
+      return _classPrivateFieldGet(this, _actions);
+    },
+    set: function set(actions) {
+      var changed = _classPrivateFieldGet(this, _actions) !== actions;
+      _classPrivateFieldSet(this, _actions, actions);
+      _classPrivateMethodGet(this, _updateAttribute, _updateAttribute2).call(this, 'actions');
+      if (changed) {
+        _classPrivateMethodGet(this, _updateActionsContainer, _updateActionsContainer2).call(this);
+      }
+    }
+  }, {
+    key: "collection",
+    get: function get() {
+      return _classPrivateFieldGet(this, _collection);
+    },
+    set: function set(collection) {
+      if (_classPrivateFieldGet(this, _collection) && _classPrivateFieldGet(this, _collection) !== collection) {
+        _classPrivateMethodGet(this, _disconnectCollection, _disconnectCollection2).call(this, _classPrivateFieldGet(this, _collection));
+      }
+      _classPrivateFieldSet(this, _collection, collection);
+      if (collection && _classPrivateFieldGet(this, _collection) !== collection) {
+        _classPrivateMethodGet(this, _connectCollection, _connectCollection2).call(this, collection);
+      }
+      _classPrivateMethodGet(this, _updateAttribute, _updateAttribute2).call(this, 'collection');
+    }
+  }, {
+    key: "collectionName",
+    get: function get() {
+      var _classPrivateFieldGet3, _classPrivateFieldGet4, _classPrivateFieldGet5;
+      // Check both the property and DOM attribute since the property might not be initialized
+      return (_classPrivateFieldGet3 = (_classPrivateFieldGet4 = _classPrivateFieldGet(this, _collection)) === null || _classPrivateFieldGet4 === void 0 ? void 0 : _classPrivateFieldGet4.name) !== null && _classPrivateFieldGet3 !== void 0 ? _classPrivateFieldGet3 : (_classPrivateFieldGet5 = _classPrivateFieldGet(this, _collection)) === null || _classPrivateFieldGet5 === void 0 ? void 0 : _classPrivateFieldGet5.getAttribute('name');
+    },
+    set: function set(collectionName) {
+      this.collection = collectionName ? this.closest("onlinq-collection[name=\"".concat(collectionName, "\"]")) : this.closest('onlinq-collection');
+    }
+  }, {
+    key: "index",
+    get: function get() {
+      return _classPrivateFieldGet(this, _index);
+    },
+    set: function set(nextIndex) {
+      var _classPrivateFieldGet7, _classPrivateFieldGet8, _classPrivateFieldGet9;
+      if (!nextIndex && 0 !== nextIndex) {
+        return;
+      }
+      if (typeof nextIndex !== 'string') {
+        nextIndex = nextIndex.toString();
+      }
+      var previousIndex = _classPrivateFieldGet(this, _index);
+      if (nextIndex === previousIndex) {
+        return;
+      }
+      _classPrivateFieldSet(this, _index, nextIndex);
+      if (!_classPrivateFieldGet(this, _collection)) {
+        return;
+      } else if (!previousIndex) {
+        var _classPrivateFieldGet6;
+        previousIndex = (_classPrivateFieldGet6 = _classPrivateFieldGet(this, _collection)) === null || _classPrivateFieldGet6 === void 0 ? void 0 : _classPrivateFieldGet6.prototypeName;
+      }
+      _classPrivateMethodGet(this, _updateLabels, _updateLabels2).call(this);
+      _classPrivateMethodGet(this, _updateAttribute, _updateAttribute2).call(this, 'collection-index');
+      if (!_classPrivateFieldGet(this, _index)) {
+        return;
+      }
+      var collectionId = (_classPrivateFieldGet7 = _classPrivateFieldGet(this, _collection)) === null || _classPrivateFieldGet7 === void 0 ? void 0 : _classPrivateFieldGet7.getAttribute('id');
+      var collectionPrefix = ((_classPrivateFieldGet8 = _classPrivateFieldGet(this, _collection)) === null || _classPrivateFieldGet8 === void 0 ? void 0 : _classPrivateFieldGet8.prefix) || ((_classPrivateFieldGet9 = _classPrivateFieldGet(this, _collection)) === null || _classPrivateFieldGet9 === void 0 ? void 0 : _classPrivateFieldGet9.name);
+      if (collectionId) {
+        (0,_element_utilities__WEBPACK_IMPORTED_MODULE_0__.replaceAttributeData)(this.querySelectorAll('*'), "".concat(collectionId, "_").concat(previousIndex), "".concat(collectionId, "_").concat(nextIndex));
+      }
+      if (collectionPrefix) {
+        (0,_element_utilities__WEBPACK_IMPORTED_MODULE_0__.replaceAttributeData)(this.querySelectorAll('*'), "".concat(collectionPrefix, "[").concat(previousIndex, "]"), "".concat(collectionPrefix, "[").concat(nextIndex, "]"));
+      }
+    }
+  }, {
+    key: "deleteEntry",
+    value: function deleteEntry() {
+      var _classPrivateFieldGet10;
+      (_classPrivateFieldGet10 = _classPrivateFieldGet(this, _collection)) === null || _classPrivateFieldGet10 === void 0 || _classPrivateFieldGet10.deleteEntry(this);
+    }
+  }, {
+    key: "moveDown",
+    value: function moveDown() {
+      var _classPrivateFieldGet11;
+      (_classPrivateFieldGet11 = _classPrivateFieldGet(this, _collection)) === null || _classPrivateFieldGet11 === void 0 || _classPrivateFieldGet11.moveEntry(this, +this.index + 1);
+    }
+  }, {
+    key: "moveUp",
+    value: function moveUp() {
+      var _classPrivateFieldGet12;
+      (_classPrivateFieldGet12 = _classPrivateFieldGet(this, _collection)) === null || _classPrivateFieldGet12 === void 0 || _classPrivateFieldGet12.moveEntry(this, +this.index - 1);
+    }
+  }], [{
+    key: "observedAttributes",
+    get: function get() {
+      return ['actions', 'collection', 'collection-index'];
+    }
+  }]);
+  return OnlinqFormCollectionEntryElement;
+}( /*#__PURE__*/_wrapNativeSuper(HTMLElement));
+_class = OnlinqFormCollectionEntryElement;
+function _connectCollection2(collection) {
+  _classPrivateMethodGet(this, _updateDeleteContainer, _updateDeleteContainer2).call(this);
+  _classPrivateMethodGet(this, _updateMoveContainers, _updateMoveContainers2).call(this);
+  collection.addEventListener('deletePolicyChanged', _classPrivateFieldGet(this, _collectionDeletePolicyChangedListener));
+  collection.addEventListener('movePolicyChanged', _classPrivateFieldGet(this, _collectionMovePolicyChangedListener));
+}
+function _disconnectCollection2(collection) {
+  _classPrivateMethodGet(this, _updateDeleteContainer, _updateDeleteContainer2).call(this);
+  _classPrivateMethodGet(this, _updateMoveContainers, _updateMoveContainers2).call(this);
+  collection.removeEventListener('deletePolicyChanged', _classPrivateFieldGet(this, _collectionDeletePolicyChangedListener));
+  collection.removeEventListener('movePolicyChanged', _classPrivateFieldGet(this, _collectionMovePolicyChangedListener));
+}
+function _isPartOfEntry2(element) {
+  var _element$getAttribute;
+  var elementCollectionName = (_element$getAttribute = element.getAttribute('collection')) !== null && _element$getAttribute !== void 0 ? _element$getAttribute : element.getAttribute('data-collection');
+  return this.collectionName && elementCollectionName === this.collectionName || !elementCollectionName && element.closest('onlinq-collection-entry') === this;
+}
+function _renderShadowDom2() {
+  this.shadowRoot.innerHTML = _collection_entry_html__WEBPACK_IMPORTED_MODULE_1__["default"];
+  _classPrivateFieldSet(this, _actionsContainer, this.shadowRoot.querySelector('[data-actions-container]'));
+  _classPrivateFieldSet(this, _deleteContainer, this.shadowRoot.querySelector('[data-delete-container]'));
+  _classPrivateFieldSet(this, _moveContainer, this.shadowRoot.querySelector('[data-move-container]'));
+}
+function _mapLabels2() {
+  var _this2 = this;
+  _classPrivateFieldSet(this, _labelContainers, []);
+  var index = 0;
+  this.querySelectorAll(':scope [data-collection-label]').forEach(function (labelContainer) {
+    if (_classPrivateMethodGet(_this2, _isPartOfEntry, _isPartOfEntry2).call(_this2, labelContainer)) {
+      _classPrivateFieldGet(_this2, _labelContainers).push(labelContainer);
+      index++;
+    }
+  });
+  console.log(this);
+}
+function _updateActionsContainer2() {
+  if (_classPrivateFieldGet(this, _actionsContainer)) {
+    if (_classPrivateFieldGet(this, _actions)) {
+      _classPrivateFieldGet(this, _actionsContainer).style.display = 'block';
+    } else {
+      _classPrivateFieldGet(this, _actionsContainer).style.display = 'none';
+    }
+  }
+}
+function _updateAttribute2(attributeName) {
+  var behaviour = _class.observedAttributeBehaviours[attributeName];
+  var transformer = _element_utilities__WEBPACK_IMPORTED_MODULE_0__.attributeStateTransformers[behaviour.type];
+  transformer(this, attributeName, this[behaviour.property]);
+}
+function _updateDeleteContainer2() {
+  if (_classPrivateFieldGet(this, _deleteContainer)) {
+    var _this$collection$allo, _this$collection;
+    if ((_this$collection$allo = (_this$collection = this.collection) === null || _this$collection === void 0 ? void 0 : _this$collection.allowDelete) !== null && _this$collection$allo !== void 0 ? _this$collection$allo : true) {
+      _classPrivateFieldGet(this, _deleteContainer).style.removeProperty('display');
+    } else {
+      _classPrivateFieldGet(this, _deleteContainer).style.display = 'none';
+    }
+  }
+}
+function _updateMoveContainers2() {
+  if (_classPrivateFieldGet(this, _moveContainer)) {
+    var _this$collection$allo2, _this$collection2;
+    if ((_this$collection$allo2 = (_this$collection2 = this.collection) === null || _this$collection2 === void 0 ? void 0 : _this$collection2.allowMove) !== null && _this$collection$allo2 !== void 0 ? _this$collection$allo2 : true) {
+      _classPrivateFieldGet(this, _moveContainer).style.removeProperty('display');
+    } else {
+      _classPrivateFieldGet(this, _moveContainer).style.display = 'none';
+    }
+  }
+}
+function _updateLabels2() {
+  var _this3 = this;
+  _classPrivateFieldGet(this, _labelContainers).forEach(function (container) {
+    var format = container.dataset.collectionLabel || 'index';
+    if (format === 'index0') {
+      container.innerHTML = _classPrivateFieldGet(_this3, _index);
+    } else {
+      container.innerHTML = +_classPrivateFieldGet(_this3, _index) + 1;
+    }
+  });
+}
+_defineProperty(OnlinqFormCollectionEntryElement, "observedAttributeBehaviours", {
+  'actions': {
+    type: 'bool',
+    property: 'actions'
+  },
+  'collection': {
+    type: 'string',
+    property: 'collectionName'
+  },
+  'collection-index': {
+    type: 'string',
+    property: 'index'
+  }
+});
+customElements.define('onlinq-collection-entry', OnlinqFormCollectionEntryElement);
+
+/***/ }),
+
+/***/ "./src/elements/collection.js":
+/*!************************************!*\
+  !*** ./src/elements/collection.js ***!
+  \************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   OnlinqFormCollectionElement: () => (/* binding */ OnlinqFormCollectionElement)
+/* harmony export */ });
+/* harmony import */ var _element_utilities__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../element-utilities */ "./src/element-utilities.js");
+/* harmony import */ var _collection_html__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./collection.html */ "./src/elements/collection.html");
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+var _class;
+function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf(subClass, superClass); }
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+function _wrapNativeSuper(Class) { var _cache = typeof Map === "function" ? new Map() : undefined; _wrapNativeSuper = function _wrapNativeSuper(Class) { if (Class === null || !_isNativeFunction(Class)) return Class; if (typeof Class !== "function") { throw new TypeError("Super expression must either be null or a function"); } if (typeof _cache !== "undefined") { if (_cache.has(Class)) return _cache.get(Class); _cache.set(Class, Wrapper); } function Wrapper() { return _construct(Class, arguments, _getPrototypeOf(this).constructor); } Wrapper.prototype = Object.create(Class.prototype, { constructor: { value: Wrapper, enumerable: false, writable: true, configurable: true } }); return _setPrototypeOf(Wrapper, Class); }; return _wrapNativeSuper(Class); }
+function _construct(Parent, args, Class) { if (_isNativeReflectConstruct()) { _construct = Reflect.construct.bind(); } else { _construct = function _construct(Parent, args, Class) { var a = [null]; a.push.apply(a, args); var Constructor = Function.bind.apply(Parent, a); var instance = new Constructor(); if (Class) _setPrototypeOf(instance, Class.prototype); return instance; }; } return _construct.apply(null, arguments); }
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+function _isNativeFunction(fn) { try { return Function.toString.call(fn).indexOf("[native code]") !== -1; } catch (e) { return typeof fn === "function"; } }
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+function _classPrivateMethodInitSpec(obj, privateSet) { _checkPrivateRedeclaration(obj, privateSet); privateSet.add(obj); }
+function _classPrivateFieldInitSpec(obj, privateMap, value) { _checkPrivateRedeclaration(obj, privateMap); privateMap.set(obj, value); }
+function _checkPrivateRedeclaration(obj, privateCollection) { if (privateCollection.has(obj)) { throw new TypeError("Cannot initialize the same private elements twice on an object"); } }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+function _classPrivateFieldSet(receiver, privateMap, value) { var descriptor = _classExtractFieldDescriptor(receiver, privateMap, "set"); _classApplyDescriptorSet(receiver, descriptor, value); return value; }
+function _classApplyDescriptorSet(receiver, descriptor, value) { if (descriptor.set) { descriptor.set.call(receiver, value); } else { if (!descriptor.writable) { throw new TypeError("attempted to set read only private field"); } descriptor.value = value; } }
+function _classPrivateFieldGet(receiver, privateMap) { var descriptor = _classExtractFieldDescriptor(receiver, privateMap, "get"); return _classApplyDescriptorGet(receiver, descriptor); }
+function _classExtractFieldDescriptor(receiver, privateMap, action) { if (!privateMap.has(receiver)) { throw new TypeError("attempted to " + action + " private field on non-instance"); } return privateMap.get(receiver); }
+function _classApplyDescriptorGet(receiver, descriptor) { if (descriptor.get) { return descriptor.get.call(receiver); } return descriptor.value; }
+function _classPrivateMethodGet(receiver, privateSet, fn) { if (!privateSet.has(receiver)) { throw new TypeError("attempted to get private field on non-instance"); } return fn; }
+
+
+var _actionList = /*#__PURE__*/new WeakMap();
+var _actions = /*#__PURE__*/new WeakMap();
+var _max = /*#__PURE__*/new WeakMap();
+var _min = /*#__PURE__*/new WeakMap();
+var _name = /*#__PURE__*/new WeakMap();
+var _prefix = /*#__PURE__*/new WeakMap();
+var _prototypeActions = /*#__PURE__*/new WeakMap();
+var _prototypeName = /*#__PURE__*/new WeakMap();
+var _allowAdd = /*#__PURE__*/new WeakMap();
+var _allowDelete = /*#__PURE__*/new WeakMap();
+var _allowMove = /*#__PURE__*/new WeakMap();
+var _entries = /*#__PURE__*/new WeakMap();
+var _nextIndex = /*#__PURE__*/new WeakMap();
+var _actionsContainer = /*#__PURE__*/new WeakMap();
+var _addContainer = /*#__PURE__*/new WeakMap();
+var _collectionContainer = /*#__PURE__*/new WeakMap();
+var _placeholderContainer = /*#__PURE__*/new WeakMap();
+var _prototypeTemplate = /*#__PURE__*/new WeakMap();
+var _observer = /*#__PURE__*/new WeakMap();
+var _connectEntry = /*#__PURE__*/new WeakSet();
+var _createPrototype = /*#__PURE__*/new WeakSet();
+var _disconnectEntry = /*#__PURE__*/new WeakSet();
+var _isPartOfCollection = /*#__PURE__*/new WeakSet();
+var _mapEntries = /*#__PURE__*/new WeakSet();
+var _matchEntry = /*#__PURE__*/new WeakSet();
+var _renderShadowDom = /*#__PURE__*/new WeakSet();
+var _toggleAdd = /*#__PURE__*/new WeakSet();
+var _toggleDelete = /*#__PURE__*/new WeakSet();
+var _toggleMove = /*#__PURE__*/new WeakSet();
+var _updateActionsContainer = /*#__PURE__*/new WeakSet();
+var _updateAddContainer = /*#__PURE__*/new WeakSet();
+var _updateAttribute = /*#__PURE__*/new WeakSet();
+var _updateContentContainers = /*#__PURE__*/new WeakSet();
+var _mutationCallback = /*#__PURE__*/new WeakMap();
+var OnlinqFormCollectionElement = /*#__PURE__*/function (_HTMLElement) {
+  _inherits(OnlinqFormCollectionElement, _HTMLElement);
+  var _super = _createSuper(OnlinqFormCollectionElement);
+  function OnlinqFormCollectionElement() {
+    var _this;
+    _classCallCheck(this, OnlinqFormCollectionElement);
+    _this = _super.call(this);
+    _classPrivateMethodInitSpec(_assertThisInitialized(_this), _updateContentContainers);
+    _classPrivateMethodInitSpec(_assertThisInitialized(_this), _updateAttribute);
+    _classPrivateMethodInitSpec(_assertThisInitialized(_this), _updateAddContainer);
+    _classPrivateMethodInitSpec(_assertThisInitialized(_this), _updateActionsContainer);
+    _classPrivateMethodInitSpec(_assertThisInitialized(_this), _toggleMove);
+    _classPrivateMethodInitSpec(_assertThisInitialized(_this), _toggleDelete);
+    _classPrivateMethodInitSpec(_assertThisInitialized(_this), _toggleAdd);
+    _classPrivateMethodInitSpec(_assertThisInitialized(_this), _renderShadowDom);
+    _classPrivateMethodInitSpec(_assertThisInitialized(_this), _matchEntry);
+    _classPrivateMethodInitSpec(_assertThisInitialized(_this), _mapEntries);
+    _classPrivateMethodInitSpec(_assertThisInitialized(_this), _isPartOfCollection);
+    _classPrivateMethodInitSpec(_assertThisInitialized(_this), _disconnectEntry);
+    _classPrivateMethodInitSpec(_assertThisInitialized(_this), _createPrototype);
+    _classPrivateMethodInitSpec(_assertThisInitialized(_this), _connectEntry);
+    _classPrivateFieldInitSpec(_assertThisInitialized(_this), _actionList, {
+      writable: true,
+      value: null
+    });
+    _classPrivateFieldInitSpec(_assertThisInitialized(_this), _actions, {
+      writable: true,
+      value: false
+    });
+    _classPrivateFieldInitSpec(_assertThisInitialized(_this), _max, {
+      writable: true,
+      value: 0
+    });
+    _classPrivateFieldInitSpec(_assertThisInitialized(_this), _min, {
+      writable: true,
+      value: 0
+    });
+    _classPrivateFieldInitSpec(_assertThisInitialized(_this), _name, {
+      writable: true,
+      value: null
+    });
+    _classPrivateFieldInitSpec(_assertThisInitialized(_this), _prefix, {
+      writable: true,
+      value: null
+    });
+    _classPrivateFieldInitSpec(_assertThisInitialized(_this), _prototypeActions, {
+      writable: true,
+      value: false
+    });
+    _classPrivateFieldInitSpec(_assertThisInitialized(_this), _prototypeName, {
+      writable: true,
+      value: '__name__'
+    });
+    _classPrivateFieldInitSpec(_assertThisInitialized(_this), _allowAdd, {
+      writable: true,
+      value: true
+    });
+    _classPrivateFieldInitSpec(_assertThisInitialized(_this), _allowDelete, {
+      writable: true,
+      value: true
+    });
+    _classPrivateFieldInitSpec(_assertThisInitialized(_this), _allowMove, {
+      writable: true,
+      value: true
+    });
+    _classPrivateFieldInitSpec(_assertThisInitialized(_this), _entries, {
+      writable: true,
+      value: []
+    });
+    _classPrivateFieldInitSpec(_assertThisInitialized(_this), _nextIndex, {
+      writable: true,
+      value: 0
+    });
+    _classPrivateFieldInitSpec(_assertThisInitialized(_this), _actionsContainer, {
+      writable: true,
+      value: null
+    });
+    _classPrivateFieldInitSpec(_assertThisInitialized(_this), _addContainer, {
+      writable: true,
+      value: null
+    });
+    _classPrivateFieldInitSpec(_assertThisInitialized(_this), _collectionContainer, {
+      writable: true,
+      value: null
+    });
+    _classPrivateFieldInitSpec(_assertThisInitialized(_this), _placeholderContainer, {
+      writable: true,
+      value: null
+    });
+    _classPrivateFieldInitSpec(_assertThisInitialized(_this), _prototypeTemplate, {
+      writable: true,
+      value: null
+    });
+    _classPrivateFieldInitSpec(_assertThisInitialized(_this), _observer, {
+      writable: true,
+      value: null
+    });
+    _classPrivateFieldInitSpec(_assertThisInitialized(_this), _mutationCallback, {
+      writable: true,
+      value: function value(records) {
+        var _iterator = _createForOfIteratorHelper(records),
+          _step;
+        try {
+          for (_iterator.s(); !(_step = _iterator.n()).done;) {
+            var record = _step.value;
+            var _iterator2 = _createForOfIteratorHelper(record.addedNodes),
+              _step2;
+            try {
+              for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+                var node = _step2.value;
+                if (!(node instanceof HTMLElement) || !_classPrivateMethodGet(_assertThisInitialized(_this), _isPartOfCollection, _isPartOfCollection2).call(_assertThisInitialized(_this), node)) {
+                  continue;
+                }
+                if (record.target === _assertThisInitialized(_this) && node.tagName === 'ONLINQ-COLLECTION-ENTRY') {
+                  _classPrivateMethodGet(_assertThisInitialized(_this), _connectEntry, _connectEntry2).call(_assertThisInitialized(_this), node);
+                }
+                if (node.hasAttribute('data-collection-prototype')) {
+                  _classPrivateFieldSet(_assertThisInitialized(_this), _prototypeTemplate, node);
+                }
+              }
+            } catch (err) {
+              _iterator2.e(err);
+            } finally {
+              _iterator2.f();
+            }
+            var _iterator3 = _createForOfIteratorHelper(record.removedNodes),
+              _step3;
+            try {
+              for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
+                var _node = _step3.value;
+                if (_classPrivateFieldGet(_assertThisInitialized(_this), _entries).includes(_node)) {
+                  _classPrivateMethodGet(_assertThisInitialized(_this), _disconnectEntry, _disconnectEntry2).call(_assertThisInitialized(_this), _node);
+                }
+                if (_node === _classPrivateFieldGet(_assertThisInitialized(_this), _prototypeTemplate)) {
+                  _classPrivateFieldSet(_assertThisInitialized(_this), _prototypeTemplate, null);
+                }
+              }
+            } catch (err) {
+              _iterator3.e(err);
+            } finally {
+              _iterator3.f();
+            }
+          }
+        } catch (err) {
+          _iterator.e(err);
+        } finally {
+          _iterator.f();
+        }
+      }
+    });
+    _this.attachShadow({
+      mode: 'open'
+    });
+    return _this;
+  }
+  _createClass(OnlinqFormCollectionElement, [{
+    key: "connectedCallback",
+    value: function connectedCallback() {
+      var _this$getAttribute,
+        _this$getAttribute2,
+        _this$getAttribute3,
+        _this$getAttribute4,
+        _this2 = this;
+      // Render the Shadow DOM
+      _classPrivateMethodGet(this, _renderShadowDom, _renderShadowDom2).call(this);
+
+      // Update attributes if properties were changed before connecting the element to the DOM
+      this.actionList = (_this$getAttribute = this.getAttribute('actionlist')) !== null && _this$getAttribute !== void 0 ? _this$getAttribute : _classPrivateFieldGet(this, _actionList);
+      this.actions = this.hasAttribute('actions') || _classPrivateFieldGet(this, _actions);
+      this.max = this.hasAttribute('max') ? +this.getAttribute('max') : _classPrivateFieldGet(this, _max);
+      this.min = this.hasAttribute('min') ? +this.getAttribute('min') : _classPrivateFieldGet(this, _min);
+      this.name = (_this$getAttribute2 = this.getAttribute('name')) !== null && _this$getAttribute2 !== void 0 ? _this$getAttribute2 : _classPrivateFieldGet(this, _name);
+      this.prefix = (_this$getAttribute3 = this.getAttribute('prefix')) !== null && _this$getAttribute3 !== void 0 ? _this$getAttribute3 : _classPrivateFieldGet(this, _prefix);
+      this.prototypeActions = this.hasAttribute('prototype-actions') || _classPrivateFieldGet(this, _prototypeActions);
+      this.prototypeName = (_this$getAttribute4 = this.getAttribute('prototype-name')) !== null && _this$getAttribute4 !== void 0 ? _this$getAttribute4 : _classPrivateFieldGet(this, _prototypeName);
+
+      // Observe changes to DOM
+      _classPrivateFieldSet(this, _observer, new MutationObserver(_classPrivateFieldGet(this, _mutationCallback)));
+      _classPrivateFieldGet(this, _observer).observe(this, {
+        childList: true,
+        subtree: true
+      });
+
+      // Map existing entries
+      _classPrivateMethodGet(this, _mapEntries, _mapEntries2).call(this);
+
+      // Find initial prototype template
+      if (!_classPrivateFieldGet(this, _prototypeTemplate)) {
+        var _Array$from$filter$sh;
+        this.prototypeTemplate = (_Array$from$filter$sh = Array.from(this.querySelectorAll('[data-collection-prototype]')).filter(function (template) {
+          return _classPrivateMethodGet(_this2, _isPartOfCollection, _isPartOfCollection2).call(_this2, template);
+        }).shift()) !== null && _Array$from$filter$sh !== void 0 ? _Array$from$filter$sh : null;
+      }
+
+      // Update the Shadow DOM
+      _classPrivateMethodGet(this, _updateActionsContainer, _updateActionsContainer2).call(this);
+      _classPrivateMethodGet(this, _updateContentContainers, _updateContentContainers2).call(this);
+    }
+  }, {
+    key: "disconnectedCallback",
+    value: function disconnectedCallback() {
+      _classPrivateFieldGet(this, _observer).disconnect();
+    }
+  }, {
+    key: "attributeChangedCallback",
+    value: function attributeChangedCallback(name, oldValue, newValue) {
+      var behaviour = OnlinqFormCollectionElement.observedAttributeBehaviours[name];
+      var transformer = _element_utilities__WEBPACK_IMPORTED_MODULE_0__.attributeValueTransformers[behaviour.type];
+      var value = transformer(newValue);
+      var isFresh = value === this[behaviour.property];
+      if (!isFresh) {
+        this[behaviour.property] = value;
+      }
+    }
+  }, {
+    key: "actionList",
+    get: function get() {
+      return _classPrivateFieldGet(this, _actionList);
+    },
+    set: function set(actionList) {
+      var _actionList2;
+      actionList = (_actionList2 = actionList) === null || _actionList2 === void 0 ? void 0 : _actionList2.toLowerCase();
+      var changed = _classPrivateFieldGet(this, _actionList) !== actionList;
+      _classPrivateFieldSet(this, _actionList, actionList);
+      _classPrivateMethodGet(this, _updateAttribute, _updateAttribute2).call(this, 'actionlist');
+      if (changed) {
+        var actions = actionList ? actionList.split(/\W/) : ['all'];
+        var all = actions.includes('all');
+        _classPrivateMethodGet(this, _toggleAdd, _toggleAdd2).call(this, all || actions.includes('add'));
+        _classPrivateMethodGet(this, _toggleDelete, _toggleDelete2).call(this, all || actions.includes('delete'));
+        _classPrivateMethodGet(this, _toggleMove, _toggleMove2).call(this, all || actions.includes('move'));
+      }
+    }
+  }, {
+    key: "actions",
+    get: function get() {
+      return _classPrivateFieldGet(this, _actions);
+    },
+    set: function set(actions) {
+      var changed = _classPrivateFieldGet(this, _actions) !== actions;
+      _classPrivateFieldSet(this, _actions, actions);
+      _classPrivateMethodGet(this, _updateAttribute, _updateAttribute2).call(this, 'actions');
+      if (changed) {
+        _classPrivateMethodGet(this, _updateActionsContainer, _updateActionsContainer2).call(this);
+      }
+    }
+  }, {
+    key: "allowAdd",
+    get: function get() {
+      return _classPrivateFieldGet(this, _allowAdd);
+    }
+  }, {
+    key: "allowDelete",
+    get: function get() {
+      return _classPrivateFieldGet(this, _allowDelete);
+    }
+  }, {
+    key: "allowMove",
+    get: function get() {
+      return _classPrivateFieldGet(this, _allowMove);
+    }
+  }, {
+    key: "entries",
+    get: function get() {
+      return _classPrivateFieldGet(this, _entries);
+    }
+  }, {
+    key: "max",
+    get: function get() {
+      return _classPrivateFieldGet(this, _max);
+    },
+    set: function set(max) {
+      var changed = _classPrivateFieldGet(this, _max) !== max;
+      _classPrivateFieldSet(this, _max, max);
+      _classPrivateMethodGet(this, _updateAttribute, _updateAttribute2).call(this, 'max');
+      if (changed) {
+        this.dispatchEvent(new CustomEvent('maxEntriesChanged'));
+      }
+    }
+  }, {
+    key: "min",
+    get: function get() {
+      return _classPrivateFieldGet(this, _min);
+    },
+    set: function set(min) {
+      var changed = _classPrivateFieldGet(this, _min) !== min;
+      _classPrivateFieldSet(this, _min, min);
+      _classPrivateMethodGet(this, _updateAttribute, _updateAttribute2).call(this, 'min');
+      if (changed) {
+        this.dispatchEvent(new CustomEvent('minEntriesChanged'));
+      }
+    }
+  }, {
+    key: "name",
+    get: function get() {
+      return _classPrivateFieldGet(this, _name);
+    },
+    set: function set(name) {
+      _classPrivateFieldSet(this, _name, name);
+      _classPrivateMethodGet(this, _updateAttribute, _updateAttribute2).call(this, 'name');
+    }
+  }, {
+    key: "nextIndex",
+    get: function get() {
+      return _classPrivateFieldGet(this, _nextIndex);
+    }
+  }, {
+    key: "prefix",
+    get: function get() {
+      return _classPrivateFieldGet(this, _prefix);
+    },
+    set: function set(prefix) {
+      _classPrivateFieldSet(this, _prefix, prefix);
+      _classPrivateMethodGet(this, _updateAttribute, _updateAttribute2).call(this, 'prefix');
+    }
+  }, {
+    key: "prototypeActions",
+    get: function get() {
+      return _classPrivateFieldGet(this, _prototypeActions);
+    },
+    set: function set(prototypeActions) {
+      _classPrivateFieldSet(this, _prototypeActions, prototypeActions);
+      _classPrivateMethodGet(this, _updateAttribute, _updateAttribute2).call(this, 'prototype-actions');
+    }
+  }, {
+    key: "prototypeName",
+    get: function get() {
+      return _classPrivateFieldGet(this, _prototypeName);
+    },
+    set: function set(prototypeName) {
+      _classPrivateFieldSet(this, _prototypeName, prototypeName);
+      _classPrivateMethodGet(this, _updateAttribute, _updateAttribute2).call(this, 'prototype-name');
+    }
+  }, {
+    key: "prototypeTemplate",
+    get: function get() {
+      return _classPrivateFieldGet(this, _prototypeTemplate);
+    },
+    set: function set(template) {
+      _classPrivateFieldSet(this, _prototypeTemplate, template);
+    }
+  }, {
+    key: "entry",
+    value: function entry(index) {
+      index = index.toString();
+      return _classPrivateFieldGet(this, _entries).find(function (entry) {
+        return entry.index === index;
+      });
+    }
+  }, {
+    key: "addEntry",
+    value: function addEntry() {
+      if (!_classPrivateFieldGet(this, _allowAdd)) {
+        console.error('Unable to create a new entry because adding entries has been disabled on this collection.');
+        return null;
+      }
+      if (!_classPrivateFieldGet(this, _prototypeTemplate)) {
+        console.error('Unable to create a new entry because there is no prototype entry template present.');
+        return null;
+      }
+      if (_classPrivateFieldGet(this, _max) !== 0 && _classPrivateFieldGet(this, _entries).length >= _classPrivateFieldGet(this, _max)) {
+        console.error('Unable to create a new entry because the maximum amount of entries has been reached.');
+        return null;
+      }
+      var entry = document.createElement('onlinq-collection-entry');
+      entry.appendChild(_classPrivateMethodGet(this, _createPrototype, _createPrototype2).call(this));
+      entry.collection = this;
+      entry.actions = _classPrivateFieldGet(this, _prototypeActions);
+      this.appendChild(entry);
+      _classPrivateMethodGet(this, _connectEntry, _connectEntry2).call(this, entry);
+      return entry;
+    }
+  }, {
+    key: "deleteEntry",
+    value: function deleteEntry(entry) {
+      if (!_classPrivateFieldGet(this, _allowDelete)) {
+        console.error('Unable to delete an entry because deleting entries has been disabled on this collection.');
+        return;
+      }
+      if (_classPrivateFieldGet(this, _min) !== 0 && _classPrivateFieldGet(this, _entries).length <= _classPrivateFieldGet(this, _min)) {
+        console.error('Unable to delete an entry because the minimum amount of entries has been reached.');
+        return;
+      }
+      entry = _classPrivateMethodGet(this, _matchEntry, _matchEntry2).call(this, entry);
+      if (!entry) {
+        return;
+      }
+      this.dispatchEvent(new CustomEvent('beforeEntryRemoved', {
+        detail: {
+          entry: entry
+        }
+      }));
+      entry.remove();
+    }
+  }, {
+    key: "moveEntry",
+    value: function moveEntry(entry, targetEntry) {
+      if (!_classPrivateFieldGet(this, _allowMove)) {
+        console.error('Unable to move an entry because moving entries has been disabled on this collection.');
+        return;
+      }
+      entry = _classPrivateMethodGet(this, _matchEntry, _matchEntry2).call(this, entry);
+      targetEntry = _classPrivateMethodGet(this, _matchEntry, _matchEntry2).call(this, targetEntry);
+      if (!entry || !targetEntry) {
+        return;
+      }
+      if (+entry.index > +targetEntry.index) {
+        this.insertBefore(entry, targetEntry);
+      } else {
+        targetEntry.after(entry);
+      }
+    }
+  }, {
+    key: "swapEntry",
+    value: function swapEntry(entry, targetEntry) {
+      if (!_classPrivateFieldGet(this, _allowMove)) {
+        console.error('Unable to swap an entry because moving entries has been disabled on this collection.');
+        return;
+      }
+      entry = _classPrivateMethodGet(this, _matchEntry, _matchEntry2).call(this, entry);
+      targetEntry = _classPrivateMethodGet(this, _matchEntry, _matchEntry2).call(this, targetEntry);
+      if (!entry || !targetEntry) {
+        return;
+      }
+      var entryPlaceholder = document.createElement('div');
+      this.insertBefore(entryPlaceholder, entry);
+      this.insertBefore(entry, targetEntry);
+      this.insertBefore(targetEntry, entryPlaceholder);
+      entryPlaceholder.remove();
+    }
+  }], [{
+    key: "observedAttributes",
+    get: function get() {
+      return ['actions', 'actionlist', 'max', 'min', 'name', 'prefix', 'prototype-actions', 'prototype-name'];
+    }
+  }]);
+  return OnlinqFormCollectionElement;
+}( /*#__PURE__*/_wrapNativeSuper(HTMLElement));
+_class = OnlinqFormCollectionElement;
+function _connectEntry2(entry) {
+  _classPrivateMethodGet(this, _mapEntries, _mapEntries2).call(this);
+  this.dispatchEvent(new CustomEvent('entryAdded', {
+    detail: {
+      entry: entry
+    }
+  }));
+  _classPrivateMethodGet(this, _updateContentContainers, _updateContentContainers2).call(this);
+}
+function _createPrototype2() {
+  var _classPrivateFieldGet2, _classPrivateFieldGet3;
+  return (_classPrivateFieldGet2 = (_classPrivateFieldGet3 = _classPrivateFieldGet(this, _prototypeTemplate)) === null || _classPrivateFieldGet3 === void 0 ? void 0 : _classPrivateFieldGet3.content.cloneNode(true)) !== null && _classPrivateFieldGet2 !== void 0 ? _classPrivateFieldGet2 : false;
+}
+function _disconnectEntry2(entry) {
+  _classPrivateMethodGet(this, _mapEntries, _mapEntries2).call(this);
+  this.dispatchEvent(new CustomEvent('entryRemoved', {
+    detail: {
+      entry: entry
+    }
+  }));
+  _classPrivateMethodGet(this, _updateContentContainers, _updateContentContainers2).call(this);
+}
+function _isPartOfCollection2(element) {
+  var _element$getAttribute;
+  var collectionName = (_element$getAttribute = element.getAttribute('collection')) !== null && _element$getAttribute !== void 0 ? _element$getAttribute : element.getAttribute('data-collection');
+  return collectionName === this.name || !collectionName && element.closest('onlinq-collection') === this;
+}
+function _mapEntries2() {
+  var _this3 = this;
+  _classPrivateFieldSet(this, _entries, []);
+  var index = 0;
+  this.querySelectorAll(':scope > onlinq-collection-entry').forEach(function (entry) {
+    if (!entry.hasAttribute('collection-index') || +entry.getAttribute('collection-index') !== index) {
+      entry.setAttribute('collection-index', index.toString());
+    }
+    _classPrivateFieldGet(_this3, _entries).push(entry);
+    index++;
+  });
+  _classPrivateFieldSet(this, _nextIndex, index);
+}
+function _matchEntry2(value) {
+  if (value instanceof HTMLElement && value.tagName === 'ONLINQ-COLLECTION-ENTRY') {
+    if (value.collection === this) {
+      return value;
+    }
+    console.error('Invalid collection element, it\'s not part of this collection.');
+  } else {
+    var entry = this.entry(value);
+    if (entry) {
+      return entry;
+    }
+    console.error('Invalid entry index: ' + value);
+  }
+  return null;
+}
+function _renderShadowDom2() {
+  this.shadowRoot.innerHTML = _collection_html__WEBPACK_IMPORTED_MODULE_1__["default"];
+  _classPrivateFieldSet(this, _actionsContainer, this.shadowRoot.querySelector('[data-actions-container]'));
+  _classPrivateFieldSet(this, _addContainer, this.shadowRoot.querySelector('[data-add-container]'));
+  _classPrivateFieldSet(this, _collectionContainer, this.shadowRoot.querySelector('[data-collection-container]'));
+  _classPrivateFieldSet(this, _placeholderContainer, this.shadowRoot.querySelector('[data-placeholder-container]'));
+}
+function _toggleAdd2(allowAdd) {
+  var changed = _classPrivateFieldGet(this, _allowAdd) !== allowAdd;
+  _classPrivateFieldSet(this, _allowAdd, allowAdd);
+  if (changed) {
+    _classPrivateMethodGet(this, _updateAddContainer, _updateAddContainer2).call(this);
+    this.dispatchEvent(new CustomEvent('addPolicyChanged'));
+  }
+}
+function _toggleDelete2(allowDelete) {
+  var changed = _classPrivateFieldGet(this, _allowDelete) !== allowDelete;
+  _classPrivateFieldSet(this, _allowDelete, allowDelete);
+  if (changed) {
+    this.dispatchEvent(new CustomEvent('deletePolicyChanged'));
+  }
+}
+function _toggleMove2(allowMove) {
+  var changed = _classPrivateFieldGet(this, _allowMove) !== allowMove;
+  _classPrivateFieldSet(this, _allowMove, allowMove);
+  if (changed) {
+    this.dispatchEvent(new CustomEvent('movePolicyChanged'));
+  }
+}
+function _updateActionsContainer2() {
+  if (_classPrivateFieldGet(this, _actionsContainer)) {
+    if (_classPrivateFieldGet(this, _actions)) {
+      _classPrivateFieldGet(this, _actionsContainer).style.display = 'block';
+    } else {
+      _classPrivateFieldGet(this, _actionsContainer).style.display = 'none';
+    }
+  }
+}
+function _updateAddContainer2() {
+  if (_classPrivateFieldGet(this, _addContainer)) {
+    if (_classPrivateFieldGet(this, _allowAdd)) {
+      _classPrivateFieldGet(this, _addContainer).style.removeProperty('display');
+    } else {
+      _classPrivateFieldGet(this, _addContainer).style.display = 'none';
+    }
+  }
+}
+function _updateAttribute2(attributeName) {
+  var _this$getAttribute5;
+  var behaviour = _class.observedAttributeBehaviours[attributeName];
+  var stateTransformer = _element_utilities__WEBPACK_IMPORTED_MODULE_0__.attributeStateTransformers[behaviour.type];
+  var valueTransformer = _element_utilities__WEBPACK_IMPORTED_MODULE_0__.attributeValueTransformers[behaviour.type];
+  var attributeValue = valueTransformer((_this$getAttribute5 = this.getAttribute(attributeName)) !== null && _this$getAttribute5 !== void 0 ? _this$getAttribute5 : null);
+  if (attributeValue !== this[behaviour.property] && !(null === attributeValue && this[behaviour.property] === behaviour.defaultValue)) {
+    stateTransformer(this, attributeName, this[behaviour.property]);
+  }
+}
+function _updateContentContainers2() {
+  var entryCount = _classPrivateFieldGet(this, _entries).length;
+  if (entryCount) {
+    _classPrivateFieldGet(this, _collectionContainer).style.display = 'block';
+    _classPrivateFieldGet(this, _placeholderContainer).style.display = 'none';
+  } else {
+    _classPrivateFieldGet(this, _collectionContainer).style.display = 'none';
+    _classPrivateFieldGet(this, _placeholderContainer).style.display = 'block';
+  }
+}
+_defineProperty(OnlinqFormCollectionElement, "observedAttributeBehaviours", {
+  'actionlist': {
+    type: 'string',
+    property: 'actionList'
+  },
+  'actions': {
+    type: 'bool',
+    property: 'actions'
+  },
+  'max': {
+    type: 'number',
+    property: 'max',
+    defaultValue: 0
+  },
+  'min': {
+    type: 'number',
+    property: 'min',
+    defaultValue: 0
+  },
+  'name': {
+    type: 'string',
+    property: 'name'
+  },
+  'prefix': {
+    type: 'string',
+    property: 'prefix'
+  },
+  'prototype-actions': {
+    type: 'bool',
+    property: 'prototypeActions'
+  },
+  'prototype-name': {
+    type: 'string',
+    property: 'prototypeName',
+    defaultValue: '__name__'
+  }
+});
+customElements.define('onlinq-collection', OnlinqFormCollectionElement);
+
+/***/ }),
+
+/***/ "./src/elements/delete-button.js":
+/*!***************************************!*\
+  !*** ./src/elements/delete-button.js ***!
+  \***************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   OnlinqFormCollectionDeleteButtonElement: () => (/* binding */ OnlinqFormCollectionDeleteButtonElement)
+/* harmony export */ });
+/* harmony import */ var _collection_entry_button__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./collection-entry-button */ "./src/elements/collection-entry-button.js");
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf(subClass, superClass); }
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+var OnlinqFormCollectionDeleteButtonElement = /*#__PURE__*/function (_OnlinqFormCollection) {
+  _inherits(OnlinqFormCollectionDeleteButtonElement, _OnlinqFormCollection);
+  var _super = _createSuper(OnlinqFormCollectionDeleteButtonElement);
+  function OnlinqFormCollectionDeleteButtonElement() {
+    var _this;
+    _classCallCheck(this, OnlinqFormCollectionDeleteButtonElement);
+    var clickCallback = function clickCallback() {
+      if (_this.collectionEntry) {
+        _this.collectionEntry.deleteEntry();
+      }
+    };
+    return _this = _super.call(this, clickCallback);
+  }
+  return _createClass(OnlinqFormCollectionDeleteButtonElement);
+}(_collection_entry_button__WEBPACK_IMPORTED_MODULE_0__.OnlinqFormCollectionEntryButtonElement);
+customElements.define('onlinq-collection-delete', OnlinqFormCollectionDeleteButtonElement, {
+  "extends": 'button'
+});
+
+/***/ }),
+
+/***/ "./src/elements/move-down-button.js":
+/*!******************************************!*\
+  !*** ./src/elements/move-down-button.js ***!
+  \******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   OnlinqFormCollectionMoveDownButtonElement: () => (/* binding */ OnlinqFormCollectionMoveDownButtonElement)
+/* harmony export */ });
+/* harmony import */ var _collection_entry_button__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./collection-entry-button */ "./src/elements/collection-entry-button.js");
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf(subClass, superClass); }
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+var OnlinqFormCollectionMoveDownButtonElement = /*#__PURE__*/function (_OnlinqFormCollection) {
+  _inherits(OnlinqFormCollectionMoveDownButtonElement, _OnlinqFormCollection);
+  var _super = _createSuper(OnlinqFormCollectionMoveDownButtonElement);
+  function OnlinqFormCollectionMoveDownButtonElement() {
+    var _this;
+    _classCallCheck(this, OnlinqFormCollectionMoveDownButtonElement);
+    var clickCallback = function clickCallback() {
+      if (_this.collectionEntry) {
+        _this.collectionEntry.moveDown();
+      }
+    };
+    return _this = _super.call(this, clickCallback);
+  }
+  return _createClass(OnlinqFormCollectionMoveDownButtonElement);
+}(_collection_entry_button__WEBPACK_IMPORTED_MODULE_0__.OnlinqFormCollectionEntryButtonElement);
+customElements.define('onlinq-collection-move-down', OnlinqFormCollectionMoveDownButtonElement, {
+  "extends": 'button'
+});
+
+/***/ }),
+
+/***/ "./src/elements/move-up-button.js":
+/*!****************************************!*\
+  !*** ./src/elements/move-up-button.js ***!
+  \****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   OnlinqFormCollectionMoveUpButtonElement: () => (/* binding */ OnlinqFormCollectionMoveUpButtonElement)
+/* harmony export */ });
+/* harmony import */ var _collection_entry_button__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./collection-entry-button */ "./src/elements/collection-entry-button.js");
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf(subClass, superClass); }
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+var OnlinqFormCollectionMoveUpButtonElement = /*#__PURE__*/function (_OnlinqFormCollection) {
+  _inherits(OnlinqFormCollectionMoveUpButtonElement, _OnlinqFormCollection);
+  var _super = _createSuper(OnlinqFormCollectionMoveUpButtonElement);
+  function OnlinqFormCollectionMoveUpButtonElement() {
+    var _this;
+    _classCallCheck(this, OnlinqFormCollectionMoveUpButtonElement);
+    var clickCallback = function clickCallback() {
+      if (_this.collectionEntry) {
+        _this.collectionEntry.moveUp();
+      }
+    };
+    return _this = _super.call(this, clickCallback);
+  }
+  return _createClass(OnlinqFormCollectionMoveUpButtonElement);
+}(_collection_entry_button__WEBPACK_IMPORTED_MODULE_0__.OnlinqFormCollectionEntryButtonElement);
+customElements.define('onlinq-collection-move-up', OnlinqFormCollectionMoveUpButtonElement, {
+  "extends": 'button'
+});
+
+/***/ }),
+
+/***/ "./src/stylesheets/inline.css":
+/*!************************************!*\
+  !*** ./src/stylesheets/inline.css ***!
+  \************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
+
+
+/***/ }),
+
+/***/ "./src/elements/collection-entry.html":
+/*!********************************************!*\
+  !*** ./src/elements/collection-entry.html ***!
+  \********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("<style>\n  :host {\n    --collection-entry-display: block;\n    --collection-entry-justify-content: flex-start;\n    --collection-entry-align-items: flex-start;\n    --collection-entry-contents-margin: 0 0 1rem;\n    --collection-entry-contents-flex-grow: 1;\n    --collection-entry-actions-margin: 0 0 1rem;\n    --collection-entry-actions-flex-grow: 0;\n\n    display: var(--collection-entry-display);\n    justify-content: var(--collection-entry-justify-content);\n    align-items: var(--collection-entry-align-items);\n  }\n\n  .contents {\n    flex-grow: var(--collection-entry-contents-flex-grow);\n    margin: var(--collection-entry-contents-margin);\n  }\n\n  .actions {\n    flex-grow: var(--collection-entry-actions-flex-grow);\n    margin: var(--collection-entry-actions-margin);\n  }\n</style>\n\n<div class=\"contents\">\n  <slot></slot>\n</div>\n<div class=\"actions\" data-actions-container>\n  <slot name=\"actions\">\n    <span data-move-container>\n      <slot name=\"move-up\">\n        <button is=\"onlinq-collection-move-up\">Move up</button>\n      </slot>\n      <slot name=\"move-down\">\n        <button is=\"onlinq-collection-move-down\">Move down</button>\n      </slot>\n    </span>\n    <span data-delete-container>\n      <slot name=\"delete\">\n        <button is=\"onlinq-collection-delete\">Delete</button>\n      </slot>\n    </span>\n  </slot>\n</div>\n");
+
+/***/ }),
+
+/***/ "./src/elements/collection.html":
+/*!**************************************!*\
+  !*** ./src/elements/collection.html ***!
+  \**************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("<style type=\"text/css\">\n  :host {\n    --collection-display: block;\n    --collection-justify-content: flex-start;\n    --collection-align-items: flex-start;\n    --collection-contents-margin: 0 0 1rem;\n    --collection-contents-flex-grow: 1;\n    --collection-actions-margin: 0 0 1rem;\n    --collection-actions-flex-grow: 0;\n\n    display: var(--collection-display);\n    justify-content: var(--collection-justify-content);\n    align-items: var(--collection-align-items);\n  }\n\n  .contents {\n    flex-grow: var(--collection-contents-flex-grow);\n    margin: var(--collection-contents-margin);\n  }\n\n  .actions {\n    flex-grow: var(--collection-actions-flex-grow);\n    margin: var(--collection-actions-margin);\n  }\n\n  [data-collection-container] {\n    display: none;\n  }\n</style>\n\n<div class=\"contents\" data-collection-container>\n  <slot></slot>\n</div>\n<div class=\"contents\" data-placeholder-container>\n  <slot name=\"placeholder\">\n    <span>No entries</span>\n  </slot>\n</div>\n<div class=\"actions\" data-actions-container>\n  <slot name=\"actions\">\n    <span data-add-container>\n      <slot name=\"add\">\n        <button is=\"onlinq-collection-add\">Add</button>\n      </slot>\n    </span>\n  </slot>\n</div>\n");
+
+/***/ })
+
+/******/ 	});
+/************************************************************************/
+/******/ 	// The module cache
+/******/ 	var __webpack_module_cache__ = {};
+/******/ 	
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/ 		// Check if module is in cache
+/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
+/******/ 		if (cachedModule !== undefined) {
+/******/ 			return cachedModule.exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = __webpack_module_cache__[moduleId] = {
+/******/ 			// no module.id needed
+/******/ 			// no module.loaded needed
+/******/ 			exports: {}
+/******/ 		};
+/******/ 	
+/******/ 		// Execute the module function
+/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
+/******/ 	
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/ 	
+/************************************************************************/
+/******/ 	/* webpack/runtime/compat get default export */
+/******/ 	(() => {
+/******/ 		// getDefaultExport function for compatibility with non-harmony modules
+/******/ 		__webpack_require__.n = (module) => {
+/******/ 			var getter = module && module.__esModule ?
+/******/ 				() => (module['default']) :
+/******/ 				() => (module);
+/******/ 			__webpack_require__.d(getter, { a: getter });
+/******/ 			return getter;
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	(() => {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__webpack_require__.d = (exports, definition) => {
+/******/ 			for(var key in definition) {
+/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	(() => {
+/******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	(() => {
+/******/ 		// define __esModule on exports
+/******/ 		__webpack_require__.r = (exports) => {
+/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 			}
+/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/************************************************************************/
+var __webpack_exports__ = {};
+// This entry need to be wrapped in an IIFE because it need to be in strict mode.
+(() => {
+"use strict";
+/*!**********************!*\
+  !*** ./src/index.js ***!
+  \**********************/
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   OnlinqFormCollectionAddButtonElement: () => (/* reexport safe */ _elements_add_button__WEBPACK_IMPORTED_MODULE_4__.OnlinqFormCollectionAddButtonElement),
+/* harmony export */   OnlinqFormCollectionButtonElement: () => (/* reexport safe */ _elements_collection_button__WEBPACK_IMPORTED_MODULE_3__.OnlinqFormCollectionButtonElement),
+/* harmony export */   OnlinqFormCollectionDeleteButtonElement: () => (/* reexport safe */ _elements_delete_button__WEBPACK_IMPORTED_MODULE_6__.OnlinqFormCollectionDeleteButtonElement),
+/* harmony export */   OnlinqFormCollectionElement: () => (/* reexport safe */ _elements_collection__WEBPACK_IMPORTED_MODULE_1__.OnlinqFormCollectionElement),
+/* harmony export */   OnlinqFormCollectionEntryButtonElement: () => (/* reexport safe */ _elements_collection_entry_button__WEBPACK_IMPORTED_MODULE_5__.OnlinqFormCollectionEntryButtonElement),
+/* harmony export */   OnlinqFormCollectionEntryElement: () => (/* reexport safe */ _elements_collection_entry__WEBPACK_IMPORTED_MODULE_2__.OnlinqFormCollectionEntryElement),
+/* harmony export */   OnlinqFormCollectionMoveDownButtonElement: () => (/* reexport safe */ _elements_move_down_button__WEBPACK_IMPORTED_MODULE_7__.OnlinqFormCollectionMoveDownButtonElement),
+/* harmony export */   OnlinqFormCollectionMoveUpButtonElement: () => (/* reexport safe */ _elements_move_up_button__WEBPACK_IMPORTED_MODULE_8__.OnlinqFormCollectionMoveUpButtonElement)
+/* harmony export */ });
+/* harmony import */ var _ungap_custom_elements__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @ungap/custom-elements */ "./node_modules/@ungap/custom-elements/index.js");
+/* harmony import */ var _ungap_custom_elements__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_ungap_custom_elements__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _elements_collection__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./elements/collection */ "./src/elements/collection.js");
+/* harmony import */ var _elements_collection_entry__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./elements/collection-entry */ "./src/elements/collection-entry.js");
+/* harmony import */ var _elements_collection_button__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./elements/collection-button */ "./src/elements/collection-button.js");
+/* harmony import */ var _elements_add_button__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./elements/add-button */ "./src/elements/add-button.js");
+/* harmony import */ var _elements_collection_entry_button__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./elements/collection-entry-button */ "./src/elements/collection-entry-button.js");
+/* harmony import */ var _elements_delete_button__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./elements/delete-button */ "./src/elements/delete-button.js");
+/* harmony import */ var _elements_move_down_button__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./elements/move-down-button */ "./src/elements/move-down-button.js");
+/* harmony import */ var _elements_move_up_button__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./elements/move-up-button */ "./src/elements/move-up-button.js");
+/* harmony import */ var _stylesheets_inline_css__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./stylesheets/inline.css */ "./src/stylesheets/inline.css");
+
+
+
+
+
+
+
+
+
+
+})();
+
+/******/ })()
+;

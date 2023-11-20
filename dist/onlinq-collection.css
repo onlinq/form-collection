@@ -1,1 +1,9 @@
-.collection-inline>onlinq-collection-entry{--collection-entry-display:flex;--collection-entry-contents-margin:0 1em 0 0;--collection-entry-actions-margin:0}
+/*!******************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./src/stylesheets/inline.css ***!
+  \******************************************************************************/
+.collection-inline > onlinq-collection-entry {
+  --collection-entry-display: flex;
+  --collection-entry-contents-margin: 0 1em 0 0;
+  --collection-entry-actions-margin: 0;
+}
+
