@@ -45,11 +45,10 @@ export class OnlinqFormCollectionEntryElement extends HTMLElement {
     super();
 
     this.attachShadow({mode: 'open'});
+    this.#renderShadowDom();
   }
 
   connectedCallback() {
-    this.#renderShadowDom();
-
     // Update attributes if properties were changed before connecting the element to the DOM
     this.actions = this.hasAttribute('actions') || this.#actions;
     this.collectionName = this.getAttribute('collection') ?? this.#collection?.name;
@@ -141,7 +140,7 @@ export class OnlinqFormCollectionEntryElement extends HTMLElement {
   }
 
   get index() {
-    return this.#index;
+    return +this.#index;
   }
 
   set index(nextIndex) {
@@ -248,8 +247,6 @@ export class OnlinqFormCollectionEntryElement extends HTMLElement {
         index++;
       }
     });
-
-    console.log(this);
   }
 
   #updateActionsContainer() {

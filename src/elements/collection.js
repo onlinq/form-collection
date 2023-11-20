@@ -66,9 +66,9 @@ export class OnlinqFormCollectionElement extends HTMLElement {
   #prototypeActions = false;
   #prototypeName = '__name__';
 
-  #allowAdd = true;
-  #allowDelete = true;
-  #allowMove = true;
+  #allowAdd = false;
+  #allowDelete = false;
+  #allowMove = false;
   #entries = [];
   #nextIndex = 0;
 
@@ -84,12 +84,10 @@ export class OnlinqFormCollectionElement extends HTMLElement {
     super();
 
     this.attachShadow({mode: 'open'});
+    this.#renderShadowDom();
   }
 
   connectedCallback() {
-    // Render the Shadow DOM
-    this.#renderShadowDom();
-
     // Update attributes if properties were changed before connecting the element to the DOM
     this.actionList = this.getAttribute('actionlist') ?? this.#actionList;
     this.actions = this.hasAttribute('actions') || this.#actions;
@@ -274,7 +272,7 @@ export class OnlinqFormCollectionElement extends HTMLElement {
   }
 
   entry(index) {
-    index = index.toString();
+    index = +index;
 
     return this.#entries.find(entry => {
       return entry.index === index;
@@ -497,9 +495,9 @@ export class OnlinqFormCollectionElement extends HTMLElement {
   #updateAddContainer() {
     if (this.#addContainer) {
       if (this.#allowAdd) {
-        this.#addContainer.style.removeProperty('display');
+        this.#addContainer.style.display = 'inline';
       } else {
-        this.#addContainer.style.display = 'none';
+        this.#addContainer.style.removeProperty('display');
       }
     }
   }

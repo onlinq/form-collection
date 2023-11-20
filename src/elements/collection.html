@@ -19,8 +19,13 @@
   }
 
   .actions {
+    display: none;
     flex-grow: var(--collection-actions-flex-grow);
     margin: var(--collection-actions-margin);
+  }
+
+  .add {
+    display: none;
   }
 
   [data-collection-container] {
@@ -38,7 +43,7 @@
 </div>
 <div class="actions" data-actions-container>
   <slot name="actions">
-    <span data-add-container>
+    <span class="add" data-add-container>
       <slot name="add">
         <button is="onlinq-collection-add">Add</button>
       </slot>
